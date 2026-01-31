@@ -1,4 +1,4 @@
-const CACHE_NAME = 'istikbal-archive-v14';
+const CACHE_NAME = 'istikbal-archive-v16';
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,6 @@ const ASSETS = [
   './manifest-v6.json',
   './istikbal-icon-192-v6.png',
   './istikbal-icon-512-v6.png',
-  './assets/videos/tanitim-videosu.mp4',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];

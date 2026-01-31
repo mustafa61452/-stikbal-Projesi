@@ -467,11 +467,17 @@ const PAGE_TEMPLATES = {
                 <div style="width:12px; height:12px; background:#ef4444; border-radius:50%; box-shadow:0 0 10px #ef4444;"></div>
                 <h2 style="font-size:1.5rem; font-weight:900; color:#0f172a; margin:0;">Proje Tanıtım Videosu</h2>
             </div>
-            <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:15px; overflow:hidden; background:#000;">
-                <video controls style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:15px;" poster="./assets/images/header-bg.png">
-                    <source src="./assets/videos/tanitim-videosu.mp4" type="video/mp4">
-                    Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
+            <div style="position:relative; padding-bottom:56.25%; height:0; border-radius:15px; overflow:hidden; background:#000; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+                <iframe 
+                    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" 
+                    src="https://www.youtube.com/embed/X2hoOcWwzSE" 
+                    title="İstikbal Gazetesi Tanıtım Videosu" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div style="margin-top:1rem; padding:10px; background:#fff7ed; border-radius:10px; border:1px solid #ffedd5; font-size:0.85rem; color:#9a3412;">
+                <i class="fas fa-info-circle"></i> <strong>Not:</strong> Videoyu YouTube'a yükleyip ID'sini koda eklediğinizde burada otomatik görünecektir. Bu sayede uygulamanız çok daha hızlı açılır.
             </div>
             <p style="margin-top:1.5rem; color:#64748b; font-size:1rem; line-height:1.6; padding:0 1rem;">
                 <strong>Savaşın İçinde Doğan Bir Gazete: İstikbal'in Hikayesi</strong> - Projemizin genel kapsamını, hedeflerini ve Milli Mücadele dönemindeki İstikbal Gazetesi'nin önemini anlatan tanıtım filmimiz.
