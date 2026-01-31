@@ -12,6 +12,12 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="./manifest.json">
 
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="İstikbal Gazetesi - Milli Mücadele'nin Sesi">
+    <meta property="og:description" content="1918-1925 İstikbal Gazetesi Dijital Arşivi ve Milli Mücadele Analizi.">
+    <meta property="og:image" content="./assets/icons/icon-512.png">
+
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
     <link rel="apple-touch-icon" href="./assets/icons/icon-512.png">
@@ -149,6 +155,15 @@
 
     <!-- Main App Script -->
     <script src="./app-v2.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker kayıt edildi.'))
+                    .catch(err => console.log('Service Worker hatası:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
