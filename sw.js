@@ -1,4 +1,4 @@
-const CACHE_NAME = 'istikbal-archive-v2';
+const CACHE_NAME = 'istikbal-archive-v3';
 const ASSETS = [
   './',
   './index.html',
