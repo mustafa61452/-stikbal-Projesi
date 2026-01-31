@@ -1,9 +1,10 @@
-const CACHE_NAME = 'istikbal-archive-v10';
+const CACHE_NAME = 'istikbal-archive-v11';
 const ASSETS = [
   './',
   './index.html',
   './app-v2.js',
   './styles.css',
+  './manifest-v4.json',
   './assets/icons/icon-192-v4.png',
   './assets/icons/icon-512-v4.png',
   'https://cdn.tailwindcss.com',
