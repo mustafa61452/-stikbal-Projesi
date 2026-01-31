@@ -103,13 +103,14 @@
             </nav>
 
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" id="menu-toggle">
+            <button class="mobile-menu-toggle" id="menu-toggle" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation -->
-        <nav class="mobile-nav" id="mobile-menu">
+        <nav class="mobile-nav" id="mobile-menu"
+            style="display: none; flex-direction: column; background: rgba(0,0,0,0.95); position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem; z-index: 999;">
             <a href="#home" class="nav-link" data-page="home">Ana Sayfa</a>
             <a href="#archive" class="nav-link" data-page="archive">Haber Arşivi</a>
             <a href="#propaganda" class="nav-link" data-page="propaganda">Basın Cephesi</a>
@@ -163,11 +164,49 @@
     <!-- Main App Script -->
     <script src="./app-v2.js"></script>
     <script>
+        // Extremely Robust Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.querySelector('#menu-toggle i');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'flex';
+                if (icon) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            } else {
+                menu.style.display = 'none';
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        // Close menu when clicking links
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('menu-toggle');
+            if (menu && menu.style.display === 'flex' && !menu.contains(e.target) && !toggle.contains(e.target)) {
+                toggleMobileMenu();
+            }
+            if (e.target.classList.contains('nav-link') && window.innerWidth <= 1024) {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) menu.style.display = 'none';
+                const icon = document.querySelector('#menu-toggle i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+            }
+        });
+
+        // Service Worker registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker kayıt edildi.'))
-                    .catch(err => console.log('Service Worker hatası:', err));
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker error:', err));
             });
         }
     </script>

@@ -8,17 +8,17 @@
   --sepia-accent: #d4a373;
   --vintage-red: #8b0000;
   --ink: #1a1a1a;
-  
+
   /* Typography */
   --font-display: 'Playfair Display', serif;
   --font-body: 'Lora', serif;
   --font-arabic: 'Amiri', serif;
   --font-modern: 'Inter', sans-serif;
-  
+
   /* Spacing */
   --header-height: 80px;
   --footer-height: auto;
-  
+
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
@@ -43,7 +43,12 @@ body {
   line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 700;
 }
@@ -197,6 +202,7 @@ button {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -432,8 +438,13 @@ button {
    ANIMATIONS
    =================================== */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInDown {
@@ -441,6 +452,7 @@ button {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -452,6 +464,7 @@ button {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -465,15 +478,15 @@ button {
   .desktop-nav {
     display: none;
   }
-  
+
   .mobile-menu-toggle {
     display: block;
   }
-  
+
   .hero-content .osmanlica-title {
     font-size: 4rem;
   }
-  
+
   .hero-content .main-title {
     font-size: 2.5rem;
   }
@@ -483,41 +496,41 @@ button {
   .header-container {
     padding: 1rem;
   }
-  
+
   .osmanlica-logo {
     font-size: 1.8rem;
   }
-  
+
   .app-title {
     font-size: 1.5rem;
   }
-  
+
   .hero-content .osmanlica-title {
     font-size: 3rem;
   }
-  
+
   .hero-content .main-title {
     font-size: 2rem;
     letter-spacing: 0.2em;
   }
-  
+
   .hero-content .subtitle {
     font-size: 1.2rem;
   }
-  
+
   .hero-description {
     padding: 1.5rem;
   }
-  
+
   .feature-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .main-content {
     padding: 1rem;
   }
-  
+
   .install-btn {
     bottom: 1rem;
     right: 1rem;
@@ -530,20 +543,20 @@ button {
   .hero-content .osmanlica-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-content .main-title {
     font-size: 1.5rem;
   }
-  
+
   .hero-content .subtitle {
     font-size: 1rem;
   }
-  
+
   .feature-card {
-    padding: 1.5rem;
+    padding: 1rem;
   }
-  
+
   .feature-card i {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }
