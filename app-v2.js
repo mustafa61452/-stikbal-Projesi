@@ -808,7 +808,10 @@ const PAGE_TEMPLATES = {
 
 // 3. CORE LOGIC
 window.router = {
-    navigate: function (page) {
+    navigate: function (page, addHistory = true) {
+        if (addHistory) {
+            history.pushState({ page: page }, "", "#" + page);
+        }
         document.querySelectorAll('.nav-link').forEach(l => {
             l.classList.remove('active');
             if (l.getAttribute('data-page') === page) l.classList.add('active');
@@ -865,6 +868,17 @@ window.router = {
         window.scrollTo(0, 0);
     }
 };
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.page) {
+        window.router.navigate(event.state.page, false);
+    } else {
+        // Fallback or home
+        const page = window.location.hash.replace('#', '') || 'home';
+        window.router.navigate(page, false);
+    }
+});
 
 // ... DİĞER FONKSİYONLAR ...
 
@@ -1249,5 +1263,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.router.navigate('home');
+    const initialPage = window.location.hash.replace('#', '') || 'home';
+    window.router.navigate(initialPage, true);
 });
