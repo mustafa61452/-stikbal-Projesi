@@ -17,17 +17,17 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest-v4.json">
+    <link rel="manifest" href="./manifest-v5.json">
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="İstikbal Gazetesi - Milli Mücadele'nin Sesi">
     <meta property="og:description" content="1918-1925 İstikbal Gazetesi Dijital Arşivi ve Milli Mücadele Analizi.">
-    <meta property="og:image" content="./assets/icons/icon-512-v4.png">
+    <meta property="og:image" content="./istikbal-icon-512-v5.png">
 
     <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192-v4.png">
-    <link rel="apple-touch-icon" href="./assets/icons/icon-512-v4.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./istikbal-icon-192-v5.png">
+    <link rel="apple-touch-icon" href="./istikbal-icon-512-v5.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -60,6 +60,15 @@
             <div class="logo-section">
                 <div class="osmanlica-logo">استقبال</div>
                 <h1 class="app-title">İSTİKBAL</h1>
+                <!-- Navigation History Controls -->
+                <div class="nav-controls">
+                    <button onclick="history.back()" title="Geri">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button onclick="history.forward()" title="İleri">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Desktop Navigation -->
