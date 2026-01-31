@@ -1,0 +1,493 @@
+<style>
+    .sentiment-page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .sentiment-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        position: relative;
+    }
+
+    .sentiment-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+
+    .sentiment-title {
+        font-size: 3.5rem;
+        font-family: var(--font-display);
+        margin-bottom: 1rem;
+        color: var(--sepia-dark);
+        line-height: 1.1;
+    }
+
+    .sentiment-description {
+        font-size: 1.25rem;
+        color: #666;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Modern Grid Layout */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .dashboard-card {
+        background: white;
+        border-radius: 24px;
+        padding: 2rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        font-family: var(--font-display);
+    }
+
+    /* Circular Progress Charts */
+    .charts-row {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .circular-chart {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 160px;
+    }
+
+    .circular-chart svg {
+        width: 140px;
+        height: 140px;
+        transform: rotate(-90deg);
+    }
+
+    .circular-bg {
+        fill: none;
+        stroke: #f1f5f9;
+        stroke-width: 8;
+    }
+
+    .circular-progress {
+        fill: none;
+        stroke-width: 8;
+        stroke-linecap: round;
+        stroke-dasharray: 377;
+        /* 2 * PI * 60 */
+        stroke-dashoffset: 377;
+        transition: stroke-dashoffset 1.5s ease-out;
+    }
+
+    .chart-value {
+        position: absolute;
+        top: 50px;
+        font-size: 2rem;
+        font-weight: 900;
+        color: #1e293b;
+    }
+
+    .chart-icon {
+        position: absolute;
+        top: 85px;
+        font-size: 1.2rem;
+    }
+
+    .chart-label {
+        margin-top: 1rem;
+        font-weight: 700;
+        color: #475569;
+        text-align: center;
+        font-size: 0.95rem;
+    }
+
+    /* Psycho-data List */
+    .psycho-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .psycho-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 12px;
+        border-left: 4px solid;
+    }
+
+    .psycho-content h4 {
+        font-weight: 800;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+    }
+
+    .psycho-content p {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.4;
+    }
+
+    /* Timeline Process */
+    .process-section {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border-radius: 30px;
+        padding: 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .process-bg-glow {
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .process-steps {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
+        flex-wrap: wrap;
+    }
+
+    .process-step {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: 250px;
+    }
+
+    .step-number {
+        font-size: 4rem;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.1);
+        line-height: 1;
+        margin-bottom: -1rem;
+    }
+
+    .step-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #fbbf24;
+    }
+
+    .step-desc {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        line-height: 1.6;
+    }
+
+    /* Details Grid */
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .detail-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #334155;
+    }
+
+    .detail-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .detail-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .detail-list li {
+        font-size: 0.9rem;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid #e2e8f0;
+    }
+
+    @media (max-width: 1024px) {
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="sentiment-page">
+    <div class="sentiment-header">
+        <span class="sentiment-badge">İstikbal Gazetesi Verileriyle</span>
+        <h1 class="sentiment-title">Milli Mücadele'nin<br>Psikolojik Haritası</h1>
+        <p class="sentiment-description">
+            1919-1923 yılları arasında yayınlanan 1000+ haberin duygu analizi,
+            bir milletin "Hüzünden Zafere" uzanan ruhsal yolculuğunu ortaya koyuyor.
+        </p>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Main Charts Area -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <span class="card-title"><i class="fas fa-chart-pie" style="color: var(--vintage-red);"></i> Duygu
+                    Kategorileri Özeti</span>
+            </div>
+
+            <div class="charts-row" id="charts-container">
+                <!-- Charts will be injected here via JS -->
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-100">
+                <canvas id="impactLineChart" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Psycho Data Sidebar -->
+        <div class="dashboard-card" style="background: #fdf2f8;">
+            <div class="card-header">
+                <span class="card-title"><i class="fas fa-brain" style="color: #be185d;"></i> Kritik Bulgular</span>
+            </div>
+
+            <div class="psycho-list">
+                <div class="psycho-item" style="border-color: #dc2626;">
+                    <div class="psycho-content">
+                        <h4>Milli Ruh Zirvesi</h4>
+                        <p>Sakarya Zaferi ile motivasyon ve birlik duygusu <strong>%96'nın</strong> üzerine çıkmıştır.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="psycho-item" style="border-color: #2563eb;">
+                    <div class="psycho-content">
+                        <h4>Kırılma Noktası</h4>
+                        <p>15 Mayıs İzmir İşgali. Derin keder, sadece 48 saat içinde yerini <strong>Kolektif
+                                Direnişe</strong> bırakmıştır.</p>
+                    </div>
+                </div>
+
+                <div class="psycho-item" style="border-color: #d97706;">
+                    <div class="psycho-content">
+                        <h4>Siyasi Uyanış</h4>
+                        <p>Lozan öncesi halkın diplomasiye olan güveni ve bilinç oranı <strong>%85</strong>
+                            seviyesindedir.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-6">
+                    <div style="font-size: 2.5rem; font-weight: 900; color: #be185d; line-height: 1;">TAM BAĞIMSIZLIK
+                    </div>
+                    <div
+                        style="font-size: 0.75rem; font-weight: 700; color: #9d174d; letter-spacing: 0.2rem; text-transform: uppercase;">
+                        Ortak Hedef</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Timeline -->
+    <div class="process-section">
+        <div class="process-bg-glow"></div>
+        <h3
+            style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+            <i class="fas fa-stream"></i> Duygu Dönüşüm Süreci
+        </h3>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <div class="step-title">HÜZÜN VE ÖFKE</div>
+                <div class="font-bold text-gray-400 mb-2">1919 - 1920</div>
+                <p class="step-desc">İşgalin getirdiği şok dalgası. Matem mitingleri. "Hukuk-u Beşer" çağrıları ile
+                    acının dışa vurumu.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-title">DİRENİŞ VE FEDAKARLIK</div>
+                <div class="font-bold text-gray-400 mb-2">1920 - 1921</div>
+                <p class="step-desc">Tekalif-i Milliye emirleri. Halkın "varını yoğunu" orduya vermesi. Gönüllü
+                    alaylarının kuruluşu.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-title">ZAFER VE GURUR</div>
+                <div class="font-bold text-gray-400 mb-2">1922 - 1923</div>
+                <p class="step-desc">Büyük Taarruz sonrası gelen özgüven patlaması. Tam bağımsızlığın tescili ve
+                    Cumhuriyet coşkusu.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Cards -->
+    <div class="details-grid" id="details-container">
+        <!-- Will be populated by JS -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    (function () {
+        const categories = [
+            {
+                title: "Toplumsal Fedakârlık",
+                value: 95,
+                color: "#dc2626",
+                icon: "fas fa-hand-holding-heart",
+                details: ["Gönüllü Müfrezeler", "Kadın Akıncılar", "Halkın İâşe Desteği"]
+            },
+            {
+                title: "Zafer Umudu",
+                value: 92,
+                color: "#16a34a",
+                icon: "fas fa-flag",
+                details: ["Askeri Özgüven", "Manevi Üstünlük", "Düşmanın Takatten Düşmesi"]
+            },
+            {
+                title: "Haklılık ve Gurur",
+                value: 88,
+                color: "#2563eb",
+                icon: "fas fa-shield-alt",
+                details: ["İzmir Mitingleri", "İntikam Alayları", "Milli Yeminler"]
+            },
+            {
+                title: "Siyasi Bilinç",
+                value: 85,
+                color: "#d97706",
+                icon: "fas fa-lightbulb",
+                details: ["Emperyalizm Karşıtlığı", "İslam Dünyası Birliği", "Lozan Görüşmeleri"]
+            }
+        ];
+
+        // Render Circular Charts
+        const chartsContainer = document.getElementById('charts-container');
+        const radius = 60;
+        const circumference = 2 * Math.PI * radius;
+
+        categories.forEach(cat => {
+            const offset = circumference - (cat.value / 100) * circumference;
+
+            const html = `
+            <div class="circular-chart">
+                <svg>
+                    <circle class="circular-bg" cx="70" cy="70" r="${radius}"></circle>
+                    <circle class="circular-progress" cx="70" cy="70" r="${radius}" 
+                            style="stroke: ${cat.color}; stroke-dasharray: ${circumference}; stroke-dashoffset: ${offset};"></circle>
+                </svg>
+                <div class="chart-value">${cat.value}%</div>
+                <div class="chart-icon" style="color: ${cat.color}"><i class="${cat.icon}"></i></div>
+                <div class="chart-label">${cat.title}</div>
+            </div>
+        `;
+            chartsContainer.innerHTML += html;
+        });
+
+        // Render Detail Cards
+        const detailsContainer = document.getElementById('details-container');
+        categories.forEach(cat => {
+            const listItems = cat.details.map(d => `<li>${d}</li>`).join('');
+            const html = `
+            <div class="detail-card" style="border-top: 4px solid ${cat.color}">
+                <div class="detail-header">
+                    <div class="detail-dot" style="background: ${cat.color}"></div>
+                    <span>${cat.title} Bileşenleri</span>
+                </div>
+                <ul class="detail-list">
+                    ${listItems}
+                </ul>
+            </div>
+        `;
+            detailsContainer.innerHTML += html;
+        });
+
+        // Render Line Chart
+        const ctx = document.getElementById('impactLineChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1918 (İşgal)', '1919 (Direniş)', '1920 (Fedakarlık)', '1921 (Umut)', '1922 (Zafer)', '1923 (Cumhuriyet)'],
+                datasets: [{
+                    label: 'Milli Moral Seviyesi',
+                    data: [40, 65, 75, 88, 98, 100],
+                    borderColor: '#dc2626',
+                    backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Zaman İçinde Milli Moral Gelişimi' }
+                },
+                scales: {
+                    y: { min: 0, max: 100 }
+                }
+            }
+        });
+
+    })();
+</script>

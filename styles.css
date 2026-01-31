@@ -1,0 +1,549 @@
+/* ===================================
+   CSS VARIABLES & ROOT CONFIGURATION
+   =================================== */
+:root {
+  /* Colors - Vintage Newspaper Theme */
+  --sepia-dark: #3e2723;
+  --sepia-light: #f4ecd8;
+  --sepia-accent: #d4a373;
+  --vintage-red: #8b0000;
+  --ink: #1a1a1a;
+  
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lora', serif;
+  --font-arabic: 'Amiri', serif;
+  --font-modern: 'Inter', sans-serif;
+  
+  /* Spacing */
+  --header-height: 80px;
+  --footer-height: auto;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ===================================
+   GLOBAL RESET & BASE STYLES
+   =================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--sepia-light);
+  color: var(--sepia-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===================================
+   TEXTURE OVERLAY
+   =================================== */
+.texture-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.3;
+}
+
+/* ===================================
+   HEADER & NAVIGATION
+   =================================== */
+.app-header {
+  background: linear-gradient(135deg, #3e2723 0%, #1a1a1a 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 998;
+  backdrop-filter: blur(10px);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.osmanlica-logo {
+  font-family: var(--font-arabic);
+  font-size: 2.5rem;
+  opacity: 0.9;
+  direction: rtl;
+}
+
+.app-title {
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  font-weight: 900;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  transition: all var(--transition-normal);
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--vintage-red);
+  transform: translateX(-100%);
+  transition: transform var(--transition-normal);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  transform: translateX(0);
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+  background: rgba(139, 0, 0, 0.2);
+  color: #ffa07a;
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  color: white;
+  padding: 0.5rem;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-nav .nav-link {
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-nav.active {
+  display: flex;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+   MAIN CONTENT
+   =================================== */
+.main-content {
+  min-height: calc(100vh - var(--header-height) - 200px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================================
+   HOME PAGE HERO
+   =================================== */
+.home-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-content .osmanlica-title {
+  font-family: var(--font-arabic);
+  font-size: 6rem;
+  color: var(--vintage-red);
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  animation: fadeInDown 1s ease;
+}
+
+.hero-content .main-title {
+  font-size: 4rem;
+  letter-spacing: 0.3em;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  animation: fadeInDown 1.2s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content .subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--sepia-dark);
+  margin-bottom: 0.5rem;
+  animation: fadeInDown 1.4s ease;
+}
+
+.hero-content .year {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--vintage-red);
+  margin-bottom: 2rem;
+  animation: fadeInDown 1.6s ease;
+}
+
+.hero-description {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 2px solid var(--sepia-accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 2s ease;
+}
+
+.hero-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--sepia-dark);
+}
+
+/* Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  animation: fadeInUp 2.2s ease;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(244, 236, 216, 0.9) 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 2px solid var(--sepia-accent);
+  text-align: center;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(139, 0, 0, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
+  border-color: var(--vintage-red);
+}
+
+.feature-card i {
+  font-size: 3rem;
+  color: var(--vintage-red);
+  margin-bottom: 1rem;
+  transition: transform var(--transition-normal);
+}
+
+.feature-card:hover i {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--sepia-dark);
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #5a5a5a;
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+.app-footer {
+  background: linear-gradient(135deg, #1a1a1a 0%, #3e2723 100%);
+  color: white;
+  padding: 3rem 2rem 1rem;
+  margin-top: 4rem;
+  border-top: 4px solid var(--vintage-red);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: #ffa07a;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.footer-section .year {
+  color: var(--sepia-accent);
+  font-weight: 700;
+}
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 2rem auto 0;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0.5rem 0;
+}
+
+.footer-bottom .quote {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--sepia-accent);
+}
+
+/* ===================================
+   PWA INSTALL BUTTON
+   =================================== */
+.install-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--vintage-red);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+  transition: all var(--transition-normal);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.install-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(139, 0, 0, 0.5);
+}
+
+.install-btn i {
+  font-size: 1.2rem;
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+   RESPONSIVE BREAKPOINTS
+   =================================== */
+@media (max-width: 1024px) {
+  .desktop-nav {
+    display: none;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .hero-content .osmanlica-title {
+    font-size: 4rem;
+  }
+  
+  .hero-content .main-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem;
+  }
+  
+  .osmanlica-logo {
+    font-size: 1.8rem;
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+  }
+  
+  .hero-content .osmanlica-title {
+    font-size: 3rem;
+  }
+  
+  .hero-content .main-title {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .hero-content .subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .hero-description {
+    padding: 1.5rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .install-btn {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content .osmanlica-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-content .main-title {
+    font-size: 1.5rem;
+  }
+  
+  .hero-content .subtitle {
+    font-size: 1rem;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+  }
+  
+  .feature-card i {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,360 @@
+<style>
+    .archive-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 4px double var(--sepia-dark);
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-family: var(--font-display);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+        color: var(--vintage-red);
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: #666;
+    }
+
+    .search-section {
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 1rem 1.5rem;
+        border: 2px solid var(--sepia-accent);
+        border-radius: 50px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        background: white;
+        transition: all 0.3s;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--vintage-red);
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.75rem 1.25rem;
+        border: 2px solid var(--sepia-accent);
+        border-radius: 50px;
+        background: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: var(--vintage-red);
+        color: white;
+        border-color: var(--vintage-red);
+    }
+
+    .accordion-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .accordion-item {
+        background: rgba(255, 255, 255, 0.8);
+        border-left: 8px solid var(--sepia-accent);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+    }
+
+    .accordion-item:hover {
+        box-shadow: 0 8px 25px rgba(139, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .accordion-header {
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.5);
+        transition: background 0.3s;
+    }
+
+    .accordion-header:hover {
+        background: rgba(212, 163, 115, 0.1);
+    }
+
+    .accordion-title-section {
+        flex: 1;
+    }
+
+    .accordion-date {
+        display: inline-block;
+        background: var(--vintage-red);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .accordion-title {
+        font-size: 1.5rem;
+        font-family: var(--font-display);
+        color: var(--sepia-dark);
+        margin: 0;
+    }
+
+    .accordion-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .accordion-category {
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--vintage-red);
+    }
+
+    .accordion-icon {
+        font-size: 1.5rem;
+        color: var(--vintage-red);
+        transition: transform 0.3s;
+    }
+
+    .accordion-item.active .accordion-icon {
+        transform: rotate(180deg);
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .accordion-item.active .accordion-content {
+        max-height: 1000px;
+    }
+
+    .accordion-body {
+        padding: 1.5rem;
+        border-top: 2px dashed var(--sepia-accent);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .news-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        font-family: var(--font-body);
+        text-align: justify;
+        color: var(--sepia-dark);
+        margin-bottom: 1.5rem;
+    }
+
+    .news-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .news-location {
+        color: #666;
+        font-style: italic;
+    }
+
+    .news-impact {
+        font-weight: 700;
+        color: var(--vintage-red);
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 4rem 2rem;
+        font-size: 1.2rem;
+        color: #999;
+        font-style: italic;
+    }
+</style>
+
+<div class="archive-page">
+    <div class="page-header">
+        <h1 class="page-title">Tam Haber Arşivi</h1>
+        <p class="page-subtitle">Milli Mücadele Döneminde İstikbal Gazetesi'nde Yayınlanan Tüm Haberler</p>
+    </div>
+
+    <div class="search-section">
+        <input type="text" class="search-input" id="search-input" placeholder="🔍 Haberlerde ara..." />
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="ZAFER">Zaferler</button>
+            <button class="filter-btn" data-filter="ASKERİ">Askeri</button>
+            <button class="filter-btn" data-filter="SİYASİ">Siyasi</button>
+            <button class="filter-btn" data-filter="TOPLUMSAL">Toplumsal</button>
+        </div>
+    </div>
+
+    <div class="accordion-container" id="news-container">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<script>
+    (async function () {
+        let newsData = [];
+        let currentFilter = 'all';
+        let searchTerm = '';
+
+        // Load news data
+        try {
+            const response = await fetch('../data/news.json');
+            const data = await response.json();
+            newsData = data.archive;
+            renderNews();
+        } catch (error) {
+            document.getElementById('news-container').innerHTML = `
+      <div class="no-results">Haberler yüklenirken bir hata oluştu.</div>
+    `;
+        }
+
+        // Search handler
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchTerm = e.target.value.toLowerCase();
+            renderNews();
+        });
+
+        // Filter handlers
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                renderNews();
+            });
+        });
+
+        // Render news function
+        function renderNews() {
+            const container = document.getElementById('news-container');
+
+            // Filter news
+            let filteredNews = newsData;
+
+            if (currentFilter !== 'all') {
+                filteredNews = filteredNews.filter(n => n.category === currentFilter);
+            }
+
+            if (searchTerm) {
+                filteredNews = filteredNews.filter(n =>
+                    n.title.toLowerCase().includes(searchTerm) ||
+                    n.content.toLowerCase().includes(searchTerm) ||
+                    n.location.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (filteredNews.length === 0) {
+                container.innerHTML = `
+        <div class="no-results">
+          <i class="fas fa-search" style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;"></i>
+          <p>Arama kriterlerine uygun haber bulunamadı.</p>
+        </div>
+      `;
+                return;
+            }
+
+            // Render accordion items
+            container.innerHTML = filteredNews.map(news => {
+                // Determine icon and color based on category
+                let iconClass = 'fa-newspaper';
+                let headerClass = '';
+
+                if (news.category === 'ZAFER') { iconClass = 'fa-trophy'; headerClass = 'border-l-4 border-green-600'; }
+                else if (news.category === 'MATEM') { iconClass = 'fa-fist-raised'; headerClass = 'border-l-4 border-black'; }
+                else if (news.category === 'ASKERİ') { iconClass = 'fa-shield-alt'; headerClass = 'border-l-4 border-red-600'; }
+                else if (news.category === 'SİYASİ') { iconClass = 'fa-university'; headerClass = 'border-l-4 border-blue-600'; }
+                else if (news.category === 'BAŞYAZI') { iconClass = 'fa-pen-fancy'; headerClass = 'border-l-4 border-amber-600'; }
+
+                return `
+                <div class="accordion-item ${headerClass}" data-id="${news.id}">
+                    <div class="accordion-header" onclick="toggleAccordion(${news.id})">
+                        <div class="accordion-title-section">
+                            <span class="accordion-date">${news.date}</span>
+                            <h3 class="accordion-title"><i class="fas ${iconClass}" style="margin-right:0.5rem; opacity:0.7;"></i> ${news.title}</h3>
+                        </div>
+                        <div class="accordion-meta">
+                            <span class="location-badge" style="font-size: 0.8rem; margin-right: 1rem; color: #666;"><i class="fas fa-map-marker-alt"></i> ${news.location}</span>
+                            <span class="accordion-category" style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">${news.category}</span>
+                            <i class="fas fa-chevron-down accordion-icon" style="margin-left: 1rem;"></i>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <div style="font-family: 'Lora', serif; line-height: 1.8; font-size: 1.05rem; color: #2c3e50; margin-bottom: 1.5rem;">
+                                ${news.content}
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #ccc; padding-top: 1rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-weight: bold; font-size: 0.9rem; color: #555;">Toplumsal Etki Analizi:</span>
+                                    <div style="width: 100px; height: 8px; background: #eee; border-radius: 4px; overflow: hidden;">
+                                        <div style="width: ${news.impact}%; height: 100%; background: ${news.impact > 90 ? '#dc2626' : '#d97706'};"></div>
+                                    </div>
+                                    <span style="font-weight: bold; color: ${news.impact > 90 ? '#dc2626' : '#d97706'};">%${news.impact}</span>
+                                </div>
+                                <button onclick="router.navigate('newspaper')" style="background: none; border: none; color: #8b0000; font-weight: bold; cursor: pointer; text-decoration: underline;">
+                                    Gazete Sayfasına Git <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Make toggleAccordion global
+        window.toggleAccordion = function (id) {
+            const item = document.querySelector(`.accordion-item[data-id="${id}"]`);
+            const wasActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+
+            // Open clicked if it wasn't active
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        };
+    })();
+</script>

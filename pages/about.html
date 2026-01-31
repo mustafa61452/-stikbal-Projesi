@@ -1,0 +1,380 @@
+<style>
+    .about-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .about-hero {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, rgba(62, 39, 35, 0.05) 0%, rgba(139, 0, 0, 0.03) 100%);
+        border-radius: 30px;
+        margin-bottom: 3rem;
+    }
+
+    .tubitak-badge {
+        display: inline-block;
+        background: #1e40af;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .project-title {
+        font-size: 3rem;
+        font-family: var(--font-display);
+        margin-bottom: 1rem;
+        color: var(--sepia-dark);
+    }
+
+    .project-subtitle {
+        font-size: 1.3rem;
+        color: #666;
+        line-height: 1.8;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .content-section {
+        background: white;
+        padding: 3rem;
+        border-radius: 25px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+        border-left: 6px solid var(--vintage-red);
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-family: var(--font-display);
+        margin-bottom: 1.5rem;
+        color: var(--vintage-red);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .section-icon {
+        font-size: 2rem;
+    }
+
+    .section-text {
+        font-size: 1.1rem;
+        line-height: 1.9;
+        color: #444;
+        text-align: justify;
+    }
+
+    .section-text p {
+        margin-bottom: 1.25rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .feature-item {
+        background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, rgba(62, 39, 35, 0.03) 100%);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 2px solid rgba(139, 0, 0, 0.1);
+        transition: all 0.3s;
+    }
+
+    .feature-item:hover {
+        border-color: var(--vintage-red);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.15);
+    }
+
+    .feature-item i {
+        font-size: 2.5rem;
+        color: var(--vintage-red);
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .feature-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+        color: var(--sepia-dark);
+    }
+
+    .feature-item p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: #666;
+    }
+
+    .methodology-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .methodology-list li {
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        background: rgba(139, 0, 0, 0.03);
+        border-left: 4px solid var(--vintage-red);
+        border-radius: 8px;
+        font-size: 1.05rem;
+        transition: all 0.3s;
+    }
+
+    .methodology-list li:hover {
+        background: rgba(139, 0, 0, 0.08);
+        transform: translateX(10px);
+    }
+
+    .methodology-list strong {
+        color: var(--vintage-red);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .team-section {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        color: white;
+        padding: 3rem;
+        border-radius: 25px;
+        text-align: center;
+    }
+
+    .team-section .section-title {
+        color: white;
+        justify-content: center;
+    }
+
+    .team-info {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        opacity: 0.95;
+    }
+
+    .pdf-download-section {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pdf-download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.25rem 2rem;
+        background: var(--vintage-red);
+        color: white;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition: all 0.3s;
+        box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+    }
+
+    .pdf-download-btn:hover {
+        background: #6b0000;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
+    }
+
+    .pdf-download-btn i {
+        font-size: 1.3rem;
+    }
+
+    @media (max-width: 768px) {
+        .about-page {
+            padding: 1rem;
+        }
+
+        .content-section {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 2rem;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="about-page">
+    <!-- Hero Section -->
+    <div class="about-hero">
+        <div class="tubitak-badge">
+            <i class="fas fa-flask"></i> TÜBİTAK 2025 Projesi
+        </div>
+        <h1 class="project-title">İstikbal Gazetesi Dijital Arşivi</h1>
+        <p class="project-subtitle">
+            Milli Mücadele dönemi Trabzon basınının dijitalleştirilmesi ve duygu analizi ile
+            tarihsel içgörü kazandırılması projesi
+        </p>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="content-section">
+        <h2 class="section-title">
+            <i class="fas fa-info-circle section-icon"></i>
+            Proje Hakkında
+        </h2>
+        <div class="section-text">
+            <p>
+                Bu proje, 1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi'nin
+                dijital arşivini oluşturmayı ve Milli Mücadele dönemindeki haberler üzerinden
+                toplumsal duygu analizleri yapmayı amaçlamaktadır.
+            </p>
+            <p>
+                İstikbal Gazetesi, Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti'nin sesi olarak
+                Faik Ahmet Barutçu tarafından kurulmuştur. Rum Pontus emellerine karşı mücadele eden,
+                Ankara hükümetinin Karadeniz'deki en önemli iletişim kanallarından biri olmuştur.
+            </p>
+            <p>
+                Modern teknolojiler kullanılarak oluşturulan bu dijital platform, hem akademik araştırmalara
+                kaynak sağlamakta, hem de genç nesillere tarihi interaktif bir şekilde sunmaktadır.
+            </p>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="content-section">
+        <h2 class="section-title">
+            <i class="fas fa-star section-icon"></i>
+            Proje Özellikleri
+        </h2>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-database"></i>
+                <h3>Dijital Arşiv</h3>
+                <p>
+                    Milli Mücadele dönemindeki tüm haberler dijitalleştirilmiş, aranabilir ve
+                    filtrelenebilir bir veri tabanına dönüştürülmüştür.
+                </p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-brain"></i>
+                <h3>Duygu Analizi</h3>
+                <p>
+                    Haberlerin toplumsal moral ve motivasyon üzerindeki etkileri psiko-sosyal
+                    analiz yöntemleriyle incelenmiştir.
+                </p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Coğrafi Haritalama</h3>
+                <p>
+                    Haberlerin gerçekleştiği lokasyonlar interaktif harita üzerinde görselleştirilmiş,
+                    Milli Mücadele'nin coğrafi boyutu ortaya konulmuştur.
+                </p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>İstatistiksel Analiz</h3>
+                <p>
+                    Zaman içindeki toplumsal moral değişimi, haber kategorileri ve etki analizleri
+                    grafiklerle sunulmuştur.
+                </p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>PWA Teknolojisi</h3>
+                <p>
+                    Progressive Web App olarak geliştirilmiş, offline çalışabilen, mobil ve masaüstünde
+                    kusursuz deneyim sunan modern bir uygulama.
+                </p>
+            </div>
+
+            <div class="feature-item">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Eğitim Amaçlı</h3>
+                <p>
+                    Öğrenciler ve araştırmacılar için hazırlanmış, tarih eğitimine katkı sağlayan
+                    interaktif bir öğrenme platformu.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="content-section">
+        <h2 class="section-title">
+            <i class="fas fa-cogs section-icon"></i>
+            Metodoloji
+        </h2>
+        <ul class="methodology-list">
+            <li>
+                <strong>1. Arşiv Taraması</strong>
+                İstikbal Gazetesi'nin orijinal nüshaları Trabzon arşivlerinden temin edilmiştir.
+            </li>
+            <li>
+                <strong>2. Dijitalleştirme</strong>
+                Yüksek çözünürlüklü tarama ve OCR teknolojisi ile metinler dijital formata dönüştürülmüştür.
+            </li>
+            <li>
+                <strong>3. İçerik Analizi</strong>
+                Haberler kategorilendirilmiş, tarih, lokasyon ve konu bazlı tasnif yapılmıştır.
+            </li>
+            <li>
+                <strong>4. Duygu Haritalaması</strong>
+                Tarihçiler ve sosyologlar ile birlikte haberlerin psikolojik etkileri değerlendirilmiştir.
+            </li>
+            <li>
+                <strong>5. Web Geliştirme</strong>
+                Modern web teknolojileri (HTML5, CSS3, JavaScript, Chart.js, Leaflet.js) kullanılarak
+                kullanıcı dostu bir arayüz oluşturulmuştur.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section">
+        <h2 class="section-title">
+            <i class="fas fa-users section-icon"></i>
+            Proje Ekibi
+        </h2>
+        <div class="team-info">
+            <p style="margin-bottom: 1.5rem;">
+                Bu proje TÜBİTAK 2204-A Lise Öğrencileri Araştırma Projeleri Yarışması kapsamında hazırlanmıştır.
+            </p>
+            <p>
+                Proje danışmanları, tarih bölümü akademisyenleri ve yazılım geliştirme ekibi ile
+                birlikte multidisipliner bir çalışma yürütülmüştür.
+            </p>
+        </div>
+
+        <div class="pdf-download-section">
+            <a href="../data/proje_İSTİKBAL_2025-1_.pdf" class="pdf-download-btn" target="_blank">
+                <i class="fas fa-file-pdf"></i>
+                Proje Raporu (PDF)
+            </a>
+            <a href="../data/EKLER_istikbal-2025.pdf" class="pdf-download-btn" target="_blank">
+                <i class="fas fa-folder-open"></i>
+                Ekler (PDF)
+            </a>
+        </div>
+    </div>
+
+    <!-- Quote -->
+    <div
+        style="text-align: center; margin-top: 3rem; padding: 2rem; font-size: 1.3rem; font-style: italic; color: var(--sepia-dark);">
+        <i class="fas fa-quote-left" style="color: var(--vintage-red); margin-right: 0.5rem;"></i>
+        Maziden gelen ses, İstikbal'i aydınlatır.
+        <i class="fas fa-quote-right" style="color: var(--vintage-red); margin-left: 0.5rem;"></i>
+    </div>
+</div>

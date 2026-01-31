@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="İstikbal Gazetesi Dijital Arşivi - Milli Mücadele'nin Trabzon'daki Sesi">
+    <meta name="theme-color" content="#3e2723">
+
+    <title>İstikbal Gazetesi - Milli Mücadele'nin Sesi</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-512.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Amiri:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <!-- Texture Overlay -->
+    <div class="texture-overlay"></div>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="osmanlica-logo">استقبال</div>
+                <h1 class="app-title">İSTİKBAL</h1>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <a href="#home" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i>
+                    <span>Ana Sayfa</span>
+                </a>
+                <a href="#archive" class="nav-link" data-page="archive">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Haber Arşivi</span>
+                </a>
+                <a href="#propaganda" class="nav-link" data-page="propaganda">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Basın Cephesi</span>
+                </a>
+                <a href="#academic" class="nav-link" data-page="academic">
+                    <i class="fas fa-university"></i>
+                    <span>Akademik Bakış</span>
+                </a>
+                <a href="#timeline" class="nav-link" data-page="timeline">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Tarihsel Harita</span>
+                </a>
+                <a href="#sentiment" class="nav-link" data-page="sentiment">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Duygu Analizi</span>
+                </a>
+                <a href="#loyalty" class="nav-link" data-page="loyalty">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Vefa Köşesi</span>
+                </a>
+                <a href="#empathy" class="nav-link" data-page="empathy">
+                    <i class="fas fa-brain"></i>
+                    <span>Empati Ölçeği</span>
+                </a>
+                <a href="#about" class="nav-link" data-page="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Hakkında</span>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobile-menu">
+            <a href="#home" class="nav-link" data-page="home">Ana Sayfa</a>
+            <a href="#archive" class="nav-link" data-page="archive">Haber Arşivi</a>
+            <a href="#propaganda" class="nav-link" data-page="propaganda">Basın Cephesi</a>
+            <a href="#academic" class="nav-link" data-page="academic">Akademik Bakış</a>
+            <a href="#timeline" class="nav-link" data-page="timeline">Harita</a>
+            <a href="#sentiment" class="nav-link" data-page="sentiment">Duygu Analizi</a>
+            <a href="#loyalty" class="nav-link" data-page="loyalty">Vefa Köşesi</a>
+            <a href="#empathy" class="nav-link" data-page="empathy">Empati Ölçeği</a>
+            <a href="#about" class="nav-link" data-page="about">Hakkında</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="page-content">
+        <!-- Content will be loaded here dynamically -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>İstikbal Gazetesi</h3>
+                <p>Milli Mücadele'nin Trabzon'daki Yılmaz Sesi</p>
+                <p class="year">1918 - 1925</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>TÜBİTAK Projesi</h3>
+                <p>İstikbal Gazetesi Dijital Arşivi</p>
+                <p>ve Duygu Analizi Çalışması - 2025</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>İletişim</h3>
+                <p>Bu proje TÜBİTAK desteği ile hazırlanmıştır.</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 İstikbal Gazetesi Dijital Arşivi - Tüm hakları saklıdır.</p>
+            <p class="quote">"Maziden gelen ses, İstikbal'i aydınlatır."</p>
+        </div>
+    </footer>
+
+    <!-- Install Button (PWA) -->
+    <button class="install-btn" id="install-btn" style="display: none;">
+        <i class="fas fa-download"></i>
+        Uygulamayı Yükle
+    </button>
+
+    <!-- Main App Script -->
+    <script src="./app-v2.js"></script>
+</body>
+
+</html>
