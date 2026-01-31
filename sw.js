@@ -1,11 +1,11 @@
-const CACHE_NAME = 'istikbal-archive-v5';
+const CACHE_NAME = 'istikbal-archive-v9';
 const ASSETS = [
   './',
   './index.html',
   './app-v2.js',
   './styles.css',
-  './manifest.json',
-  './data/news.json',
+  './assets/icons/icon-192-v3.png',
+  './assets/icons/icon-512-v3.png',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
