@@ -1,6 +1,6 @@
 <style>
     .empathy-page {
-        max-width: 1000px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 2rem;
     }
@@ -11,108 +11,573 @@
         padding: 3rem;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         border: 1px solid rgba(139, 0, 0, 0.1);
-        text-align: center;
     }
 
-    .question-container {
-        margin: 3rem 0;
-        transition: all 0.5s ease;
+    .empathy-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .empathy-header h1 {
+        font-size: 2.5rem;
+        font-family: 'Playfair Display', serif;
+        color: #8b0000;
+        margin-bottom: 1rem;
+    }
+
+    .empathy-header p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .question-item {
+        background: #fafafa;
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #8b0000;
+        transition: all 0.3s ease;
+    }
+
+    .question-item:hover {
+        background: #fff5f5;
+        transform: translateX(5px);
+    }
+
+    .question-item.answered {
+        border-left-color: #2d8f3f;
+        background: #f0fff4;
     }
 
     .question-text {
-        font-size: 1.8rem;
-        font-family: 'Playfair Display', serif;
-        color: #2d3436;
-        margin-bottom: 2rem;
-        min-height: 80px;
-    }
-
-    .options-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .option-btn {
-        padding: 1.5rem;
-        border: 2px solid #f0f0f0;
-        border-radius: 20px;
-        background: white;
         font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-align: left;
+        color: #2d3436;
+        margin-bottom: 1rem;
+        font-weight: 500;
     }
 
-    .option-btn:hover {
+    .question-number {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: #8b0000;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 0.9rem;
+    }
+
+    .options-row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .option-label {
+        flex: 1;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .option-label input[type="radio"] {
+        display: none;
+    }
+
+    .option-label span {
+        display: block;
+        padding: 0.8rem 0.5rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        background: white;
+    }
+
+    .option-label input[type="radio"]:checked+span {
+        background: #8b0000;
+        color: white;
         border-color: #8b0000;
-        background: #fdf2f2;
-        transform: translateX(10px);
+        transform: scale(1.05);
+    }
+
+    .option-label span:hover {
+        border-color: #8b0000;
+        background: #fff5f5;
+    }
+
+    .submit-section {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #8b0000, #5c0000);
+        color: white;
+        padding: 1rem 3rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+    }
+
+    .submit-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .progress-indicator {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+        color: #666;
     }
 
     .progress-bar {
         width: 100%;
-        height: 10px;
+        height: 8px;
         background: #eee;
         border-radius: 10px;
-        margin-bottom: 2rem;
         overflow: hidden;
+        margin-top: 0.5rem;
     }
 
     .progress-fill {
         height: 100%;
-        background: #8b0000;
+        background: linear-gradient(90deg, #8b0000, #c0392b);
         width: 0%;
-        transition: width 0.5s;
+        transition: width 0.5s ease;
     }
 
+    /* Results Section */
     .result-container {
         display: none;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
     }
 
-    .result-score {
-        font-size: 5rem;
-        font-weight: 900;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .result-header {
+        margin-bottom: 2rem;
+    }
+
+    .result-header h2 {
+        font-size: 2rem;
         color: #8b0000;
-        margin: 1rem 0;
+        font-family: 'Playfair Display', serif;
     }
 
-    .result-badge {
-        display: inline-block;
-        padding: 0.5rem 2rem;
+    .score-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .score-card {
+        background: linear-gradient(135deg, #fff, #fafafa);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: 2px solid #eee;
+    }
+
+    .score-card.total {
+        background: linear-gradient(135deg, #8b0000, #5c0000);
+        color: white;
+        border: none;
+        grid-column: 1 / -1;
+    }
+
+    .score-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.8;
+    }
+
+    .score-card .score {
+        font-size: 3rem;
+        font-weight: 900;
+    }
+
+    .score-card .max-score {
+        font-size: 1rem;
+        opacity: 0.7;
+    }
+
+    .result-description {
+        background: #f8f9fa;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: left;
+    }
+
+    .result-description h3 {
+        color: #8b0000;
+        margin-bottom: 1rem;
+    }
+
+    .result-description p {
+        line-height: 1.8;
+        color: #555;
+    }
+
+    .retry-btn {
+        background: white;
+        color: #8b0000;
+        border: 2px solid #8b0000;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 1rem;
+    }
+
+    .retry-btn:hover {
         background: #8b0000;
         color: white;
-        border-radius: 50px;
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
+    }
+
+    .source-info {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f0f0f0;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    @media (max-width: 600px) {
+        .options-row {
+            flex-direction: column;
+        }
+
+        .option-label {
+            min-width: 100%;
+        }
+
+        .empathy-card {
+            padding: 1.5rem;
+            border-radius: 20px;
+        }
+
+        .question-item {
+            padding: 1rem;
+        }
     }
 </style>
 
 <div class="empathy-page">
     <div class="empathy-card">
-        <div id="quiz-header">
-            <h1 class="text-4xl font-bold font-serif text-red-900 mb-4">Empati Ölçüğü</h1>
-            <p class="text-gray-600 mb-8">Zaman makinesine binip 1919 Trabzon'una gitseydiniz, hangi kararları
-                verirdiniz?</p>
-            <div class="progress-bar">
-                <div id="progress" class="progress-fill"></div>
+        <!-- Quiz Form -->
+        <div id="quiz-form">
+            <div class="empathy-header">
+                <h1>Tarihsel Empatinizi Ölçelim</h1>
+                <p>Aşağıda, kendinizi tanımlamakla ilgili ifadeler yer almaktadır. Size en uygun seçeneği işaretleyerek
+                    tarihsel empati düzeyinizi ölçebilirsiniz.</p>
             </div>
+
+            <div class="progress-indicator">
+                <span id="answered-count">0</span> / 12 soru yanıtlandı
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <form id="empathy-form">
+                <!-- Question 1 -->
+                <div class="question-item" data-question="1">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Geçmişte yaşamış insanların ne düşündüklerini anlayabilirim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q1" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q1" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q1" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q1"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q1" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-item" data-question="2">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Tarihte toplumlara liderlik etmiş bir kahramanı model alırım.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q2" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q2" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q2" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q2"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q2" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-item" data-question="3">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        İnsanlığı olumsuz etkileyen olayları dinlerken üzülürüm.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q3" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q3" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q3" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q3"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q3" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-item" data-question="4">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Kendimi tarihte yaşamış bir çocuğun yerine koyabilirim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q4" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q4" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q4" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q4"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q4" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-item" data-question="5">
+                    <div class="question-text">
+                        <span class="question-number">5</span>
+                        Eski dönemlere ait gördüğüm tarihi nesneler beni heyecanlandırır.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q5" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q5" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q5" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q5"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q5" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-item" data-question="6">
+                    <div class="question-text">
+                        <span class="question-number">6</span>
+                        Geçmişte yaşamış güçlü karakterler gibi davrandığım olur.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q6" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q6" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q6" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q6"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q6" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-item" data-question="7">
+                    <div class="question-text">
+                        <span class="question-number">7</span>
+                        Tarihe yön vermiş kişilerin hayat hikâyelerini dinlerken heyecanlanırım.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q7" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q7" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q7" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q7"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q7" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-item" data-question="8">
+                    <div class="question-text">
+                        <span class="question-number">8</span>
+                        Geçmişte yaşanılan olumsuzlukların çözümü için o döneme uygun yeni fikirler üretebilirim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q8" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q8" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q8" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q8"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q8" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-item" data-question="9">
+                    <div class="question-text">
+                        <span class="question-number">9</span>
+                        Tarihi nesnelerin ait olduğu dönemdeki önemini hissederim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q9" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q9" value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q9" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q9"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q9" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-item" data-question="10">
+                    <div class="question-text">
+                        <span class="question-number">10</span>
+                        Kritik bir durumda tarihe yön vermiş kişiler gibi karar verebilirim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q10" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q10"
+                                value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q10" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q10"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q10" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-item" data-question="11">
+                    <div class="question-text">
+                        <span class="question-number">11</span>
+                        Tarihi filmleri izlerken ordaymışım gibi olur.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q11" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q11"
+                                value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q11" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q11"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q11" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-item" data-question="12">
+                    <div class="question-text">
+                        <span class="question-number">12</span>
+                        Geçmişteki olayların sonuçlarını tahmin edebilirim.
+                    </div>
+                    <div class="options-row">
+                        <label class="option-label"><input type="radio" name="q12" value="1"><span>Hiçbir
+                                zaman</span></label>
+                        <label class="option-label"><input type="radio" name="q12"
+                                value="2"><span>Nadiren</span></label>
+                        <label class="option-label"><input type="radio" name="q12" value="3"><span>Bazen</span></label>
+                        <label class="option-label"><input type="radio" name="q12"
+                                value="4"><span>Genellikle</span></label>
+                        <label class="option-label"><input type="radio" name="q12" value="5"><span>Her
+                                zaman</span></label>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="button" id="submit-btn" class="submit-btn" onclick="calculateResults()" disabled>
+                        Sonuçları Gör
+                    </button>
+                    <p style="margin-top: 1rem; color: #888; font-size: 0.9rem;">Tüm soruları yanıtlamanız
+                        gerekmektedir.</p>
+                </div>
+            </form>
         </div>
 
-        <div id="quiz-body" class="question-container">
-            <div id="question" class="question-text">Soru yükleniyor...</div>
-            <div id="options" class="options-grid"></div>
-        </div>
+        <!-- Results Section -->
+        <div id="result-container" class="result-container">
+            <div class="result-header">
+                <h2>🎯 Tarihsel Empati Sonuçlarınız</h2>
+            </div>
 
-        <div id="result" class="result-container">
-            <div class="result-badge">Milli Bilinç Seviyeniz</div>
-            <div id="score" class="result-score">%0</div>
-            <p id="feedback" class="text-xl text-gray-700 italic mb-8"></p>
-            <button onclick="router.navigate('empathy')"
-                class="bg-red-800 text-white px-8 py-4 rounded-full font-bold hover:bg-red-950 transition">
-                Tekrar Dene
+            <div class="score-cards">
+                <div class="score-card">
+                    <h3>📚 Bilişsel Empati</h3>
+                    <div class="score" id="cognitive-score">0</div>
+                    <div class="max-score">/ 35 puan</div>
+                </div>
+                <div class="score-card">
+                    <h3>💖 Duyuşsal Empati</h3>
+                    <div class="score" id="affective-score">0</div>
+                    <div class="max-score">/ 25 puan</div>
+                </div>
+                <div class="score-card total">
+                    <h3>🏆 Toplam Tarihsel Empati Puanı</h3>
+                    <div class="score" id="total-score">0</div>
+                    <div class="max-score">/ 60 puan</div>
+                </div>
+            </div>
+
+            <div class="result-description">
+                <h3>📊 Değerlendirme</h3>
+                <p id="result-feedback"></p>
+            </div>
+
+            <div class="source-info">
+                <strong>Kaynak:</strong> Çalışkan, H. & Demir, B. (2019). Ergenlerde tarihsel empati ölçeğinin
+                geliştirilmesi: Geçerlik ve güvenirlik çalışması. <em>Turkish History Education Journal</em>, 8(1),
+                129-149. DOI:10.17497/tuhed.557538
+            </div>
+
+            <button class="retry-btn" onclick="router.navigate('empathy')">
+                <i class="fas fa-redo"></i> Tekrar Dene
             </button>
         </div>
     </div>
@@ -120,79 +585,92 @@
 
 <script>
     (function () {
-        const questions = [
-            {
-                q: "19 Mayıs 1919 günü bir gazete yazarı olsaydınız, kaleme alacağınız ilk başlık ne olurdu?",
-                options: [
-                    { t: "Umut Samsun'da Doğdu: Kurtuluş Başlıyor", s: 100 },
-                    { t: "Gelecek Hala Belirsiz: Sabredelim", s: 50 },
-                    { t: "Manda Yönetimi Tek Çare Olabilir", s: 20 }
-                ]
-            },
-            {
-                q: "Mahallenizdeki gençlerin direniş için silahlandığını duydunuz. Tepkiniz ne olurdu?",
-                options: [
-                    { t: "Hemen onlara katılır, cepheye koşardım", s: 100 },
-                    { t: "Maddi yardımda bulunur, evimde beklerdim", s: 70 },
-                    { t: "Güvenli bir yere göç etmeyi planlardım", s: 30 }
-                ]
-            },
-            {
-                q: "İstikbal Gazetesi'nin bir sayısını elinize aldınız. En çok hangi haber sizi heyecanlandırırdı?",
-                options: [
-                    { t: "Toplumsal Yardımlaşma ve Birlik Çağrıları", s: 100 },
-                    { t: "Dış Güçlerin Görüşme Teklifleri", s: 60 },
-                    { t: "Yerel Ticaretin Durumu", s: 40 }
-                ]
+        // Bilişsel alt boyut maddeleri: 1,2,4,6,8,10,12
+        const cognitiveItems = [1, 2, 4, 6, 8, 10, 12];
+        // Duyuşsal alt boyut maddeleri: 3,5,7,9,11
+        const affectiveItems = [3, 5, 7, 9, 11];
+
+        // Track answered questions and update progress
+        function updateProgress() {
+            let answered = 0;
+            for (let i = 1; i <= 12; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const questionItem = document.querySelector(`.question-item[data-question="${i}"]`);
+                if (selected) {
+                    answered++;
+                    questionItem.classList.add('answered');
+                } else {
+                    questionItem.classList.remove('answered');
+                }
             }
-        ];
 
-        let currentIdx = 0;
-        let totalScore = 0;
+            document.getElementById('answered-count').textContent = answered;
+            document.getElementById('progress-fill').style.width = (answered / 12 * 100) + '%';
+            document.getElementById('submit-btn').disabled = (answered < 12);
+        }
 
-        function renderQuestion() {
-            const q = questions[currentIdx];
-            document.getElementById('question').innerText = q.q;
-            document.getElementById('progress').style.width = ((currentIdx / questions.length) * 100) + '%';
+        // Add event listeners to all radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
 
-            const optionsDiv = document.getElementById('options');
-            optionsDiv.innerHTML = '';
+        // Calculate and show results
+        window.calculateResults = function () {
+            let cognitiveScore = 0;
+            let affectiveScore = 0;
 
-            q.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt.t;
-                btn.onclick = () => selectOption(opt.s);
-                optionsDiv.appendChild(btn);
+            // Calculate cognitive score
+            cognitiveItems.forEach(item => {
+                const selected = document.querySelector(`input[name="q${item}"]:checked`);
+                if (selected) cognitiveScore += parseInt(selected.value);
             });
-        }
 
-        function selectOption(score) {
-            totalScore += score;
-            currentIdx++;
+            // Calculate affective score
+            affectiveItems.forEach(item => {
+                const selected = document.querySelector(`input[name="q${item}"]:checked`);
+                if (selected) affectiveScore += parseInt(selected.value);
+            });
 
-            if (currentIdx < questions.length) {
-                renderQuestion();
+            const totalScore = cognitiveScore + affectiveScore;
+
+            // Display scores
+            document.getElementById('cognitive-score').textContent = cognitiveScore;
+            document.getElementById('affective-score').textContent = affectiveScore;
+            document.getElementById('total-score').textContent = totalScore;
+
+            // Generate feedback
+            let feedback = '';
+            const percentage = (totalScore / 60) * 100;
+
+            if (percentage >= 80) {
+                feedback = `<strong>Çok Yüksek Tarihsel Empati (${totalScore}/60)</strong><br><br>
+            Tarihsel empati düzeyiniz oldukça yüksek! Geçmişte yaşamış insanların düşüncelerini ve duygularını anlama konusunda güçlü bir yeteneğiniz var. 
+            Tarihi olayları sadece bilgi olarak değil, o dönemin insanlarının gözünden de görebiliyorsunuz. Bu yeteneğiniz, geçmişi anlamlandırmanızda size büyük avantaj sağlıyor.`;
+            } else if (percentage >= 60) {
+                feedback = `<strong>Yüksek Tarihsel Empati (${totalScore}/60)</strong><br><br>
+            Tarihsel empati düzeyiniz iyi seviyede! Geçmişe dair olayları ve kişileri anlamaya çalışıyorsunuz. 
+            Bilişsel empati puanınız: ${cognitiveScore}/35, Duyuşsal empati puanınız: ${affectiveScore}/25. 
+            İstikbal Gazetesi arşivini inceleyerek bu yeteneklerinizi daha da geliştirebilirsiniz.`;
+            } else if (percentage >= 40) {
+                feedback = `<strong>Orta Düzey Tarihsel Empati (${totalScore}/60)</strong><br><br>
+            Tarihsel empati düzeyiniz orta seviyede. Geçmişi anlamak için potansiyeliniz var ancak daha fazla pratik yapabilirsiniz. 
+            Tarihi belgeleri, eski gazeteleri ve dönemin tanıklıklarını okumak empati yeteneğinizi artırabilir. 
+            İstikbal Gazetesi arşivi bu konuda size yardımcı olabilir!`;
             } else {
-                showResult();
+                feedback = `<strong>Geliştirilmesi Gereken Tarihsel Empati (${totalScore}/60)</strong><br><br>
+            Tarihsel empati düzeyinizi geliştirmek için fırsatlarınız var! Geçmişte yaşamış insanların perspektifinden bakmayı deneyebilirsiniz. 
+            Tarihi romanlar, belgeseller ve arşiv belgeleri bu konuda size yardımcı olabilir. 
+            İstikbal Gazetesi'nin dijital arşivi, Milli Mücadele döneminin ruhunu hissetmeniz için harika bir kaynak!`;
             }
-        }
 
-        function showResult() {
-            const finalScore = Math.round(totalScore / questions.length);
-            document.getElementById('quiz-body').style.display = 'none';
-            document.getElementById('quiz-header').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('score').innerText = '%' + finalScore;
+            document.getElementById('result-feedback').innerHTML = feedback;
 
-            let feedback = "";
-            if (finalScore > 80) feedback = "Sizde bir İstikbal yazarı ruhu var! Tam bağımsızlık inancınız tam.";
-            else if (finalScore > 50) feedback = "Destekçisiniz ancak bazen kararsız kalabiliyorsunuz. Daha kararlı olmalıyız!";
-            else feedback = "O günlerin zorluğunu biraz daha araştırmalısınız. İstikbal Arşivi sizi bekliyor.";
+            // Show results, hide form
+            document.getElementById('quiz-form').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
 
-            document.getElementById('feedback').innerText = feedback;
-        }
-
-        renderQuestion();
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
     })();
 </script>
