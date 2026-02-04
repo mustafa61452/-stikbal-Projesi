@@ -1,0 +1,198 @@
+<style>
+    .empathy-page {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .empathy-card {
+        background: white;
+        border-radius: 40px;
+        padding: 3rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(139, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .question-container {
+        margin: 3rem 0;
+        transition: all 0.5s ease;
+    }
+
+    .question-text {
+        font-size: 1.8rem;
+        font-family: 'Playfair Display', serif;
+        color: #2d3436;
+        margin-bottom: 2rem;
+        min-height: 80px;
+    }
+
+    .options-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .option-btn {
+        padding: 1.5rem;
+        border: 2px solid #f0f0f0;
+        border-radius: 20px;
+        background: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: left;
+    }
+
+    .option-btn:hover {
+        border-color: #8b0000;
+        background: #fdf2f2;
+        transform: translateX(10px);
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #eee;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #8b0000;
+        width: 0%;
+        transition: width 0.5s;
+    }
+
+    .result-container {
+        display: none;
+    }
+
+    .result-score {
+        font-size: 5rem;
+        font-weight: 900;
+        color: #8b0000;
+        margin: 1rem 0;
+    }
+
+    .result-badge {
+        display: inline-block;
+        padding: 0.5rem 2rem;
+        background: #8b0000;
+        color: white;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+</style>
+
+<div class="empathy-page">
+    <div class="empathy-card">
+        <div id="quiz-header">
+            <h1 class="text-4xl font-bold font-serif text-red-900 mb-4">Empati Ölçüğü</h1>
+            <p class="text-gray-600 mb-8">Zaman makinesine binip 1919 Trabzon'una gitseydiniz, hangi kararları
+                verirdiniz?</p>
+            <div class="progress-bar">
+                <div id="progress" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="quiz-body" class="question-container">
+            <div id="question" class="question-text">Soru yükleniyor...</div>
+            <div id="options" class="options-grid"></div>
+        </div>
+
+        <div id="result" class="result-container">
+            <div class="result-badge">Milli Bilinç Seviyeniz</div>
+            <div id="score" class="result-score">%0</div>
+            <p id="feedback" class="text-xl text-gray-700 italic mb-8"></p>
+            <button onclick="router.navigate('empathy')"
+                class="bg-red-800 text-white px-8 py-4 rounded-full font-bold hover:bg-red-950 transition">
+                Tekrar Dene
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const questions = [
+            {
+                q: "19 Mayıs 1919 günü bir gazete yazarı olsaydınız, kaleme alacağınız ilk başlık ne olurdu?",
+                options: [
+                    { t: "Umut Samsun'da Doğdu: Kurtuluş Başlıyor", s: 100 },
+                    { t: "Gelecek Hala Belirsiz: Sabredelim", s: 50 },
+                    { t: "Manda Yönetimi Tek Çare Olabilir", s: 20 }
+                ]
+            },
+            {
+                q: "Mahallenizdeki gençlerin direniş için silahlandığını duydunuz. Tepkiniz ne olurdu?",
+                options: [
+                    { t: "Hemen onlara katılır, cepheye koşardım", s: 100 },
+                    { t: "Maddi yardımda bulunur, evimde beklerdim", s: 70 },
+                    { t: "Güvenli bir yere göç etmeyi planlardım", s: 30 }
+                ]
+            },
+            {
+                q: "İstikbal Gazetesi'nin bir sayısını elinize aldınız. En çok hangi haber sizi heyecanlandırırdı?",
+                options: [
+                    { t: "Toplumsal Yardımlaşma ve Birlik Çağrıları", s: 100 },
+                    { t: "Dış Güçlerin Görüşme Teklifleri", s: 60 },
+                    { t: "Yerel Ticaretin Durumu", s: 40 }
+                ]
+            }
+        ];
+
+        let currentIdx = 0;
+        let totalScore = 0;
+
+        function renderQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('question').innerText = q.q;
+            document.getElementById('progress').style.width = ((currentIdx / questions.length) * 100) + '%';
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.t;
+                btn.onclick = () => selectOption(opt.s);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function selectOption(score) {
+            totalScore += score;
+            currentIdx++;
+
+            if (currentIdx < questions.length) {
+                renderQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const finalScore = Math.round(totalScore / questions.length);
+            document.getElementById('quiz-body').style.display = 'none';
+            document.getElementById('quiz-header').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('score').innerText = '%' + finalScore;
+
+            let feedback = "";
+            if (finalScore > 80) feedback = "Sizde bir İstikbal yazarı ruhu var! Tam bağımsızlık inancınız tam.";
+            else if (finalScore > 50) feedback = "Destekçisiniz ancak bazen kararsız kalabiliyorsunuz. Daha kararlı olmalıyız!";
+            else feedback = "O günlerin zorluğunu biraz daha araştırmalısınız. İstikbal Arşivi sizi bekliyor.";
+
+            document.getElementById('feedback').innerText = feedback;
+        }
+
+        renderQuestion();
+    })();
+</script>
