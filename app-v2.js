@@ -61,7 +61,10 @@ window.router = {
             })
             .catch(err => {
                 console.error('[Router] Load Error:', err);
-                if (page === 'home') loadHomeDefault();
+                if (page === 'home') {
+                    // Fallback in case home.html missing
+                    content.innerHTML = `<div class="p-20 text-center"><h1 class="text-4xl font-bold">İSTİKBAL</h1><p>Giriş sayfası yüklenemedi.</p></div>`;
+                }
                 else content.innerHTML = `<div class="p-20 text-center"><h1>Yükleme Hatası</h1><p>${err.message}</p></div>`;
             });
 
