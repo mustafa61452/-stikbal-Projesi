@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi - 1921</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Gazete ve Nostaljik görünüm için font */
+        body {
+            font-family: 'Times New Roman', Times, serif; /* Daha klasik gazete fontu */
+            background-color: #dcd7c9; /* Açık krem/bej fon */
+        }
+        .newspaper-page {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background-color: #fffffb; /* Hemen hemen beyaz kağıt, çok hafif sarı */
+            border: 2px solid #555; /* Kalın dış çerçeve */
+            padding: 2rem;
+        }
+        /* Gazete ana metin sütunları (Manşet hariç tüm gövde) */
+        .main-article-body {
+            column-count: 3; /* Üç sütunlu klasik gazete düzeni */
+            column-gap: 1.5rem;
+            column-rule: 1px solid #aaa;
+            margin-top: 1.5rem;
+        }
+        
+        .full-span {
+            column-span: all;
+            margin-bottom: 1.5rem;
+        }
+        .gazete-baslik {
+            font-family: Georgia, serif; /* Daha etkili serif başlık */
+            font-size: 3.5rem; 
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+        }
+        .gazete-manşet {
+            font-size: 2.8rem; /* Manşeti biraz daha büyüt */
+            line-height: 1.1;
+            font-weight: 700;
+            color: #1a1a1a;
+            font-style: normal;
+        }
+        .gazete-spot {
+            font-size: 1.3rem; /* Spotu büyüt */
+            color: #374151;
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: 500;
+        }
+        .gazete-text {
+             text-align: justify;
+             line-height: 1.5;
+             font-size: 0.9rem; /* Metin fontunu küçült (daha fazla metin sığdırmak için) */
+             margin-bottom: 1rem;
+        }
+        .article-heading {
+             font-size: 1.3rem;
+             font-weight: bold;
+             color: #333;
+             margin-top: 1rem;
+             margin-bottom: 0.5rem;
+             border-bottom: 1px dashed #777;
+             padding-bottom: 0.2rem;
+             column-span: all; /* Başlıklar sütunları aşar */
+        }
+        /* Mobil görünümde sütunları devre dışı bırak */
+        @media (max-width: 1024px) {
+            .main-article-body {
+                column-count: 1;
+                column-gap: 0;
+                column-rule: none;
+            }
+            .newspaper-page {
+                padding: 1rem;
+            }
+            .article-heading {
+                column-span: none;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="newspaper-page max-w-7xl mx-auto p-6 md:p-12">
+        <!-- Üst Bölüm ve Gazete Künyesi (Tek Sayfanın Üstü) -->
+        <header class="full-span border-b-4 border-black pb-4 text-center">
+            <h1 class="gazete-baslik">İSTİKBAL</h1>
+            <p class="text-sm border-t border-b border-gray-500 py-1 mt-2 text-gray-700">
+                Fiyatı: 5 Kuruş | Sayı: 60 | 20 Kanunisani 1337 (1921) | Anadolu'nun Sesi, Milletin İstikbali
+            </p>
+        </header>
+
+        <!-- Manşet Alanı (Tam Sayfa Genişliği) -->
+        <div class="full-span mb-6">
+             <div class="p-4 border-4 border-black bg-yellow-100/70 text-center">
+                <h2 class="gazete-manşet mb-3">
+                    <span class="text-red-700 font-extrabold tracking-widest">TÜRK'ÜN YENİ ZAFERİ:</span> İNÖNÜ'DE YUNAN ORDUSU BÜYÜK ZAYİATA UĞRATILDI VE BOZULDU!
+                </h2>
+                <p class="gazete-spot">
+                    TBMM Ordusu İlk Ciddi Mukavemetini Gösterdi! Yunan Kuvvetleri Geri Çekilmeye Mecbur Kaldı ve Asıl Mevzilerine Sığındı.
+                </p>
+            </div>
+        </div>
+
+        <!-- Ana Metin Sütunları Başlangıcı (Tek Tel Sayfa Akışı) -->
+        <div class="main-article-body">
+
+            <!-- HABER 1: ASKERİ DURUM VE BOZGUN -->
+            <h4 class="article-heading full-span text-red-700">Muharebe Alanından Son Haberler: Yunanlıların Ağır Zayiatı</h4>
+            <p class="gazete-text">
+                Ocak ayının 9. ve 10. günleri İnönü civarında Yunan ordusuyla yapılan meydan muharebesi sonucunda Yunanlılar büyük zayiata uğratılmıştır. 11 Ocak’ta Yunan askerleri devam edemeyerek çekilmeye başlamıştır. Türk ordusunun İnönü Savaşı’ndaki kesin başarısı sonucu Yunan ordusu geri çekilmeye mecbur kalmıştır. (İstikbal, 20 Ocak 1921).
+            </p>
+            
+            <p class="gazete-text">
+                Ankara Hükümeti’nin yayınladığı resmi tebliğlere göre, İnönü’de bozulan Yunan kuvvetleri Türk güçlerinin takipleri üzerine taarruzdan önceki mevzilerinde de tutunamamışlardır. Bursa’nın doğusunda tel örgülerle kuvvetli bir şekilde tahkim ettikleri asıl mevkilerine çekilmiş olan Yunan kuvvetleri burada, Türklerle çatışmaya başlamışlardır. Bu, düşmanın Anadolu içlerinde ilk defa ciddi bir mukavemetle karşılaşmasının sonucudur. (İstikbal, 20 Ocak 1921).
+            </p>
+
+            <!-- Harita ve Alıntı -->
+            <div class="full-span flex flex-col items-center my-4">
+                <div class="border-4 border-black p-1 bg-gray-100 w-full max-w-xs">
+                    <img src="https://placehold.co/300x220/4B5563/FFFFFF?text=İsmet+Paşa+Portresi" class="w-full h-auto" alt="İsmet Paşa Portresi">
+                    <p class="text-xs text-center italic mt-1 text-gray-700">Batı Cephesi Komutanı İsmet Paşa</p>
+                </div>
+                <p class="gazete-text italic border-l-4 border-red-700 pl-4 my-4 text-center bg-red-50/50">
+                    Yunanlılar o zamana kadar Anadolu içlerinde ciddi hiçbir mukavemete rastlamamışlardır. İlk ciddi muharebe İnönü’de meydana gelmiş ve Türk ordusunun gücünü görmüşlerdir. Onlar için artık kötü gidiş başlamıştır. (İstikbal, 18 Ocak 1921).
+                </p>
+            </div>
+
+            <p class="gazete-text">
+                Türklerin batı cephesi zaferi İtilaf Devletleri çevrelerinde tabii olarak kötü intibalar uyandırmıştır. İstanbul’da bulunan İngiliz yetkilileri Yunan taarruzunun böyle bir başarısızlıkla sonuçlanmasını büyük bir hayretle karşılaşmıştır.
+            </p>
+
+            <!-- HABER 2: ULUSAL VE İSLAM ALEMİNDEKİ SEVİNÇ -->
+            <h4 class="article-heading">Anadolu'da Bayram Havası: Milli Mücadele Güçlendi</h4>
+            <p class="gazete-text">
+                İnönü’de Türklerin elde ettiği zafer Anadolu'nun her tarafında sevinçle karşılanmıştır. TBMM Reisi Mustafa Kemal Paşa tarafından orduya Büyük Millet Meclisi’nin tebrikleri bildirilmiştir. Ayrıca Trabzon Müdafaa-i Hukuk Cemiyeti tarafından batı ordusuna, Trabzonluların tebrik ve takdirlerini bildiren telgraf çekilmiştir. (İstikbal, 14 Ocak 1921).
+            </p>
+            
+            <!-- HABER 3: ULUSLARARASI ETKİ -->
+            <h4 class="article-heading">İstanbul ve İslam Âlemi Heyecan İçinde</h4>
+            <p class="gazete-text">
+                Buna karşılık İstanbul Türkleri büyük bir heyecan için girmiştir. Yunanlıların Anadolu’da büyük bir hezimete uğramaları İslam ve Türk âleminin yüzünü güldürmüştür. Çünkü İngilizlerin, Yunan kuvvetleri vasıtasıyla müslüman âlemini, mutlak bir İngiliz esareti altına sokmak istediğini bilmeyen bir müslüman kalmamıştır. Bundan dolayı Anadolu mücadelesi Anadolu Türkleri kadar İslam âlemi içinde de büyük bir önem taşımıştır. (İstikbal, 20 Ocak 1921).
+            </p>
+
+            <!-- Harita ve İlan Bölümü -->
+            <h4 class="article-heading full-span text-blue-700">Harita ve İlan Köşesi</h4>
+            
+            <div class="full-span border-2 border-black p-4 mb-4 bg-yellow-50/70">
+                <h3 class="text-xl font-bold mb-3 text-center border-b border-gray-600 pb-2">Muharebe Alanı Haritası ve Duyurular</h3>
+                
+                <!-- Harita Placeholder -->
+                <div class="border border-2 border-gray-600 p-1 mb-4">
+                    <img src="https://placehold.co/300x180/6B7280/FFFFFF?text=İnönü+Mevzileri+Haritası" class="w-full h-auto" alt="İnönü Mevzileri Haritası">
+                    <p class="text-xs text-center italic mt-1 text-gray-700">Yunan kuvvetlerinin çekildiği tahkim edilmiş mevziler.</p>
+                </div>
+
+                <div class="mb-4 border-t border-gray-400 pt-3">
+                    <p class="font-semibold text-base mb-1">Duyuru: Şehit ve Gazi Ailelerine Yardım</p>
+                    <p class="text-sm italic text-gray-700">İnönü’de canını feda eden kahramanlarımızın aileleri ve gazilerimiz için acil yardım kampanyası başlatılmıştır. Her kuruş, vatan borcudur.</p>
+                </div>
+            </div>
+
+            <!-- İlan -->
+            <div class="full-span p-4 bg-white border border-gray-600 text-center">
+                <h3 class="font-bold text-xl text-red-700 mb-2 border-b border-red-700 pb-1">BÜYÜK İLAN</h3>
+                <p class="font-bold text-lg text-gray-800">Hacı Bekir Lokumları!</p>
+                <p class="text-sm text-gray-600">Zaferin sevincine tat katmak için en lezzetli ikram. Şehrinizdeki tüm bakkallarda mevcuttur.</p>
+            </div>
+            
+            <p class="gazete-text full-span text-center mt-4">
+                Gazetemiz, TBMM Hükümeti'nin resmi görüşlerini yansıtmaktadır. Tüm hakları mahfuzdur. İlanların tüm sorumluluğu sahiplerine aittir.
+            </p>
+            
+        </div>
+        
+        <!-- Dip Not -->
+        <div class="full-span border-t-2 border-black mt-4 pt-2 text-center text-xs text-gray-700">
+            <p>Telgraf Hattı: Ankara'dan gelen son bilgiye göre, Meclis'te bu zaferin diplomatik etkileri görüşülmektedir.</p>
+        </div>
+    </div>
+</body>
+</html>

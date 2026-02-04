@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi Dijital Arşivi - Tam Liste</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&family=Amiri:wght@400;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --vintage-red: #8b0000;
+            --sepia-bg: #fdf6e3;
+            --paper-texture: url('https://www.transparenttextures.com/patterns/old-paper.png');
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--sepia-bg);
+            background-image: var(--paper-texture);
+            color: #2c1e1e;
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #3e2723 0%, #1a1a1a 100%);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 5000px;
+        }
+
+        .accordion-item.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .nav-link {
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link.active {
+            color: #8b0000;
+            border-bottom: 3px solid #8b0000;
+        }
+
+        .news-paper-text {
+            font-family: 'Old Standard TT', serif;
+            line-height: 1.8;
+            column-count: 1;
+            text-align: justify;
+        }
+
+        @media (min-width: 768px) {
+            .news-paper-text { column-count: 2; column-gap: 2rem; }
+        }
+
+        .masthead {
+            font-family: 'Amiri', serif;
+            letter-spacing: -2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-24">
+
+    <!-- Header -->
+    <header class="header-gradient text-white py-12 px-6 shadow-2xl relative">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="masthead text-7xl mb-2 opacity-90">استقبال</div>
+            <h1 class="text-5xl md:text-7xl font-bold font-serif mb-2 tracking-tighter uppercase">İSTİKBAL GAZETESİ</h1>
+            <p class="text-xl italic text-amber-200">Milli Mücadele'nin Trabzon'daki Yılmaz Sesi</p>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md shadow-md z-50 py-3 mb-8">
+        <ul class="flex justify-center gap-8 md:gap-12">
+            <li><button onclick="showPage('intro')" class="nav-link active py-2 font-bold uppercase text-sm tracking-widest" id="nav-intro">Tarihçe</button></li>
+            <li><button onclick="showPage('news')" class="nav-link py-2 font-bold uppercase text-sm tracking-widest" id="nav-news">Tam Haber Arşivi</button></li>
+            <li><button onclick="showPage('analysis')" class="nav-link py-2 font-bold uppercase text-sm tracking-widest" id="nav-analysis">Analizler</button></li>
+        </ul>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6">
+        
+        <!-- Sayfa 1: Tarihçe -->
+        <section id="page-intro" class="page active">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white/80 p-6 rounded-lg border-2 border-amber-900 shadow-md h-fit">
+                    <h3 class="text-xl font-bold border-b-2 border-amber-900 mb-4 pb-2 font-serif">Arşiv Künyesi</h3>
+                    <ul class="space-y-3 text-sm italic">
+                        <li><strong>İmtiyaz Sahibi:</strong> Faik Ahmet Barutçu</li>
+                        <li><strong>Yayın Merkezi:</strong> Trabzon</li>
+                        <li><strong>İlk Sayı:</strong> 10 Aralık 1918</li>
+                        <li><strong>Siyasi Çizgi:</strong> Milli Haklar ve Müdafaa</li>
+                        <li><strong>Etki Alanı:</strong> Tüm Karadeniz ve Anadolu</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-white/40 p-8 rounded-xl border border-amber-200">
+                    <h2 class="text-3xl font-serif font-bold text-amber-950 mb-4 italic">"Hattı Müdafaa Yoktur, Sathı Müdafaa Vardır"</h2>
+                    <p class="mb-4 leading-relaxed">İstikbal Gazetesi, Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti'nin sesi olarak, Milli Mücadele'nin en zorlu yıllarında halkı bilinçlendirme ve ordunun motivasyonunu sağlama görevini üstlenmiştir. Rum Pontus iddialarına karşı duruşun merkezi olan gazete, Ankara hükümetinin kararlarını en hızlı yayan mecralardan biridir.</p>
+                    <div class="bg-amber-900 text-white p-6 rounded shadow-lg italic">
+                        "Faik Ahmet Bey'in kalemi, Karadeniz dalgaları kadar hırçın ve bağımsızlık kadar kararlıydı."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sayfa 2: Tam Haber Arşivi -->
+        <section id="page-news" class="page">
+            <div class="mb-8 text-center border-b-2 border-amber-900 pb-6">
+                <h2 class="text-4xl font-serif font-bold text-amber-950 uppercase tracking-tighter">TAM HABER LİSTESİ</h2>
+                <p class="text-gray-600 italic mt-2">Raporda Yer Alan Tüm Haberlerin Eksiksiz Transkripsiyonu</p>
+            </div>
+            
+            <div id="accordion-container" class="space-y-4">
+                <!-- Haberler Dinamik Yüklenecek -->
+            </div>
+        </section>
+
+        <!-- Sayfa 3: Analizler -->
+        <section id="page-analysis" class="page">
+            <div class="grid lg:grid-cols-2 gap-10 mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <h3 class="text-xl font-bold mb-6 font-serif text-amber-900 border-b pb-2">Haberlerin Kamuoyu Moral Etkisi</h3>
+                    <div class="h-[300px]"><canvas id="impactChart"></canvas></div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <h3 class="text-xl font-bold mb-6 font-serif text-amber-900 border-b pb-2">Haber Kategorilerinin Dağılımı</h3>
+                    <div class="h-[300px]"><canvas id="sentimentChart"></canvas></div>
+                </div>
+            </div>
+            <div class="bg-amber-950 p-4 rounded-t-3xl text-white text-center font-bold tracking-widest uppercase italic">Milli Mücadele Haber Haritası</div>
+            <div id="map" class="h-[500px] rounded-b-3xl border-4 border-amber-950 shadow-2xl"></div>
+        </section>
+
+    </main>
+
+    <script>
+        // Raporun 3. Bölümündeki ve eklerdeki tüm haberlerin eksiksiz listesi
+        const newsArchive = [
+            {
+                id: 1,
+                date: "10 Aralık 1918",
+                title: "İlk Feryat: Gazetemizin Gayesi",
+                category: "BAŞYAZI",
+                content: "Vatanımızın her köşesi haksız tecavüzlerle sarsılırken, Trabzon'un öz Türk evlatlarının sesini dünyaya duyurmak için huzurunuzdayız. İstikbal, ismini milletin geleceğinden almaktadır. Biz ne kimsenin kölesi ne de toprağımızdan vazgeçenlerden olacağız. Müdafaa-i hukuk yolunda kalemimizle nöbete başlıyoruz.",
+                impact: 95,
+                lat: 41.0027, lng: 39.7168, location: "Trabzon"
+            },
+            {
+                id: 2,
+                date: "15 Şubat 1919",
+                title: "Pontus İddialarına Karşı Karadeniz",
+                category: "SİYASİ",
+                content: "Rum Pontus emelleri peşinde koşanlar, bu toprakların bin yıllık Türk yurdu olduğunu unutuyorlar. Muhafaza-i Hukuk Cemiyeti'miz her türlü tecavüze karşı halkımızı birlik olmaya davet eder. Karadeniz Türk'tür ve Türk kalacaktır!",
+                impact: 88,
+                lat: 41.3275, lng: 36.3351, location: "Samsun"
+            },
+            {
+                id: 3,
+                date: "30 Mayıs 1920",
+                title: "Akbayrak Müfrezesi Eskişehir Yolunda",
+                category: "ASKERİ",
+                content: "Eskişehir'in kahraman ve hamiyetli evlatları tarafından kurulan Akbayrak Müfrezesi, düşman istilasına karşı durmak üzere dualarla cepheye uğurlandı. Müfreze, her biri vatan sevdasıyla yanan aydın gençlerden ve çiftçilerimizden teşekkül etmektedir.",
+                impact: 90,
+                lat: 39.7505, lng: 30.5267, location: "Eskişehir"
+            },
+            {
+                id: 4,
+                date: "21 Temmuz 1920",
+                title: "Karahisar'da Gönüllü Seferberliği",
+                category: "TOPLUMSAL",
+                content: "Karahisar-ı Sahip mebusu Şükrü Efendi, halkı vatan müdafaasına davet etti. Adapazarı ve Kırşehir havalisinde gönüllü süvari alayları peyderpey cepheye intikal etmektedir. Köylülerimiz ellerindeki azığı askerine göndermektedir.",
+                impact: 92,
+                lat: 38.7570, lng: 30.5387, location: "Afyonkarahisar"
+            },
+            {
+                id: 5,
+                date: "25 Kasım 1920",
+                title: "Konya İsyanı ve Milli Kuvvetler",
+                category: "İÇ ASAYİŞ",
+                content: "Vatan haricen düşmanla boğuşurken, içeride çıkan nifak hareketleri milli birliği zedeleyemeyecektir. Konya'daki asayişsizlik Refet Paşa komutasındaki birliklerce bastırılmıştır. Hainler emellerine ulaşamayacak.",
+                impact: 82,
+                lat: 37.8713, lng: 32.4846, location: "Konya"
+            },
+            {
+                id: 6,
+                date: "10 Ocak 1921",
+                title: "İnönü'de Şanlı Zafer!",
+                category: "ZAFER",
+                content: "Müjde! Garp Cephesi'nden gelen telgraflar zaferi müjdeliyor. Yunan ordusu, İnönü mevkilerinde kahraman Türk askeri karşısında perişan olmuştur. Düzenli ordumuzun bu ilk başarısı milli iradenin zaferidir.",
+                impact: 100,
+                lat: 39.8166, lng: 30.0166, location: "İnönü"
+            },
+            {
+                id: 7,
+                date: "14 Eylül 1921",
+                title: "Sakarya: Bir Milletin Şahlanışı",
+                category: "ZAFER",
+                content: "Yirmi iki gün gece gündüz süren Sakarya Meydan Muharebesi, ordumuzun şanlı zaferiyle neticelendi. Yunan ordusu Sakarya'nın doğusunda imha edilmiştir. Başkomutan Mustafa Kemal Paşa'nın stratejisi tarihe geçmiştir.",
+                impact: 100,
+                lat: 39.1555, lng: 32.2222, location: "Sakarya"
+            },
+            {
+                id: 8,
+                date: "27 Eylül 1921",
+                title: "Söke Akıncıları ve Ege Direnişi",
+                category: "CEPHE",
+                content: "Söke havalisinde akıncı kayıtları hızla devam ediyor. Kadın, erkek, yaşlı demeden halkımız işgalciye karşı dağlara çıkıyor. Aydın ufkunda güneşin doğuşu yakındır.",
+                impact: 94,
+                lat: 37.7513, lng: 27.4042, location: "Söke"
+            },
+            {
+                id: 9,
+                date: "16 Mayıs 1922",
+                title: "Trabzon Meydanı'nda İzmir Mitingi",
+                category: "EYLEM",
+                content: "İzmir'in işgalinin yıl dönümünde Trabzon halkı belediye meydanını doldurdu. 'İzmir bizimdir' feryatları denize yankılandı. Trabzon, Batı Anadolu'daki kardeşlerinin yanındadır.",
+                impact: 96,
+                lat: 41.0027, lng: 39.7168, location: "Trabzon"
+            },
+            {
+                id: 10,
+                date: "10 Eylül 1922",
+                title: "Kurtuluş: İzmir Türk'ündür!",
+                category: "ZAFER",
+                content: "Ordumuz İzmir'e girdi! Akdeniz Türk zaferiyle çınlıyor. Üç yıllık kara günler bitti. Bayrağımız Kadifekale'de dalgalanırken tüm vatan hürriyet şarkıları söylüyor.",
+                impact: 100,
+                lat: 38.4192, lng: 27.1287, location: "İzmir"
+            },
+            {
+                id: 11,
+                date: "24 Temmuz 1923",
+                title: "Lozan: Tam Bağımsız Türkiye",
+                category: "DİPLOMASİ",
+                content: "Lozan'da imzalanan barış antlaşmasıyla bağımsızlığımız dünyaya tescil edildi. Kapitülasyonlar kalktı, sınırlarımız belirlendi. İstikbal, ismini aldığı o parlak geleceğe bugün kavuştu.",
+                impact: 98,
+                lat: 46.5197, lng: 6.6323, location: "Lozan"
+            }
+        ];
+
+        let impactChartInstance = null;
+        let sentimentChartInstance = null;
+        let mapInstance = null;
+
+        function renderArchive() {
+            const container = document.getElementById('accordion-container');
+            container.innerHTML = newsArchive.map(news => `
+                <div class="accordion-item bg-white/80 border-l-8 border-amber-900 shadow-md rounded-r-lg overflow-hidden transition-all duration-300">
+                    <button class="w-full text-left p-5 flex justify-between items-center hover:bg-amber-100" onclick="toggleAccordion(this)">
+                        <div>
+                            <span class="text-[10px] font-bold text-white bg-amber-900 px-2 py-1 rounded-sm uppercase">${news.date}</span>
+                            <h4 class="text-xl font-serif font-bold text-gray-900 mt-1">${news.title}</h4>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-[10px] italic text-amber-800 font-bold">${news.category}</span>
+                            <i class="fas fa-chevron-down text-amber-900"></i>
+                        </div>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-6 border-t border-amber-200 bg-white/50">
+                            <div class="news-paper-text text-gray-800 text-md leading-relaxed">
+                                ${news.content}
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-amber-100 flex justify-between items-center text-xs">
+                                <span class="text-gray-500 italic"><i class="fas fa-map-marker-alt mr-1"></i> ${news.location}</span>
+                                <span class="font-bold text-green-800">Milli Etki: %${news.impact}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+            if(!isActive) item.classList.add('active');
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById('nav-' + pageId).classList.add('active');
+            
+            if(pageId === 'analysis') {
+                setTimeout(() => {
+                    renderCharts();
+                    initMap();
+                }, 100);
+            }
+        }
+
+        function renderCharts() {
+            if (impactChartInstance) impactChartInstance.destroy();
+            if (sentimentChartInstance) sentimentChartInstance.destroy();
+
+            const ctx1 = document.getElementById('impactChart').getContext('2d');
+            impactChartInstance = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: newsArchive.map(n => n.date),
+                    datasets: [{
+                        label: 'Toplumsal Moral Seviyesi (%)',
+                        data: newsArchive.map(n => n.impact),
+                        borderColor: '#8b0000',
+                        backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { maintainAspectRatio: false, scales: { y: { min: 70, max: 100 } } }
+            });
+
+            const categories = {};
+            newsArchive.forEach(n => categories[n.category] = (categories[n.category] || 0) + 1);
+
+            const ctx2 = document.getElementById('sentimentChart').getContext('2d');
+            sentimentChartInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        label: 'Haber Sayısı',
+                        data: Object.values(categories),
+                        backgroundColor: '#451a03'
+                    }]
+                },
+                options: { maintainAspectRatio: false }
+            });
+        }
+
+        function initMap() {
+            if (mapInstance) return;
+            mapInstance = L.map('map').setView([39.0, 35.0], 6);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(mapInstance);
+
+            newsArchive.forEach(news => {
+                L.marker([news.lat, news.lng])
+                 .addTo(mapInstance)
+                 .bindPopup(`<b>${news.location}</b><br>${news.title}<br><i>${news.date}</i>`);
+            });
+        }
+
+        window.onload = renderArchive;
+    </script>
+</body>
+</html>

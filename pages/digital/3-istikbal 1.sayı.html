@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi - Milli Mücadele'nin Sesi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --sepia-dark: #3e2723;
+            --sepia-light: #f4ecd8;
+            --sepia-accent: #d4a373;
+            --ink: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--sepia-light);
+            color: var(--sepia-dark);
+        }
+
+        h1, h2, h3, .headline {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .osmanlica-logo {
+            font-family: 'Amiri', serif;
+            font-size: 7rem;
+            line-height: 1;
+            direction: rtl;
+        }
+
+        .newspaper-header {
+            border-bottom: 5px double var(--ink);
+            border-top: 5px double var(--ink);
+        }
+
+        .news-card {
+            border-bottom: 2px dashed var(--sepia-accent);
+            transition: all 0.3s ease;
+        }
+
+        .news-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .news-card.active .news-content {
+            max-height: 1000px;
+        }
+
+        .news-card.active .news-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .first-issue-box {
+            background-color: #fffaf0;
+            border: 2px solid var(--sepia-dark);
+            box-shadow: 10px 10px 0px var(--sepia-accent);
+        }
+
+        .dropcap {
+            float: left;
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            line-height: 1;
+            padding: 4px 8px 0 0;
+            color: #8d0801;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+        }
+
+        .btn-sepia {
+            background-color: var(--sepia-dark);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-sepia:hover { opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            .osmanlica-logo { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="texture-overlay"></div>
+
+    <!-- Gazete Logosu ve Künye -->
+    <header class="max-w-6xl mx-auto text-center mb-12">
+        <div class="flex justify-between text-xs font-bold uppercase mb-2 border-b border-black pb-1 px-2">
+            <span>عدد: ۱ (Sayı: 1)</span>
+            <span>طرابزون (Trabzon)</span>
+            <span>۱۰ كانون اول ۱۳۳٤ (10 Kânûn-ı Evvel 1334)</span>
+        </div>
+        
+        <div class="flex flex-col items-center py-6">
+            <div class="osmanlica-logo mb-2" title="İstikbal">استقبال</div>
+            <h1 class="text-4xl md:text-5xl font-bold uppercase tracking-widest headline">İSTİKBAL</h1>
+        </div>
+
+        <div class="newspaper-header py-3 px-4 flex flex-col md:flex-row justify-between items-center text-sm font-bold gap-2">
+            <span class="italic">حاکمیت ملیه، استقلال تام و عدالت</span>
+            <span class="hidden md:block">مدیر و محرری: فائق احمد (Müdür ve Muharriri: Faik Ahmet)</span>
+            <span class="italic text-xs">Milletin Hukukunu Müdafaa Eden Siyasi Gazetedir</span>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Sol Kolon: İlk Nüsha Özel (4 Kolon) -->
+        <div class="lg:col-span-4 space-y-8">
+            <section class="first-issue-box p-6 relative">
+                <div class="absolute -top-4 -left-4 bg-red-800 text-white px-3 py-1 text-xs font-bold rotate-[-5deg]">İLK NÜSHA</div>
+                <h2 class="text-2xl font-bold mb-4 border-b-2 border-black pb-2">Tarihi Başyazı</h2>
+                <div class="text-sm leading-relaxed italic">
+                    <span class="dropcap">B</span>ugün "İstikbal" hayat-ı matbuatına atılıyor. Trabzon’un bu gür sesi, vatanın en karanlık günlerinde hakikati haykırmak için doğmuştur. Bizim yolumuz, milletin hukukunu müdafaa, istiklalini muhafaza yoludur. Rum Pontus emellerine ve her türlü işgal fikrine karşı kalemimiz kalem değil, bir süngüdür...
+                    <p class="mt-4 font-bold text-right">— Faik Ahmet Barutçu</p>
+                </div>
+                <div class="mt-6 border-t border-dashed border-gray-400 pt-4">
+                    <h4 class="text-xs font-bold uppercase mb-2">Analiz: Kuruluş Amacı</h4>
+                    <p class="text-xs">Rapor verilerine göre İstikbal, Mondros mütarekesinden hemen sonra Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti'nin sesi olarak kurulmuş, bölgedeki azınlık basınının ayrılıkçı faaliyetlerine karşı "Milli Birliği" savunmuştur.</p>
+                </div>
+            </section>
+
+            <section class="bg-white/60 p-6 rounded shadow-md border-t-4 border-black">
+                <h2 class="text-xl font-bold mb-4 uppercase">Gazetenin Etki Alanı</h2>
+                <div class="text-sm space-y-4">
+                    <p><strong>Merkez:</strong> Trabzon</p>
+                    <p><strong>Dağıtım:</strong> Giresun, Rize, Gümüşhane, Artvin ve Batum.</p>
+                    <div class="relative h-32 w-full bg-gray-300 rounded overflow-hidden mt-2">
+                        <div class="absolute inset-0 flex items-center justify-center font-bold text-gray-500 opacity-20">DOĞU KARADENİZ</div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-red-600 rounded-full animate-ping"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-red-800 rounded-full"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Orta ve Sağ Kolon: Haberler ve Duygusal Harita (8 Kolon) -->
+        <div class="lg:col-span-8 space-y-10">
+            <div>
+                <h2 class="text-3xl font-bold border-l-8 border-black pl-4 mb-8">Cephelerden ve Meclis'ten Haberler</h2>
+                <div id="news-timeline" class="space-y-4">
+                    <!-- Haber 1 -->
+                    <div class="news-card cursor-pointer p-4 hover:bg-white/30" onclick="toggleNews(this)">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-tighter text-red-800">15 Mayıs 1919</span>
+                                <h3 class="text-xl font-bold">İzmir'in İşgali ve Karadeniz'in Feryadı</h3>
+                            </div>
+                            <i class="fas fa-chevron-down news-toggle-icon transition-transform"></i>
+                        </div>
+                        <div class="news-content mt-4 leading-relaxed italic text-gray-800">
+                            "İzmir'in işgali tüm Anadolu'da olduğu gibi Trabzon'da da büyük bir matemle karşılandı. Gazetemiz, Faik Ahmet Barutçu'nun 'Hukuk-u Beşer' nidalarıyla dünyayı bu haksızlığa dur demeye çağırıyor. Trabzon mitinginde 10 bin kişi tek vücut oldu."
+                            <p class="mt-2 font-bold">- Analiz: Bu haber, halkın bölgesel direnişten ulusal direnişe geçişindeki ilk büyük kırılmadır.</p>
+                        </div>
+                    </div>
+
+                    <!-- Haber 2 -->
+                    <div class="news-card cursor-pointer p-4 hover:bg-white/30" onclick="toggleNews(this)">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-tighter text-red-800">10 Ocak 1921</span>
+                                <h3 class="text-xl font-bold">I. İnönü Zaferi: Milletin Makus Talihi</h3>
+                            </div>
+                            <i class="fas fa-chevron-down news-toggle-icon transition-transform"></i>
+                        </div>
+                        <div class="news-content mt-4 leading-relaxed italic text-gray-800">
+                            "Batı Cephesi'nden gelen müjdeli haberler Trabzon sokaklarında coşkuyla karşılandı. İstikbal, düzenli ordunun ilk başarısını 'Milletin Şanlı Dirilişi' manşetiyle duyurdu. Yardımların akışı için bu zafer kritik bir öneme sahipti."
+                            <p class="mt-2 font-bold">- Analiz: Gazete, zaferi Rusya ile olan diplomatik ilişkilerin güçlenmesi bağlamında da incelemiştir.</p>
+                        </div>
+                    </div>
+
+                    <!-- Haber 3 -->
+                    <div class="news-card cursor-pointer p-4 hover:bg-white/30" onclick="toggleNews(this)">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-tighter text-red-800">30 Ağustos 1922</span>
+                                <h3 class="text-xl font-bold">Büyük Taarruz: Kocatepe'den Akdeniz'e</h3>
+                            </div>
+                            <i class="fas fa-chevron-down news-toggle-icon transition-transform"></i>
+                        </div>
+                        <div class="news-content mt-4 leading-relaxed italic text-gray-800">
+                            "Düşman ordularının perişan edildiği haberleri Trabzon limanına ulaştı. İstikbal, tam sayfa yayınla 'Hürriyetin Bedeli Kanla Yazıldı' başlığını attı. Ordumuz İzmir'e girmiştir!"
+                            <p class="mt-2 font-bold">- Analiz: Zaferin ardından gazete, siyasi ve ekonomik bağımsızlık konularına odaklanmaya başladı.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duygusal Harita -->
+            <section class="bg-white/50 p-6 rounded-lg shadow-sm border border-black/10">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-brain mr-2"></i> Milli Mücadele Duygusal Haritası
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="emotional-map-node bg-gray-200 p-4 rounded border-l-4 border-gray-600">
+                        <h4 class="font-bold">1919: Şok ve İrade</h4>
+                        <p class="text-sm">İşgalin getirdiği hüzün, Trabzon'daki direniş cemiyetlerinin azmiyle birleşti.</p>
+                    </div>
+                    <div class="emotional-map-node bg-red-100 p-4 rounded border-l-4 border-red-600">
+                        <h4 class="font-bold">1920: Kararsızlık ve Fedakarlık</h4>
+                        <p class="text-sm">Ayaklanmalar dönemindeki gerilim ve halkın Tekalif-i Milliye ile en büyük özverisi.</p>
+                    </div>
+                    <div class="emotional-map-node bg-blue-100 p-4 rounded border-l-4 border-blue-600">
+                        <h4 class="font-bold">1921: Umut ve Metanet</h4>
+                        <p class="text-sm">İnönü ve Sakarya zaferleriyle filizlenen kesin zafer inancı.</p>
+                    </div>
+                    <div class="emotional-map-node bg-green-100 p-4 rounded border-l-4 border-green-600">
+                        <h4 class="font-bold">1922: Gurur ve İstikbal</h4>
+                        <p class="text-sm">Tam bağımsızlığın ve yeni devletin getirdiği vakur sevinç.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ziyaretçi Defteri -->
+            <section class="bg-white/80 p-6 rounded shadow-lg border border-sepia-accent">
+                <h2 class="text-xl font-bold mb-4 uppercase text-center headline">Ziyaretçi Defteri</h2>
+                <div id="messages" class="space-y-3 mb-4 max-h-48 overflow-y-auto pr-2">
+                    <div class="text-xs p-2 bg-white/50 border-b border-sepia-accent italic">"İlk nüshayı burada görmek tüylerimi diken diken etti." - Caner Y.</div>
+                </div>
+                <form id="commentForm" class="space-y-2">
+                    <input type="text" id="userName" placeholder="İsminiz" class="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:outline-none" required>
+                    <textarea id="userComment" placeholder="O döneme dair hislerinizi paylaşın..." class="w-full p-2 text-sm bg-white border border-gray-300 rounded h-20 focus:outline-none" required></textarea>
+                    <button type="submit" class="w-full btn-sepia text-sm font-bold uppercase tracking-widest">Yayınla</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-20 border-t-2 border-black pt-8 text-center text-sm pb-12">
+        <p>© 2024 İstikbal Gazetesi Dijital Arşivi - Milli Mücadele'nin Trabzon'daki Sesi</p>
+        <p class="mt-2 italic">"Geçmişin haberi, yarının teminatıdır."</p>
+    </footer>
+
+    <script>
+        function toggleNews(element) {
+            const cards = document.querySelectorAll('.news-card');
+            cards.forEach(card => {
+                if (card !== element) card.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
+
+        const commentForm = document.getElementById('commentForm');
+        const messagesContainer = document.getElementById('messages');
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const comment = document.getElementById('userComment').value;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'text-xs p-2 bg-white/50 border-b border-sepia-accent italic animate-pulse';
+            messageDiv.innerHTML = `"${comment}" - ${name}`;
+            messagesContainer.prepend(messageDiv);
+            commentForm.reset();
+            setTimeout(() => messageDiv.classList.remove('animate-pulse'), 1000);
+        });
+    </script>
+</body>
+</html>

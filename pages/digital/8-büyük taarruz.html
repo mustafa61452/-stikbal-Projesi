@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İSTİKBAL GAZETESİ - BÜYÜK TAARRUZ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Gazete hissini vermek için serif fontları ve ince çizgileri kullanıyoruz */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap');
+        
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #f7f7f0; /* Hafif kirli beyaz kağıt rengi */
+            color: #1a1a1a;
+        }
+        
+        .gazete-masthead {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.1rem;
+            text-shadow: 2px 2px #cfcfcf;
+        }
+
+        .newspaper-divider {
+            height: 2px;
+            background-color: #e53e3e; /* Kırmızı çizgi ile vurgu */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        display: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden border border-gray-300 p-6 md:p-10">
+        
+        <!-- ÜST KISIM / KÜNYE -->
+        <header class="text-center mb-6">
+            <p class="text-sm md:text-base font-bold text-red-700 tracking-widest mb-1">
+                Siyasi ve İktisadi Haberler - Yıl: 3, Sayı: 105 - Fiyatı: 10 Kuruş
+            </p>
+            <h1 class="gazete-masthead text-5xl md:text-8xl font-black text-black leading-none mb-2">
+                İSTİKBAL
+            </h1>
+            <p class="text-xs md:text-base text-gray-600 font-serif border-t border-b border-black py-1">
+                29 AĞUSTOS 1922, SALI - AFYONKARAHİSAR CEPHELERİNDEN SON DAKİKA GELİŞMELERİ
+            </p>
+        </header>
+
+        <!-- MANŞET BÖLÜMÜ -->
+        <section class="mb-8 border-b-8 border-black pb-4">
+            <div class="newspaper-divider w-full bg-red-700 mb-4"></div>
+            <h2 class="font-display text-4xl sm:text-6xl md:text-8xl font-extrabold text-red-800 leading-tight tracking-tight">
+                BÜYÜK TAARRUZ BAŞLADI!
+            </h2>
+            <p class="font-serif text-xl md:text-3xl font-semibold mt-4 text-black">
+                VATAN VE İSTİKLAL İÇİN TOPYEKÛN HAREKÂT: TÜRK ORDUSU, 26 AĞUSTOS'TA BÜTÜN CEPHELERDE YUNAN KUVVETLERİNE KARŞI HAREKÂTA GEÇTİ!
+            </p>
+            <div class="newspaper-divider w-full bg-red-700 mt-4"></div>
+        </section>
+
+        <!-- HABER SÜTUNLARI -->
+        <main class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
+
+            <!-- BİRİNCİ SÜTUN (En kritik haberler) -->
+            <div class="md:col-span-2 space-y-6 border-r border-gray-400 md:pr-6">
+                
+                <!-- BÜYÜK ZAFER HABERİ (29 AĞUSTOS) -->
+                <article>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold text-red-700 leading-snug mb-2 border-b border-red-700 pb-1">
+                        AFYONKARAHİSAR İŞGAL EDİLDİ! SOL KANAT YARMA HAREKÂTI TAMAMLANDI
+                    </h3>
+                    <p class="text-sm text-gray-500 italic mb-3">(Cepheden Teyit Edilmiştir, 29 Ağustos 1922)</p>
+                    <p class="text-base leading-relaxed text-justify">
+                        26 Ağustos'tan itibaren devam eden taarruzda, Türk ordusunun sol tarafı, Yunanlıların bir sene süreyle tahkim ve tel örgülerle takviye etmiş olduğu üç sıra halindeki siperden oluşan mevkie saldırmıştır. Türkler bu siperleri tamamen zapt ederek, Yunanlıların karşı hücumlarını süngü kuvvetiyle püskürtmüşlerdir. Afyonkarahisar’ı işgal ederek pek çok esir ve ganimet ele geçirilmişlerdir. Türk ordusunun kararlılığı, düşmanın bir yıllık savunma hazırlıklarını birkaç saat içinde yerle bir etmiştir.
+                    </p>
+                    <div class="mt-4 p-3 bg-gray-100 border-l-4 border-black text-sm">
+                        <strong class="font-semibold text-black">ASKERİ ANALİZ:</strong> Yunanlılar geri çekilme hattını kaybetmiştir. Ele geçirilen stratejik mevziler, Batı Cephesi'ndeki dengeleri tamamen lehimize çevirmiştir.
+                    </div>
+                </article>
+
+                <div class="newspaper-divider w-full bg-gray-300 my-6"></div>
+
+                <!-- SİYASİ ANALİZ (29 AĞUSTOS) -->
+                <article>
+                    <h3 class="font-display text-2xl font-bold text-black leading-snug mb-2 border-b border-gray-500 pb-1">
+                        TAARRUZ İÇİN EN UYGUN AN SEÇİLDİ!
+                    </h3>
+                    <p class="text-sm text-gray-500 italic mb-3">(Siyasi Gözlem, 29 Ağustos 1922)</p>
+                    <p class="text-base leading-relaxed text-justify">
+                        Ankara hükümeti taarruz için siyasi ve askeri bakımdan çok uygun bir zaman seçmiştir. Yunanlılar, siyasi ve askeri başarısızlıklarla mücadele ederken cephelerde düzenli ve toplu harekette bulunabilmeleri imkânsızdı. Askerleri sık sık Türklere iltica etmekte olan Yunan Ordusu gücünü önemli oranda kaybetmiştir. Böyle bir askerin düzenli Türk ordusu karşısında bir iş görmesi mümkün değildir. Moral çöküntüsü içerisindeki düşman, karşısında Çelik İrade'yi bulmuştur.
+                    </p>
+                </article>
+
+            </div>
+
+            <!-- İKİNCİ SÜTUN (Yan haberler ve eski tarihli analizler) -->
+            <div class="md:col-span-1 space-y-6">
+                
+                <!-- RESMİ TAMİM (28 AĞUSTOS) -->
+                <article class="bg-red-50 p-4 border border-red-200 rounded-md">
+                    <h3 class="font-display text-xl font-bold text-red-700 leading-snug mb-2">
+                        TBMM HÜKÜMETİ TAARRUZU RESMEN İLAN ETTİ!
+                    </h3>
+                    <p class="text-xs text-gray-600 italic mb-3">(İstikbal, 28 Ağustos 1922)</p>
+                    <p class="text-sm leading-relaxed text-justify">
+                        TBMM hükümeti reisi tarafından 26 Ağustos'ta yayınlanan tamimde Büyük Taarruz ‘un başladığı ilan edilmiştir. Bu tamime göre Batı Cephesi’nde muharebe 26 Ağustos’ta başlamıştır. Türk ordusu vatanını ve istiklalini kurtarmak için bütün cephelerde Yunan kuvvetlerine karşı harekâta başlamıştır. Milletimize hayırlı olsun!
+                    </p>
+                </article>
+
+                <div class="newspaper-divider w-full bg-gray-300 my-6"></div>
+
+                <!-- MART AYI ANALİZİ (19 MART 1922) -->
+                <article>
+                    <h3 class="font-display text-xl font-bold text-black leading-snug mb-2">
+                        6 AY ÖNCEKİ TESPİTİMİZ DOĞRU ÇIKTI: YUNAN HAZIRLIKLARI BEYHUDE
+                    </h3>
+                    <p class="text-xs text-gray-600 italic mb-3">(İstikbal Arşivinden, 19 Mart 1922)</p>
+                    <p class="text-sm leading-relaxed text-justify">
+                        Yunanlılar Sakarya hezimetinden sonra cepheye sürekli silah ve mühimmat gönderip boşluklarını doldurmaya çalışmıştır. Onların zayiatlarını kapatamayacakları, sağlık teşkilatları çok bozuk olduğu için Sakarya bozgununda yaralananları dahi cepheye süremeyecekleri ve yaralıların azami %50 'sini tedavi edebildikleri daha önce gazetemizde neşredilmiştir. Buna karşılık Türkler ‘in durumu Sakarya öncesinden çok daha iyi ve kuvvetli olduğu, ordunun yeteri kadar mühimmatı bulunduğu gerek sayı gerek nitelik bakımından Yunanlılardan üstün olduğu tespiti yapılmıştır. Bugüne bakıldığında, bu analizimizin ne kadar yerinde olduğu görülmektedir.
+                    </p>
+                </article>
+
+                <div class="newspaper-divider w-full bg-gray-300 my-6"></div>
+
+                <div class="text-center p-4 bg-yellow-100 border border-yellow-300">
+                    <p class="font-semibold text-sm text-gray-800">Tarih Tekerrür Ediyor: Yunanlıların Bütün Tedarikleri Milli İrade Karşısında Çaresiz Kalmıştır.</p>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ALT BİLGİ -->
+        <footer class="mt-10 pt-4 border-t border-black text-center text-xs text-gray-500">
+            <p>İstikbal Gazetesi, Anadolu Ajansı ve Bağımsız Muhabirler aracılığıyla hazırlanmıştır.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

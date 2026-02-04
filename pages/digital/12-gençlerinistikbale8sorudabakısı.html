@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi - 8 Soruda Gençlik Analizi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --vintage-ink: #1a1a1a;
+            --vintage-paper: #f4ece1;
+            --patriotic-red: #8b0000;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--vintage-paper);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            color: var(--vintage-ink);
+        }
+
+        .osmanli-logo {
+            font-family: 'Amiri', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--patriotic-red);
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #d1c7b7;
+            border-left: 8px solid var(--patriotic-red);
+            transition: transform 0.2s;
+        }
+
+        .question-card:hover {
+            transform: scale(1.01);
+        }
+
+        .quote-box {
+            background: #fdfaf6;
+            border: 1px italic #e2d1b9;
+            position: relative;
+        }
+
+        .badge-red {
+            background-color: var(--patriotic-red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="text-center mb-16 border-b-2 border-black pb-8 max-w-6xl mx-auto">
+        <div class="osmanli-logo mb-2" title="İstikbal">استقبال</div>
+        <h1 class="text-4xl md:text-6xl font-black font-serif uppercase tracking-tighter">İSTİKBAL GAZETESİ</h1>
+        <div class="flex justify-between items-center mt-4 border-t border-black py-2 text-sm font-bold uppercase">
+            <span>Yıl: 107</span>
+            <span class="text-xl">Gençlerin 8 Soruda İstikbal'e Bakışı</span>
+            <span>Trabzon, 2024</span>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-12">
+
+        <!-- Soru 1 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 1: İstikbal Gazetesi'ni okumak, olayları algılama şeklinizi nasıl etkiledi?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4"><strong>Analiz:</strong> Öğrencilerin %31.8'i "Birincil Kaynak" vurgusu yapmıştır. Olayları "masalsı" bir tarihten çıkarıp "gerçek" bir zemine oturtmuşlardır.</p>
+                    <div class="quote-box p-4 italic text-sm text-gray-700 rounded">
+                        "Olanları tamamen birinci ağızdan dinlemek tarihin o masalsı yönünü yok ediyor ve işlerin ciddiyeti daha iyi anlaşılıyor." <br>
+                        <span class="font-bold">— Katılımcı K4</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border">
+                    <h4 class="font-bold text-xs uppercase mb-2">Öne Çıkan Kodlar</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>Gerçekçilik/Somutluk</span> <span class="badge-red">13 Kişi</span></div>
+                        <div class="flex justify-between"><span>Dönemin Ruhunu Hissetme</span> <span class="badge-red">11 Kişi</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soru 2 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 2: Gazetenin halkı bilinçlendirmedeki rolünü nasıl değerlendiriyorsunuz?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4"><strong>Analiz:</strong> Katılımcıların yarısı (%50) gazetenin temel işlevini "Halkın gözünü açmak ve bilinçlendirmek" olarak görmektedir.</p>
+                    <div class="quote-box p-4 italic text-sm text-gray-700 rounded">
+                        "İnsanları aydınlatarak neyle karşı karşıya olduklarını göstermiş, bir nevi uykudan uyandırmıştır." <br>
+                        <span class="font-bold">— Katılımcı K12</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border">
+                    <h4 class="font-bold text-xs uppercase mb-2">Öne Çıkan Kodlar</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>Bilişsel Aydınlanma</span> <span class="badge-red">22 Kişi</span></div>
+                        <div class="flex justify-between"><span>Örgütlenme Sağlama</span> <span class="badge-red">16 Kişi</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soru 3 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 3: Metinlerdeki hangi ifadeler sizi en çok duygulandırdı?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4"><strong>Analiz:</strong> Fedakarlık ve işgal haberleri en yüksek duygusal tepkiyi çekmiştir. "Namus" ve "Vatan" kavramları merkezi roldedir.</p>
+                    <div class="quote-box p-4 italic text-sm text-gray-700 rounded">
+                        "İşgal altındaki köylerde yapılan mezalimleri okurken hissettiğim öfke, vatan sevgimin ne kadar büyük olduğunu anlamamı sağladı." <br>
+                        <span class="font-bold">— Katılımcı K27</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border">
+                    <h4 class="font-bold text-xs uppercase mb-2">Duygusal Dağılım</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>Hüzün / Acı</span> <span class="badge-red">18 Kişi</span></div>
+                        <div class="flex justify-between"><span>Milli Gurur</span> <span class="badge-red">14 Kişi</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soru 4 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 4: Gazetenin o dönemdeki milli birliği sağlama gücü nedir?</h2>
+            <div class="text-center mb-4">
+                <span class="text-4xl font-black text-red-800">%77.2</span>
+                <p class="text-xs uppercase font-bold text-gray-500">"Tam ve Koşulsuz Birleştirici Güç" olduğunu düşünenler</p>
+            </div>
+            <div class="p-4 bg-red-50 italic text-sm border-l-4 border-red-800">
+                "Gazete sadece kağıt değil, o dönemde her eve giren bir komutandı. İnsanları aynı amaç etrafında (Milli Mücadele) toplamıştır." (K31)
+            </div>
+        </section>
+
+        <!-- Soru 5 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 5: Haberlerdeki 'fedakarlık' teması size ne hissettiriyor?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4"><strong>Analiz:</strong> Gençlerin %40.9'u bu durumu "Vefa Borcu" ve "Sorumluluk" olarak tanımlamıştır.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded border">
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>Vefa ve Şükran</span> <span class="badge-red">18 Kişi</span></div>
+                        <div class="flex justify-between"><span>Sorumluluk Bilinci</span> <span class="badge-red">12 Kişi</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soru 6 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 6: Faik Ahmet Barutçu ve ekibinin cesareti hakkında ne düşünüyorsunuz?</h2>
+            <div class="p-6 bg-white border italic">
+                "Sadece silahla değil, kalemle de vatan savunulacağını kanıtladılar. Ölüm tehdidine rağmen susmamaları benim için en büyük ilham." (K19)
+            </div>
+            <p class="mt-4 text-sm"><strong>Bulgu:</strong> %68.2 oranında "Hayranlık ve Örnek Alma" kodu tespit edilmiştir.</p>
+        </section>
+
+        <!-- Soru 7 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 7: Bugün benzer bir durum olsa siz nasıl bir rol alırdınız?</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="p-4 bg-black text-white rounded text-center">
+                    <div class="text-xl font-bold">36.4%</div>
+                    <div class="text-[10px] uppercase">En Ön Safta Görev Alma</div>
+                </div>
+                <div class="p-4 bg-red-900 text-white rounded text-center">
+                    <div class="text-xl font-bold">31.8%</div>
+                    <div class="text-[10px] uppercase">Halkı Bilinçlendirme</div>
+                </div>
+                <div class="p-4 bg-red-700 text-white rounded text-center">
+                    <div class="text-xl font-bold">18.2%</div>
+                    <div class="text-[10px] uppercase">Lojistik/Hizmet Desteği</div>
+                </div>
+            </div>
+            <p class="mt-4 italic text-center">"Vatansız bir Türk olmaktansa, toprağıma kanımı bağışlamış bir şehit olurum." (K8)</p>
+        </section>
+
+        <!-- Soru 8 -->
+        <section class="question-card p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-red-900 mb-4">Soru 8: İstikbal Gazetesi'nin bugün yaşatılması neden önemlidir?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-4 rounded border">
+                    <h4 class="font-bold text-xs uppercase mb-2">Temel Nedenler</h4>
+                    <ul class="text-sm list-disc pl-5 space-y-2">
+                        <li>Milli Hafızanın Korunması (%45)</li>
+                        <li>Gelecek Nesillere Rehberlik (%30)</li>
+                        <li>Bağımsızlık Karakterinin Hatırlatılması (%25)</li>
+                    </ul>
+                </div>
+                <div class="quote-box p-4 italic text-sm text-gray-700 rounded">
+                    "Tarihini bilmeyen bir millet, köksüz bir ağaç gibidir. İstikbal bizim kökümüzdür." <br>
+                    <span class="font-bold">— Katılımcı K44</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t-2 border-black text-center text-xs italic">
+        <p>Veriler, 2020 yılı "Milli Mücadelenin 100. Yılında Maziden İstikbal Haberleri" proje raporundan (N=44) derlenmiştir.</p>
+    </footer>
+
+</body>
+</html>

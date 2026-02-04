@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi - 107 Yıl Sonra Bakış</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --vintage-ink: #1a1a1a;
+            --vintage-paper: #f4ece1;
+            --patriotic-red: #8b0000;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--vintage-paper);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            color: var(--vintage-ink);
+        }
+
+        .header-bg {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1526721940322-145d6f95c46e?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .analysis-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #d1c7b7;
+            transition: all 0.3s ease;
+        }
+
+        .analysis-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .student-quote {
+            border-left: 4px solid var(--patriotic-red);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1rem 0;
+            background: rgba(139, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .nav-btn.active {
+            background-color: var(--patriotic-red);
+            color: white;
+        }
+
+        .stat-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--patriotic-red);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header Section -->
+    <header class="header-bg text-white py-16 px-6 text-center border-b-8 border-red-900">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-serif mb-4 tracking-tighter uppercase">İSTİKBAL</h1>
+            <div class="h-1 w-32 bg-red-700 mx-auto mb-4"></div>
+            <h2 class="text-2xl md:text-3xl font-light italic text-gray-300">107 Yıl Sonra İstikbal'e Bakış</h2>
+            <p class="mt-4 text-sm uppercase tracking-widest text-red-500 font-bold">Milli Mücadele Basını ve Gençlik Perspektifi Analizi</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md border-b">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-center p-2 gap-2">
+            <button onclick="switchTab('overview')" class="nav-btn active px-4 py-2 rounded-md font-bold text-xs uppercase transition-all" id="btn-overview">Genel Bakış</button>
+            <button onclick="switchTab('reliability')" class="nav-btn px-4 py-2 rounded-md font-bold text-xs uppercase transition-all" id="btn-reliability">Güvenilirlik & Empati</button>
+            <button onclick="switchTab('mobilization')" class="nav-btn px-4 py-2 rounded-md font-bold text-xs uppercase transition-all" id="btn-mobilization">Bilinç & Örgütlenme</button>
+            <button onclick="switchTab('emotions')" class="nav-btn px-4 py-2 rounded-md font-bold text-xs uppercase transition-all" id="btn-emotions">Duygular & İrade</button>
+            <button onclick="switchTab('guestbook')" class="nav-btn px-4 py-2 rounded-md font-bold text-xs uppercase transition-all bg-amber-100 border border-amber-300" id="btn-guestbook">Anı Defteri</button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto py-12 px-6">
+
+        <!-- Tab 1: Overview -->
+        <div id="tab-overview" class="tab-content active">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-3xl font-serif font-bold mb-6 text-red-900">Araştırma Hakkında</h3>
+                    <p class="leading-relaxed text-lg mb-4">Milli Mücadele'nin 100. yılı etkinlikleri kapsamında yapılan bu çalışma, İstikbal Gazetesi'nin birincil kaynak olarak kullanılmasının 44 lise öğrencisi (N=44) üzerindeki etkilerini analiz etmektedir.</p>
+                    <div class="flex gap-4 mt-8">
+                        <div class="text-center">
+                            <div class="stat-circle mx-auto mb-2">44</div>
+                            <span class="text-xs font-bold uppercase">Katılımcı</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="stat-circle mx-auto mb-2 text-red-700">8</div>
+                            <span class="text-xs font-bold uppercase">Temel Soru</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="stat-circle mx-auto mb-2 text-red-700">%100</div>
+                            <span class="text-xs font-bold uppercase">Vefa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-t-8 border-red-800">
+                    <canvas id="generalStatsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-red-900 text-white p-8 rounded-2xl shadow-2xl mb-12">
+                <h3 class="text-2xl font-bold mb-4 italic text-center">"Ders kitabındaki bir paragraf, dönemin ruhunu bir belge kadar aktaramaz."</h3>
+                <p class="text-center opacity-80">— Analizlerden Çıkan Ortak Sonuç</p>
+            </div>
+        </div>
+
+        <!-- Tab 2: Reliability & Empathy -->
+        <div id="tab-reliability" class="tab-content">
+            <h3 class="text-4xl font-serif font-bold mb-8 text-center text-red-900 uppercase">I. Kaynak Güvenilirliği ve Tarihsel Empati</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="analysis-card p-6 rounded-xl shadow-md">
+                    <h4 class="font-bold text-red-800 border-b mb-4 pb-2">En Çok Tekrarlanan Kodlar (Soru 1)</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center">
+                            <span>Birincil Kaynak Olma Vurgusu</span>
+                            <span class="font-bold text-red-700">%31.8</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Canlılık / Somutluk / Gerçekçilik</span>
+                            <span class="font-bold text-red-700">%29.5</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Dönemin Ruhunu Hissetme</span>
+                            <span class="font-bold text-red-700">%25.0</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <div class="student-quote">
+                        "Olanları tamamen birinci ağızdan dinlemek tarihin o masalsı yönünü yok ediyor ve işlerin ciddiyeti daha iyi anlaşılıyor." <br>
+                        <small class="font-bold text-red-700">— Katılımcı K4</small>
+                    </div>
+                    <div class="student-quote">
+                        "Yaşanmış olayları 3. kişiler aracılığıyla değil de bizzat o dönemde yaşamış insanların cümlelerinden öğrenmek somutlaştırıyor." <br>
+                        <small class="font-bold text-red-700">— Katılımcı K38</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Mobilization -->
+        <div id="tab-mobilization" class="tab-content">
+            <h3 class="text-4xl font-serif font-bold mb-8 text-center text-red-900 uppercase">II. Bilinçlendirme ve Örgütlenme</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-lg text-center shadow-md border-b-4 border-red-700">
+                    <h5 class="font-bold text-sm uppercase mb-2">Bilişsel Etki</h5>
+                    <p class="text-3xl font-black text-red-800">%50.0</p>
+                    <p class="text-xs text-gray-500 mt-2">Halkı Bilinçlendirme ve Gözünü Açma</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg text-center shadow-md border-b-4 border-red-700">
+                    <h5 class="font-bold text-sm uppercase mb-2">Sosyal Etki</h5>
+                    <p class="text-3xl font-black text-red-800">%36.4</p>
+                    <p class="text-xs text-gray-500 mt-2">Örgütlenme ve Birliktelik Sağlama</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg text-center shadow-md border-b-4 border-red-700">
+                    <h5 class="font-bold text-sm uppercase mb-2">Milli Bilinç</h5>
+                    <p class="text-3xl font-black text-red-800">%29.5</p>
+                    <p class="text-xs text-gray-500 mt-2">Milli Bilincin Uyanışı / Oluşumu</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-8 rounded-2xl border border-amber-200">
+                <h4 class="font-bold mb-4 text-amber-900 underline">Gençlerin Gözünde Gazetenin Rolü</h4>
+                <p class="italic leading-relaxed">"Halka yalan değil gerçek bilgilerin ulaştırılması sağlanmış, bu sayede halkın gözü açılmıştır." (K8). Gençler, İstikbal Gazetesi'ni sadece haber kaynağı değil, aynı zamanda **topyekûn mücadelenin temelini atan toplumsal bir örgütleyici** olarak tanımlamaktadır.</p>
+            </div>
+        </div>
+
+        <!-- Tab 4: Emotions & Will -->
+        <div id="tab-emotions" class="tab-content">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-3xl font-serif font-bold mb-6 text-red-900">Duygusal Sarkaç: Korkudan Umuda</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white rounded-lg shadow-sm">
+                            <h6 class="font-bold text-gray-700">Korku / Endişe Duygusu (%34.1)</h6>
+                            <p class="text-sm">Halkın işgaller karşısındaki ilk tepkisi olarak analiz edilmiştir.</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm border-r-4 border-green-600">
+                            <h6 class="font-bold text-gray-700">Umut ve İnanç Artışı (%29.5)</h6>
+                            <p class="text-sm">Gazete haberleriyle çaresizliğin kararlılığa dönüşümü.</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm border-r-4 border-red-600">
+                            <h6 class="font-bold text-gray-700">Vatan Sevgisi / Direniş İradesi (%25.0)</h6>
+                            <p class="text-sm">Öfkenin eyleme geçme iradesine dönüşmesi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl">
+                    <h4 class="text-xl font-bold mb-6 border-b pb-2">Bugün Olsa Gençlerin Eylem Planı (Soru 7)</h4>
+                    <canvas id="futureActionChart"></canvas>
+                    <div class="mt-6 text-sm italic text-gray-600">
+                        "Vatansız bir Türk olmaktansa, toprağıma kanımı bağışlamış bir şehit olurum." (K8)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Guestbook -->
+        <div id="tab-guestbook" class="tab-content">
+            <div class="max-w-2xl mx-auto bg-white p-10 rounded-3xl shadow-2xl border-4 border-amber-100">
+                <h3 class="text-3xl font-serif font-bold mb-4 text-center text-amber-900">İstikbal Anı Defteri</h3>
+                <p class="text-center text-gray-500 mb-8 italic">"Maziden gelen bu sese, İstikbal'in gençleri olarak bir söz bırakın..."</p>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-amber-800 mb-1">İsim Soyisim / Rumuz</label>
+                        <input type="text" id="guestName" class="w-full p-3 bg-amber-50 border border-amber-200 rounded-lg outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Mesajınız / Vefa Borcunuz</label>
+                        <textarea id="guestMsg" rows="4" class="w-full p-3 bg-amber-50 border border-amber-200 rounded-lg outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                    </div>
+                    <button onclick="saveNote()" class="w-full bg-amber-900 text-white font-bold py-4 rounded-xl hover:bg-black transition-all shadow-lg">Deftere Ekle</button>
+                </div>
+
+                <hr class="my-10 border-amber-100">
+
+                <div id="notesContainer" class="space-y-4 max-h-80 overflow-y-auto pr-2">
+                    <!-- Notes appear here -->
+                    <div class="bg-amber-50 p-4 rounded-xl italic text-sm border-l-4 border-amber-900">
+                        "Atalarımızın kalemle ve silahla verdiği bu mücadeleyi, bizler bilimle ve akılla sürdüreceğiz. Ruhunuz şad olsun." - <strong>Geleceğin İstikbali</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-500 py-12 px-6 text-center text-xs uppercase tracking-widest mt-24">
+        <p>© 2024 İstikbal Gazetesi Projesi - 107 Yıl Sonra Bakış - Analiz Raporu Görselleştirmesi</p>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+
+            if(tabId === 'overview') renderOverviewChart();
+            if(tabId === 'futureActionChart') renderFutureChart();
+        }
+
+        function renderOverviewChart() {
+            const ctx = document.getElementById('generalStatsChart').getContext('2d');
+            if(window.mainChart) window.mainChart.destroy();
+            window.mainChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Bilinçlendirme', 'Birliktelik', 'Gerçekçilik', 'Dönem Ruhu'],
+                    datasets: [{
+                        label: 'Yüzdelik Etki (%)',
+                        data: [50.0, 36.4, 29.5, 25.0],
+                        backgroundColor: ['#8b0000', '#a52a2a', '#d2691e', '#f4a460'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 60 } }
+                }
+            });
+        }
+
+        function renderFutureChart() {
+            const ctx = document.getElementById('futureActionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Görev Alma (%36.4)', 'Topyekûn Mücadele (%31.8)', 'Bilinçli Olma (%22.7)', 'Lojistik Destek (%18.2)'],
+                    datasets: [{
+                        data: [36.4, 31.8, 22.7, 18.2],
+                        backgroundColor: ['#450a0a', '#7f1d1d', '#b91c1c', '#ef4444']
+                    }]
+                }
+            });
+        }
+
+        function saveNote() {
+            const name = document.getElementById('guestName').value;
+            const msg = document.getElementById('guestMsg').value;
+            if(!name || !msg) return;
+
+            const container = document.getElementById('notesContainer');
+            const noteDiv = document.createElement('div');
+            noteDiv.className = "bg-amber-50 p-4 rounded-xl italic text-sm border-l-4 border-amber-900 animate-pulse";
+            noteDiv.innerHTML = `"${msg}" - <strong>${name}</strong>`;
+            
+            container.prepend(noteDiv);
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestMsg').value = '';
+            
+            setTimeout(() => noteDiv.classList.remove('animate-pulse'), 1000);
+        }
+
+        window.onload = () => {
+            renderOverviewChart();
+            renderFutureChart();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Gazetesi Dijital Arşivi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Harita için Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Amiri:wght@400;700&display=swap');
+
+        :root {
+            --sepia-dark: #3e2723;
+            --sepia-light: #f4ecd8;
+            --sepia-accent: #d4a373;
+            --ink: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--sepia-light);
+            color: var(--sepia-dark);
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .newspaper-border {
+            border: 10px double var(--sepia-dark);
+        }
+
+        .osmanlica-logo {
+            font-family: 'Amiri', serif;
+            font-size: 8rem;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .nav-btn {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-btn.active {
+            border-color: var(--sepia-dark);
+            font-weight: bold;
+        }
+
+        /* Yelpaze Görünümü */
+        .fan-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .fan-card {
+            width: 300px;
+            background: #fffaf0;
+            padding: 20px;
+            border: 1px solid var(--sepia-accent);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .fan-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            z-index: 10;
+            box-shadow: 10px 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .emotion-bar {
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 12px;
+            border: 4px double var(--sepia-dark);
+            z-index: 10;
+        }
+
+        .texture {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--sepia-accent); border-radius: 10px; }
+    </style>
+</head>
+<body class="p-2 md:p-6">
+    <div class="texture"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] bg-white/90 backdrop-blur px-6 py-3 rounded-full shadow-2xl border border-sepia-dark flex gap-6">
+        <button onclick="showPage(1)" id="btn-1" class="nav-btn active uppercase text-[10px] md:text-xs tracking-widest">Giriş</button>
+        <button onclick="showPage(2)" id="btn-2" class="nav-btn uppercase text-[10px] md:text-xs tracking-widest">Haber Yelpazesi</button>
+        <button onclick="showPage(3)" id="btn-3" class="nav-btn uppercase text-[10px] md:text-xs tracking-widest">Analiz & Harita</button>
+        <button onclick="showPage(4)" id="btn-4" class="nav-btn uppercase text-[10px] md:text-xs tracking-widest">Ziyaretçiler</button>
+    </nav>
+
+    <!-- SAYFA 1: GAZETE TANITIMI -->
+    <section id="page-1" class="page active">
+        <div class="max-w-5xl mx-auto newspaper-border p-8 bg-white/40">
+            <header class="text-center mb-12 border-b-4 border-double border-black pb-8">
+                <div class="flex justify-between text-[10px] md:text-xs font-bold mb-4 italic">
+                    <span>Sayı: 1 | عدد: ۱</span>
+                    <span>Trabzon | طرابزون</span>
+                    <span>10 Aralık 1918 | ۱۰ كانون اول ۱۳۳٤</span>
+                </div>
+                <div class="osmanlica-logo mb-4">استقبال</div>
+                <h1 class="text-6xl font-bold tracking-tighter mb-2 font-serif">İSTİKBAL</h1>
+                <p class="text-lg italic font-serif">"Milletin Hukukunu Müdafaa Eden Siyasi Gazetedir"</p>
+            </header>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 font-serif border-b border-black pb-2">Maziden İstikbal'e</h2>
+                    <p class="leading-relaxed mb-4 text-justify">
+                        İstikbal Gazetesi, Mondros Mütarekesi'nin yarattığı karanlık atmosferde, Trabzon'un ve Karadeniz'in gür sesi olarak doğmuştur. Faik Ahmet Barutçu önderliğinde çıkan bu gazete, sadece haber vermek değil, işgallere karşı halkı bilinçlendirmek ve Milli Mücadele ruhunu diri tutmak amacıyla yola çıkmıştır.
+                    </p>
+                    <div class="bg-sepia-dark text-white p-6 rounded-sm shadow-xl italic relative">
+                        <i class="fas fa-quote-left absolute top-2 left-2 opacity-20 text-4xl"></i>
+                        "Bugün 'İstikbal' hayat-ı matbuatına atılıyor... Bizim yolumuz milletin hukukunu müdafaa, istiklalini muhafaza yoludur."
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="border-8 border-white shadow-2xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="https://images.unsplash.com/photo-1585644131773-4560a8b9281a?auto=format&fit=crop&q=80&w=800" alt="Eski Matbaa" class="w-full h-80 object-cover">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 shadow-lg border border-gray-200 rotate-3">
+                        <p class="text-[10px] font-bold uppercase">Arşiv Kayıt No: 001/TR</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAYFA 2: HABER YELPAZESİ -->
+    <section id="page-2" class="page">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-center text-4xl font-serif font-bold mb-12">Haber Yelpazesi: Cephe ve Direniş</h2>
+            
+            <div class="fan-container">
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">30 Mayıs 1920</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">Akbayrak Müfrezesi</h3>
+                    <p class="text-xs leading-relaxed text-justify">Eskişehir'in aydın gençleri, İzmir cephesinde çarpışmak üzere Akbayrak Müfrezesi'ni kurdu. İhtiyat zabitleri ve memleket aydınlarından oluşan bu müfreze, direnişin entelektüel gücünü temsil ediyor.</p>
+                </div>
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">20 Eylül 1921</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">Konya'nın Fedakarlığı</h3>
+                    <p class="text-xs leading-relaxed text-justify">Konya ahalisi, muhacirler ve aşiret reisleri el ele verdi. Konyalılar atları, silahları ve cephaneleriyle gönüllü yazılırken, halk bu cengaverleri kendi imkanlarıyla giydiriyor.</p>
+                </div>
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">19 Eylül 1920</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">Pontus Meselesi</h3>
+                    <p class="text-xs leading-relaxed text-justify">Karadeniz sahilindeki Rumların "Rum Cumhuriyeti" kurma hayalleri deşifre edildi. Metropolit Hrisantos'un Venizelos ile yaptığı gizli pazarlıklar İstikbal'in sütunlarında halka duyuruldu.</p>
+                </div>
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">20 Ocak 1921</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">İnönü Zaferi</h3>
+                    <p class="text-xs leading-relaxed text-justify">Yunan ordusu İnönü'de bozguna uğradı. İstikbal, bu zaferin sadece Anadolu'da değil, tüm İslam aleminde büyük bir sevinçle karşılandığını ve İngiliz oyununu bozduğunu yazıyor.</p>
+                </div>
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">16 Mayıs 1922</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">Trabzon Mitingi</h3>
+                    <p class="text-xs leading-relaxed text-justify">İzmir'in işgalinin 3. yılında Trabzon Belediye Meydanı hıncahınç doldu. Faik Ahmet Bey'in konuşmasıyla coşan halk, "Mehmetçiğin süngüsü zafere gebedir" nidalarıyla yeri göğü inletti.</p>
+                </div>
+                <div class="fan-card" onclick="this.classList.toggle('scale-105')">
+                    <span class="text-[10px] font-bold text-red-700 uppercase">17 Ağustos 1923</span>
+                    <h3 class="text-xl font-bold font-serif my-2 border-b border-black pb-2">Lozan ve Mübadele</h3>
+                    <p class="text-xs leading-relaxed text-justify">Lozan sonrası nüfus mübadelesi kararlaştırıldı. Rumeli'den gelecek 400 bin dindaşımız için Trabzon dahil 8 büyük mıntıka hazırlandı.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAYFA 3: ANALİZ & HARİTA -->
+    <section id="page-3" class="page">
+        <div class="max-w-6xl mx-auto space-y-8">
+            <h2 class="text-center text-3xl font-serif font-bold uppercase tracking-widest border-b-2 border-sepia-dark pb-4">Haberlerin Coğrafi Etki Analizi</h2>
+            
+            <div id="map"></div>
+            <p class="text-xs text-center italic text-gray-600">* Şehirlere tıklayarak İstikbal Gazetesi'ndeki ilgili haberi ve etki analizini görebilirsiniz.</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-12">
+                <!-- Duygusal Harita -->
+                <div class="bg-white/60 p-8 rounded-xl border-l-8 border-red-800 shadow-xl">
+                    <h2 class="text-2xl font-bold font-serif mb-6 uppercase tracking-wider">Milli Mücadele Duygu Endeksi</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1 uppercase"><span>Hüzün (İzmir'in İşgali)</span><span>90%</span></div>
+                            <div class="w-full bg-gray-300 emotion-bar"><div class="bg-blue-600 h-full w-[90%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1 uppercase"><span>Azim (Gönüllü Katılım)</span><span>95%</span></div>
+                            <div class="w-full bg-gray-300 emotion-bar"><div class="bg-red-700 h-full w-[95%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1 uppercase"><span>Umut (İnönü Zaferleri)</span><span>85%</span></div>
+                            <div class="w-full bg-gray-300 emotion-bar"><div class="bg-yellow-600 h-full w-[85%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1 uppercase"><span>Zafer (Büyük Taarruz)</span><span>100%</span></div>
+                            <div class="w-full bg-gray-300 emotion-bar"><div class="bg-green-700 h-full w-[100%]"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/40 p-6 border-t-4 border-sepia-dark shadow-md flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-4 font-serif italic text-center">Genel Etki Özeti</h3>
+                    <p class="text-sm leading-relaxed text-justify italic">
+                        İstikbal Gazetesi haberleri, Anadolu'nun dört bir yanındaki yerel direnişleri "Milli bir dava" potasında eritmiştir. Karadeniz'den İç Anadolu'ya, Ege'den Marmara'ya kadar uzanan haber ağı; halkın orduyla bütünleşmesini sağlamış, "Pontus" ve "Yunan işgali" tehdidine karşı toplumsal bir blok oluşturmuştur. Haritadaki yayılım, gazetenin sadece Trabzon'a değil, tüm vatanın kaderine hitap ettiğini göstermektedir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAYFA 4: ZİYARETÇİLER -->
+    <section id="page-4" class="page">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white/80 p-8 rounded-2xl shadow-2xl border-2 border-sepia-accent flex flex-col min-h-[600px]">
+                <h2 class="text-3xl font-serif font-bold mb-6 text-center border-b pb-4">Dijital Ziyaretçi Defteri</h2>
+                <div id="messages" class="flex-grow space-y-4 mb-6 max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                    <div class="p-3 bg-sepia-light/30 border-l-4 border-sepia-dark rounded text-sm italic">
+                        "Ecdadımızın fedakarlığını bu satırlarda okumak çok duygulandırıcı. İstikbal, isminin hakkını vermiş." - Mehmet Ali T.
+                    </div>
+                    <div class="p-3 bg-sepia-light/30 border-l-4 border-sepia-dark rounded text-sm italic">
+                        "Trabzon'un milli mücadeledeki sesini harita üzerinde görmek harika bir deneyim olmuş." - Ayşe K.
+                    </div>
+                </div>
+                <form id="commentForm" class="space-y-4">
+                    <input type="text" id="userName" placeholder="Adınız Soyadınız" class="w-full p-3 rounded-lg border focus:ring-2 focus:ring-sepia-dark outline-none bg-white/50 shadow-inner" required>
+                    <textarea id="userComment" placeholder="Bu tarihi yolculuğa dair düşüncelerinizi buraya not edebilirsiniz..." class="w-full p-3 rounded-lg border h-32 focus:ring-2 focus:ring-sepia-dark outline-none bg-white/50 shadow-inner" required></textarea>
+                    <button type="submit" class="w-full bg-sepia-dark text-white py-4 rounded-lg font-bold uppercase tracking-widest hover:bg-black transition-all shadow-lg">Hatırayı Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sayfa Yönetimi
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + pageId).classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if(pageId === 3) {
+                setTimeout(initMap, 300); // Haritayı sayfa aktif olduktan sonra yükle
+            }
+        }
+
+        // Harita Başlatma
+        let map;
+        function initMap() {
+            if (map) return; 
+
+            map = L.map('map').setView([39.0, 35.0], 6);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            const newsData = [
+                {
+                    coords: [41.0027, 39.7168],
+                    city: "Trabzon",
+                    title: "Miting ve Basın Üssü",
+                    news: "Belediye Meydanı'nda binlerce kişiyle İzmir'in işgali protesto edildi. Faik Ahmet Bey'in 'Süngü' vurgulu konuşması halkı coşturdu.",
+                    impact: "Yüksek: Bölgesel direniş ruhunu ulusal davaya entegre etti.",
+                    emotion: "Gurur / Öfke"
+                },
+                {
+                    coords: [37.8714, 32.4846],
+                    city: "Konya",
+                    title: "Gönüllü Akını",
+                    news: "Aşiret reisleri ve halktan 263 gönüllü, silah ve atlarıyla orduya katıldı.",
+                    impact: "Lojistik: Ordunun süvari ihtiyacı ve silah desteği sağlandı.",
+                    emotion: "Fedakarlık"
+                },
+                {
+                    coords: [39.7767, 30.5206],
+                    city: "Eskişehir",
+                    title: "Akbayrak Müfrezesi",
+                    news: "Aydın gençler ve ihtiyat zabitleri 'Akbayrak' adıyla direnişe katıldı.",
+                    impact: "Psikolojik: Aydın kesimin Milli Mücadele'ye tam desteğini gösterdi.",
+                    emotion: "Azim"
+                },
+                {
+                    coords: [38.7569, 30.5387],
+                    city: "Afyonkarahisar",
+                    title: "Büyük Taarruz Kilidi",
+                    news: "Türk ordusu 1 yıldır tahkim edilen siperleri süngü hücumuyla zapt etti.",
+                    impact: "Askeri: Yunan ordusunun Anadolu'daki son direnci kırıldı.",
+                    emotion: "Mutlak Zafer"
+                },
+                {
+                    coords: [39.1460, 34.1595],
+                    city: "Kırşehir",
+                    title: "Süvari Alayı",
+                    news: "Rıza Bey kumandasında 400 cengaverden oluşan gönüllü süvari alayı yola çıktı.",
+                    impact: "Mobilite: Cephedeki hareket kabiliyeti arttı.",
+                    emotion: "İman"
+                },
+                {
+                    coords: [38.4192, 27.1287],
+                    city: "İzmir",
+                    title: "Hedef ve Sembol",
+                    news: "İşgalin 3. yılında İstikbal'de yayınlanan haberlerle halkın intikam ve kurtuluş yemini tazelendi.",
+                    impact: "Milli Sembol: Kurtuluşun nihai hedefi olarak halkın bilincinde tutuldu.",
+                    emotion: "Matem / Umut"
+                },
+                {
+                    coords: [40.9128, 38.3895],
+                    city: "Giresun",
+                    title: "Gönüllü Taburları",
+                    news: "Giresun'dan 300, Tirebolu'dan 150 gönüllü Karahisar yoluyla cepheye hareket etti.",
+                    impact: "İnsan Gücü: Karadeniz'in yiğit uşakları cepheye taze güç taşıdı.",
+                    emotion: "Cesaret"
+                }
+            ];
+
+            newsData.forEach(item => {
+                L.marker(item.coords).addTo(map)
+                    .bindPopup(`
+                        <div class="p-2">
+                            <h4 class="font-bold text-lg border-b border-black mb-2">${item.city}: ${item.title}</h4>
+                            <p class="text-sm italic mb-2">"${item.news}"</p>
+                            <div class="text-[10px] bg-red-100 p-2 rounded">
+                                <strong>Etki:</strong> ${item.impact}<br>
+                                <strong>Duygu:</strong> ${item.emotion}
+                            </div>
+                        </div>
+                    `);
+            });
+        }
+
+        // Form İşlemleri
+        const commentForm = document.getElementById('commentForm');
+        const messagesContainer = document.getElementById('messages');
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const comment = document.getElementById('userComment').value;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'p-3 bg-sepia-light/30 border-l-4 border-sepia-dark rounded text-sm italic animate-pulse';
+            messageDiv.innerHTML = `"${comment}" - ${name}`;
+            
+            messagesContainer.prepend(messageDiv);
+            commentForm.reset();
+            
+            setTimeout(() => {
+                messageDiv.classList.remove('animate-pulse');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
