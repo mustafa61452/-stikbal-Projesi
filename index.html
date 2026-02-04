@@ -81,6 +81,10 @@
                     <i class="fas fa-newspaper"></i>
                     <span>Haber Arşivi</span>
                 </a>
+                <a href="#struggle" class="nav-link" data-page="struggle">
+                    <i class="fas fa-flag-checkered"></i>
+                    <span>Milli Mücadele</span>
+                </a>
                 <a href="#propaganda" class="nav-link" data-page="propaganda">
                     <i class="fas fa-balance-scale"></i>
                     <span>Basın Cephesi</span>
@@ -122,6 +126,7 @@
             style="display: none; flex-direction: column; background: rgba(0,0,0,0.95); position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem; z-index: 999;">
             <a href="#home" class="nav-link" data-page="home">Ana Sayfa</a>
             <a href="#archive" class="nav-link" data-page="archive">Haber Arşivi</a>
+            <a href="#struggle" class="nav-link" data-page="struggle">Milli Mücadele</a>
             <a href="#propaganda" class="nav-link" data-page="propaganda">Basın Cephesi</a>
             <a href="#academic" class="nav-link" data-page="academic">Akademik Bakış</a>
             <a href="#timeline" class="nav-link" data-page="timeline">Harita</a>
@@ -170,9 +175,12 @@
         Uygulamayı Yükle
     </button>
 
-    <!-- Main App Script --><script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script src="./app-v2.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- Main App Script -->
+    <script src="./app-v2.js?v=9"></script>
     <script>
         // Extremely Robust Mobile Menu Toggle
         function toggleMobileMenu() {
@@ -226,9 +234,9 @@
         }
 
         // Run once on load
-        if (!localStorage.getItem('pwa_reset_v6')) {
+        if (!localStorage.getItem('pwa_reset_v9')) {
             forceSWUpdate();
-            localStorage.setItem('pwa_reset_v6', 'true');
+            localStorage.setItem('pwa_reset_v9', 'true');
             // Refresh to apply
             setTimeout(() => window.location.reload(), 500);
         } else {
@@ -239,6 +247,5 @@
         }
     </script>
 </body>
-
 
 </html>
