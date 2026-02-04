@@ -138,10 +138,11 @@
         <h2 class="video-title">Savaşın İçinde Doğan Bir Gazete: İstikbal'in Hikayesi</h2>
     </div>
     <div class="video-container">
-        <video controls poster="assets/video-poster.jpg" preload="metadata">
-            <source src="assets/intro-video.mp4" type="video/mp4">
-            Tarayıcınız video oynatmayı desteklemiyor.
-        </video>
+        <iframe src="https://www.youtube.com/embed/079heaTPho4"
+            title="Savaşın İçinde Doğan Bir Gazete: İstikbal'in Hikayesi" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
     </div>
 </div>
 
@@ -186,12 +187,18 @@
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        padding-bottom: 56.25%;
+        /* 16:9 aspect ratio */
+        height: 0;
     }
 
-    .video-container video {
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        display: block;
-        background: #000;
+        height: 100%;
+        border: none;
     }
 
     @media (max-width: 768px) {
