@@ -618,7 +618,8 @@
     function openModal(url) {
         const modal = document.getElementById('contentModal');
         const iframe = document.getElementById('modalIframe');
-        iframe.src = url;
+        // Add pages/ prefix since this content is loaded into index.html
+        iframe.src = 'pages/' + url;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
