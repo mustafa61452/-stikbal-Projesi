@@ -131,6 +131,80 @@
     </p>
 </div>
 
+<!-- Video Section -->
+<div class="video-section">
+    <div class="video-header">
+        <span class="video-badge"><i class="fas fa-play-circle"></i> Tanıtım Videosu</span>
+        <h2 class="video-title">Savaşın İçinde Doğan Bir Gazete: İstikbal'in Hikayesi</h2>
+    </div>
+    <div class="video-container">
+        <video controls poster="assets/video-poster.jpg" preload="metadata">
+            <source src="assets/intro-video.mp4" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+    </div>
+</div>
+
+<style>
+    .video-section {
+        margin-bottom: 3rem;
+        background: linear-gradient(135deg, #1e293b, #334155);
+        border-radius: 30px;
+        padding: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .video-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fbbf24;
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+    }
+
+    .video-badge i {
+        margin-right: 0.5rem;
+    }
+
+    .video-title {
+        color: white;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .video-container {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-container video {
+        width: 100%;
+        display: block;
+        background: #000;
+    }
+
+    @media (max-width: 768px) {
+        .video-section {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
 <div class="features-grid">
     <!-- Archive -->
     <div class="feature-card" onclick="router.navigate('archive')">
