@@ -1,362 +1,352 @@
 <style>
     .timeline-page {
-        max-width: 1400px;
+        max-width: 100%;
         margin: 0 auto;
         padding: 2rem;
+        overflow-x: hidden;
     }
 
-    .map-section {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        color: white;
-        padding: 2rem;
-        border-radius: 30px 30px 0 0;
-        text-align: center;
-    }
-
-    .map-title {
-        font-size: 2rem;
-        font-family: var(--font-display);
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-    }
-
-    .map-container {
-        height: 500px;
-        background: white;
-        border-radius: 0 0 30px 30px;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        border: 1px solid #ddd;
-    }
-
-    /* Vintage Popup Styles */
-    .leaflet-popup-content-wrapper {
-        background: #fffaf0;
-        border-radius: 4px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-        border: 2px solid #8b0000;
-        padding: 0;
-    }
-
-    .leaflet-popup-content {
-        margin: 0 !important;
-        width: 300px !important;
-    }
-
-    .vintage-popup {
-        padding: 1rem;
-        font-family: var(--font-body);
-    }
-
-    .popup-header {
-        border-bottom: 2px double #8b0000;
-        margin-bottom: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-
-    .popup-location {
-        font-family: var(--font-display);
-        font-size: 1.1rem;
-        color: #8b0000;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .popup-date {
-        font-size: 0.8rem;
-        font-style: italic;
-        color: #555;
-    }
-
-    .popup-title {
-        font-size: 1rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-    }
-
-    .popup-impact {
-        margin-top: 0.5rem;
-        padding-top: 0.5rem;
-        border-top: 1px dashed #ccc;
-        font-weight: 700;
-        font-size: 0.85rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    /* Enhanced Timeline Section */
-    .timeline-section {
-        margin-top: 4rem;
-    }
-
-    .timeline-header {
+    .page-header {
         text-align: center;
         margin-bottom: 2rem;
     }
 
-    .timeline-header h2 {
+    .page-header h1 {
         font-size: 2.5rem;
         color: #8b0000;
         font-family: 'Playfair Display', serif;
         margin-bottom: 0.5rem;
     }
 
-    .timeline-header p {
+    .page-header p {
         color: #666;
         font-size: 1.1rem;
     }
 
-    /* Year Group Styling */
-    .year-group {
+    /* Map Section */
+    .map-section {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 20px 20px 0 0;
+        text-align: center;
+    }
+
+    .map-container {
+        height: 350px;
+        background: white;
+        border-radius: 0 0 20px 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         margin-bottom: 3rem;
     }
 
-    .year-header {
+    /* Horizontal Timeline */
+    .horizontal-timeline-section {
+        margin-top: 2rem;
+    }
+
+    .timeline-nav {
         display: flex;
-        align-items: center;
+        justify-content: center;
         gap: 1rem;
         margin-bottom: 1.5rem;
-        padding: 1rem 2rem;
-        background: linear-gradient(135deg, #8b0000, #5c0000);
-        color: white;
+    }
+
+    .timeline-nav-btn {
+        background: white;
+        border: 2px solid #8b0000;
+        color: #8b0000;
+        padding: 0.8rem 2rem;
         border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
     }
 
-    .year-number {
-        font-size: 2.5rem;
-        font-weight: 900;
-        font-family: 'Playfair Display', serif;
+    .timeline-nav-btn:hover {
+        background: #8b0000;
+        color: white;
     }
 
-    .year-stats {
+    .timeline-nav-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Year Pills */
+    .year-pills {
         display: flex;
-        gap: 1.5rem;
-        font-size: 0.9rem;
-        opacity: 0.9;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
     }
 
-    .year-stats span {
+    .year-pill {
+        background: #f0f0f0;
+        border: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1rem;
+    }
+
+    .year-pill:hover,
+    .year-pill.active {
+        background: #8b0000;
+        color: white;
+    }
+
+    /* Horizontal Scroll Container */
+    .timeline-scroll-wrapper {
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    .timeline-scroll-container {
+        overflow-x: auto;
+        padding: 2rem 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: #8b0000 #f0f0f0;
+        scroll-behavior: smooth;
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 10px;
+    }
+
+    .timeline-scroll-container::-webkit-scrollbar-thumb {
+        background: #8b0000;
+        border-radius: 10px;
+    }
+
+    /* Horizontal Line */
+    .timeline-horizontal {
         display: flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-
-    /* Timeline Line */
-    .timeline-container {
+        align-items: flex-start;
         position: relative;
-        padding-left: 50px;
+        padding-top: 60px;
+        min-width: max-content;
     }
 
-    .timeline-line-vertical {
+    .timeline-horizontal::before {
+        content: '';
         position: absolute;
-        left: 20px;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(to bottom, #8b0000, #d97706, #16a34a);
-        border-radius: 2px;
+        top: 78px;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, #8b0000, #d97706, #16a34a, #2563eb, #8b0000);
+        border-radius: 3px;
     }
 
-    /* Timeline Item */
-    .tl-item {
+    /* Timeline Card */
+    .h-tl-item {
+        flex: 0 0 320px;
+        margin: 0 1rem;
         position: relative;
-        margin-bottom: 1.5rem;
-        padding-left: 30px;
-        animation: slideIn 0.5s ease forwards;
-        opacity: 0;
     }
 
-    @keyframes slideIn {
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    .tl-marker {
+    .h-tl-marker {
         position: absolute;
-        left: -40px;
-        top: 20px;
-        width: 40px;
-        height: 40px;
+        top: -42px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
         background: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        z-index: 2;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        transition: all 0.3s;
     }
 
-    .tl-marker.askeri {
-        border: 3px solid #dc2626;
+    .h-tl-item:hover .h-tl-marker {
+        transform: translateX(-50%) scale(1.1);
+    }
+
+    .h-tl-marker.askeri {
+        border: 4px solid #dc2626;
         color: #dc2626;
     }
 
-    .tl-marker.zafer {
-        border: 3px solid #16a34a;
+    .h-tl-marker.zafer {
+        border: 4px solid #16a34a;
         color: #16a34a;
     }
 
-    .tl-marker.siyasi {
-        border: 3px solid #2563eb;
+    .h-tl-marker.siyasi {
+        border: 4px solid #2563eb;
         color: #2563eb;
     }
 
-    .tl-marker.toplumsal {
-        border: 3px solid #d97706;
+    .h-tl-marker.toplumsal {
+        border: 4px solid #d97706;
         color: #d97706;
     }
 
-    .tl-marker.matem {
-        border: 3px solid #1e293b;
+    .h-tl-marker.matem {
+        border: 4px solid #1e293b;
         color: #1e293b;
     }
 
-    .tl-marker.basyazi {
-        border: 3px solid #7c3aed;
+    .h-tl-marker.basyazi {
+        border: 4px solid #7c3aed;
         color: #7c3aed;
     }
 
-    .tl-marker.devrim {
-        border: 3px solid #ec4899;
+    .h-tl-marker.devrim {
+        border: 4px solid #ec4899;
         color: #ec4899;
     }
 
-    .tl-card {
+    .h-tl-date {
+        position: absolute;
+        top: -75px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #8b0000;
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .h-tl-card {
         background: white;
         border-radius: 20px;
         padding: 1.5rem;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        border-left: 5px solid #8b0000;
-        transition: all 0.3s ease;
+        margin-top: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
         cursor: pointer;
+        height: 280px;
+        display: flex;
+        flex-direction: column;
     }
 
-    .tl-card:hover {
-        transform: translateX(10px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    .h-tl-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
-    .tl-card.askeri {
-        border-left-color: #dc2626;
+    .h-tl-card.askeri {
+        border-top: 5px solid #dc2626;
     }
 
-    .tl-card.zafer {
-        border-left-color: #16a34a;
+    .h-tl-card.zafer {
+        border-top: 5px solid #16a34a;
     }
 
-    .tl-card.siyasi {
-        border-left-color: #2563eb;
+    .h-tl-card.siyasi {
+        border-top: 5px solid #2563eb;
     }
 
-    .tl-card.toplumsal {
-        border-left-color: #d97706;
+    .h-tl-card.toplumsal {
+        border-top: 5px solid #d97706;
     }
 
-    .tl-card.matem {
-        border-left-color: #1e293b;
+    .h-tl-card.matem {
+        border-top: 5px solid #1e293b;
     }
 
-    .tl-card.basyazi {
-        border-left-color: #7c3aed;
+    .h-tl-card.basyazi {
+        border-top: 5px solid #7c3aed;
     }
 
-    .tl-card.devrim {
-        border-left-color: #ec4899;
+    .h-tl-card.devrim {
+        border-top: 5px solid #ec4899;
     }
 
-    .tl-date {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #8b0000;
-        margin-bottom: 0.3rem;
-    }
-
-    .tl-title {
-        font-size: 1.2rem;
+    .h-tl-title {
+        font-size: 1.1rem;
         font-weight: 700;
         font-family: 'Playfair Display', serif;
         color: #1e293b;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
     }
 
-    .tl-content {
-        font-size: 0.95rem;
+    .h-tl-content {
+        font-size: 0.9rem;
         color: #555;
         line-height: 1.6;
-        display: none;
-        margin-top: 1rem;
+        flex: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+    }
+
+    .h-tl-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
         padding-top: 1rem;
         border-top: 1px dashed #ddd;
     }
 
-    .tl-card.expanded .tl-content {
-        display: block;
-    }
-
-    .tl-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0.5rem;
-    }
-
-    .tl-category {
-        font-size: 0.75rem;
+    .h-tl-category {
+        font-size: 0.7rem;
         font-weight: 700;
         padding: 0.2rem 0.6rem;
         border-radius: 20px;
         text-transform: uppercase;
     }
 
-    .tl-category.askeri {
+    .h-tl-category.askeri {
         background: #fee2e2;
         color: #dc2626;
     }
 
-    .tl-category.zafer {
+    .h-tl-category.zafer {
         background: #dcfce7;
         color: #16a34a;
     }
 
-    .tl-category.siyasi {
+    .h-tl-category.siyasi {
         background: #dbeafe;
         color: #2563eb;
     }
 
-    .tl-category.toplumsal {
+    .h-tl-category.toplumsal {
         background: #fef3c7;
         color: #d97706;
     }
 
-    .tl-category.matem {
+    .h-tl-category.matem {
         background: #e2e8f0;
         color: #1e293b;
     }
 
-    .tl-category.basyazi {
+    .h-tl-category.basyazi {
         background: #ede9fe;
         color: #7c3aed;
     }
 
-    .tl-category.devrim {
+    .h-tl-category.devrim {
         background: #fce7f3;
         color: #ec4899;
     }
 
-    .tl-location {
-        font-size: 0.8rem;
+    .h-tl-location {
+        font-size: 0.75rem;
         color: #888;
-    }
-
-    .tl-location i {
-        margin-right: 0.3rem;
     }
 
     /* Legend */
@@ -365,7 +355,7 @@
         flex-wrap: wrap;
         gap: 1rem;
         justify-content: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         padding: 1rem;
         background: #f8f9fa;
         border-radius: 15px;
@@ -374,7 +364,7 @@
     .legend-item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.4rem;
         font-size: 0.85rem;
         font-weight: 600;
     }
@@ -413,26 +403,61 @@
         background: #ec4899;
     }
 
+    /* Scroll Hint */
+    .scroll-hint {
+        text-align: center;
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .scroll-hint i {
+        animation: bounceX 1.5s infinite;
+    }
+
+    @keyframes bounceX {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        50% {
+            transform: translateX(10px);
+        }
+    }
+
+    /* Leaflet Popup */
+    .leaflet-popup-content-wrapper {
+        background: #fffaf0;
+        border-radius: 4px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        border: 2px solid #8b0000;
+    }
+
+    .vintage-popup {
+        padding: 0.8rem;
+    }
+
+    .popup-location {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        color: #8b0000;
+        font-weight: 700;
+    }
+
     @media (max-width: 768px) {
-        .timeline-container {
-            padding-left: 30px;
+        .h-tl-item {
+            flex: 0 0 280px;
         }
 
-        .tl-marker {
-            left: -25px;
-            width: 30px;
-            height: 30px;
-            font-size: 0.8rem;
+        .h-tl-card {
+            height: 260px;
         }
 
-        .year-header {
+        .timeline-nav {
             flex-direction: column;
-            text-align: center;
-        }
-
-        .year-stats {
-            flex-wrap: wrap;
-            justify-content: center;
+            align-items: center;
         }
     }
 </style>
@@ -441,21 +466,20 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <div class="timeline-page">
+    <div class="page-header">
+        <h1>📜 Milli Mücadele Zaman Çizelgesi</h1>
+        <p>1918 - 1923 | İstikbal Gazetesi Haber Arşivi</p>
+    </div>
+
     <!-- Map Section -->
     <div class="map-section">
-        <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-        <h1 class="map-title">Milli Mücadele Haber Haritası</h1>
-        <p style="opacity: 0.9;">İstikbal Gazetesi'nde yer alan haberlerin coğrafi dağılımı ve etki alanları</p>
+        <i class="fas fa-map-marked-alt" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+        <h2 style="font-size: 1.3rem; margin: 0;">Haber Haritası</h2>
     </div>
     <div class="map-container" id="map"></div>
 
-    <!-- Timeline Section -->
-    <div class="timeline-section">
-        <div class="timeline-header">
-            <h2>📜 Kronolojik Haber Akışı</h2>
-            <p>1918 - 1923 Milli Mücadele Dönemi</p>
-        </div>
-
+    <!-- Horizontal Timeline -->
+    <div class="horizontal-timeline-section">
         <div class="timeline-legend">
             <div class="legend-item">
                 <div class="legend-dot askeri"></div> Askeri
@@ -480,8 +504,29 @@
             </div>
         </div>
 
-        <div id="timeline-list">
-            <!-- Timeline items will be injected via JS -->
+        <div class="year-pills" id="year-pills">
+            <!-- Year pills will be added by JS -->
+        </div>
+
+        <div class="scroll-hint">
+            <i class="fas fa-arrows-alt-h"></i> Kaydırarak gezin veya yıl butonlarına tıklayın
+        </div>
+
+        <div class="timeline-nav">
+            <button class="timeline-nav-btn" onclick="scrollTimeline(-400)">
+                <i class="fas fa-chevron-left"></i> Önceki
+            </button>
+            <button class="timeline-nav-btn" onclick="scrollTimeline(400)">
+                Sonraki <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="timeline-scroll-wrapper">
+            <div class="timeline-scroll-container" id="timeline-scroll">
+                <div class="timeline-horizontal" id="timeline-horizontal">
+                    <!-- Items will be added by JS -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -492,7 +537,7 @@
         const map = L.map('map').setView([39.5, 35.0], 6);
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            attribution: '&copy; OpenStreetMap contributors',
             maxZoom: 19
         }).addTo(map);
 
@@ -505,34 +550,21 @@
             // Add markers to map
             newsList.forEach(news => {
                 const marker = L.marker([news.lat, news.lng]).addTo(map);
-
-                let impactColor = '#dc2626';
-                if (news.impact >= 98) impactColor = '#16a34a';
-                else if (news.impact >= 90) impactColor = '#2563eb';
-
                 marker.bindPopup(`
                 <div class="vintage-popup">
-                    <div class="popup-header">
-                        <div class="popup-location">${news.location}</div>
-                        <div class="popup-date">${news.date}</div>
-                    </div>
-                    <div class="popup-title">${news.title}</div>
-                    <p style="font-size: 0.9rem; line-height: 1.4;">${news.content.substring(0, 100)}...</p>
-                    <div class="popup-impact">
-                        <span>Milli Etki:</span>
-                        <span style="color: ${impactColor}; font-size: 1.2rem;">%${news.impact}</span>
-                    </div>
+                    <div class="popup-location">${news.location}</div>
+                    <div style="font-size: 0.8rem; color: #555;">${news.date}</div>
+                    <div style="font-weight: 700; margin-top: 0.5rem;">${news.title}</div>
                 </div>
             `);
             });
 
-            // Parse date to extract year
+            // Helper functions
             function extractYear(dateStr) {
                 const match = dateStr.match(/(\d{4})/);
                 return match ? parseInt(match[1]) : 1920;
             }
 
-            // Get icon by category
             function getIcon(category) {
                 const icons = {
                     'ASKERİ': 'fa-shield-alt',
@@ -546,7 +578,6 @@
                 return icons[category] || 'fa-newspaper';
             }
 
-            // Get CSS class by category
             function getCategoryClass(category) {
                 const classes = {
                     'ASKERİ': 'askeri',
@@ -560,77 +591,91 @@
                 return classes[category] || 'askeri';
             }
 
-            // Group by year
-            const groupedByYear = {};
-            newsList.forEach(news => {
-                const year = extractYear(news.date);
-                if (!groupedByYear[year]) groupedByYear[year] = [];
-                groupedByYear[year].push(news);
+            // Sort by date
+            const sortedNews = [...newsList].sort((a, b) => {
+                return extractYear(a.date) - extractYear(b.date) || a.id - b.id;
             });
 
-            // Sort years
-            const sortedYears = Object.keys(groupedByYear).sort((a, b) => a - b);
+            // Get unique years
+            const years = [...new Set(sortedNews.map(n => extractYear(n.date)))].sort();
 
-            // Render Timeline
-            const container = document.getElementById('timeline-list');
-            let itemIndex = 0;
+            // Create year pills
+            const yearPillsContainer = document.getElementById('year-pills');
+            years.forEach((year, idx) => {
+                const pill = document.createElement('button');
+                pill.className = 'year-pill' + (idx === 0 ? ' active' : '');
+                pill.textContent = year;
+                pill.onclick = () => scrollToYear(year);
+                yearPillsContainer.appendChild(pill);
+            });
 
-            sortedYears.forEach(year => {
-                const yearNews = groupedByYear[year];
+            // Render horizontal timeline
+            const container = document.getElementById('timeline-horizontal');
 
-                // Count categories
-                const categoryCounts = {};
-                yearNews.forEach(n => {
-                    categoryCounts[n.category] = (categoryCounts[n.category] || 0) + 1;
-                });
+            sortedNews.forEach((news, index) => {
+                const catClass = getCategoryClass(news.category);
+                const year = extractYear(news.date);
 
-                const statsHTML = Object.entries(categoryCounts)
-                    .map(([cat, count]) => `<span><i class="fas ${getIcon(cat)}"></i> ${count} ${cat}</span>`)
-                    .join('');
-
-                let html = `
-                <div class="year-group">
-                    <div class="year-header">
-                        <div class="year-number">${year}</div>
-                        <div class="year-stats">${statsHTML}</div>
+                const html = `
+                <div class="h-tl-item" data-year="${year}" data-index="${index}">
+                    <div class="h-tl-date">${news.date}</div>
+                    <div class="h-tl-marker ${catClass}">
+                        <i class="fas ${getIcon(news.category)}"></i>
                     </div>
-                    <div class="timeline-container">
-                        <div class="timeline-line-vertical"></div>
+                    <div class="h-tl-card ${catClass}" onclick="showDetail(${news.id})">
+                        <div class="h-tl-title">${news.title}</div>
+                        <div class="h-tl-content">${news.content}</div>
+                        <div class="h-tl-meta">
+                            <span class="h-tl-category ${catClass}">${news.category}</span>
+                            <span class="h-tl-location"><i class="fas fa-map-marker-alt"></i> ${news.location}</span>
+                        </div>
+                    </div>
+                </div>
             `;
-
-                yearNews.forEach(news => {
-                    const catClass = getCategoryClass(news.category);
-                    html += `
-                    <div class="tl-item" style="animation-delay: ${itemIndex * 0.05}s; transform: translateX(-20px);">
-                        <div class="tl-marker ${catClass}">
-                            <i class="fas ${getIcon(news.category)}"></i>
-                        </div>
-                        <div class="tl-card ${catClass}" onclick="this.classList.toggle('expanded')">
-                            <div class="tl-date">${news.date}</div>
-                            <div class="tl-title">${news.title}</div>
-                            <div class="tl-meta">
-                                <span class="tl-category ${catClass}">${news.category}</span>
-                                <span class="tl-location"><i class="fas fa-map-marker-alt"></i>${news.location}</span>
-                            </div>
-                            <div class="tl-content">${news.content}</div>
-                        </div>
-                    </div>
-                `;
-                    itemIndex++;
-                });
-
-                html += '</div></div>';
                 container.innerHTML += html;
             });
 
+            // Store news data globally
+            window.newsData = sortedNews;
+
         } catch (error) {
             console.error('Timeline error:', error);
-            document.getElementById('timeline-list').innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: #888;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                <p>Zaman çizelgesi yüklenirken bir hata oluştu.</p>
+            document.getElementById('timeline-horizontal').innerHTML = `
+            <div style="padding: 3rem; text-align: center; color: #888;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem;"></i>
+                <p>Zaman çizelgesi yüklenirken hata oluştu.</p>
             </div>
         `;
         }
     })();
+
+    // Scroll timeline left/right
+    function scrollTimeline(amount) {
+        const container = document.getElementById('timeline-scroll');
+        container.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    // Scroll to specific year
+    function scrollToYear(year) {
+        const item = document.querySelector(`.h-tl-item[data-year="${year}"]`);
+        if (item) {
+            const container = document.getElementById('timeline-scroll');
+            const itemLeft = item.offsetLeft - 50;
+            container.scrollTo({ left: itemLeft, behavior: 'smooth' });
+
+            // Update active pill
+            document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.year-pill').forEach(p => {
+                if (p.textContent == year) p.classList.add('active');
+            });
+        }
+    }
+
+    // Show detail (can be extended to show modal)
+    function showDetail(id) {
+        const news = window.newsData?.find(n => n.id === id);
+        if (news) {
+            alert(`${news.title}\n\n${news.content}\n\n📍 ${news.location} | 📅 ${news.date}`);
+        }
+    }
 </script>
