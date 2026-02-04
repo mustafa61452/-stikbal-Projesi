@@ -51,7 +51,6 @@ window.router = {
 
                 // Sayfa yüklendikten sonra veri çekme işlemlerini başlat
                 if (page === 'loyalty') loadLoyaltyMessages();
-                if (page === 'archive') loadArchiveData();
             })
             .catch(err => {
                 console.error('Navigation Error:', err);
