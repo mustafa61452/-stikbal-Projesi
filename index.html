@@ -81,7 +81,11 @@
     </header>
 
     <main class="main-content" id="page-content">
-        <!-- Content loaded dynamically -->
+        <!-- Content loaded dynamically from pages/home.html -->
+        <div class="p-20 text-center">
+            <i class="fas fa-spinner fa-spin text-4xl text-red-800"></i>
+            <p class="mt-4 text-gray-500">İstikbal Hazırlanıyor...</p>
+        </div>
     </main>
 
     <footer class="app-footer">
@@ -103,7 +107,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <script src="./app-v2.js?v=999"></script>
+    <!-- Versiyon 1001: Önbelleği kesin temizlemek için -->
+    <script src="./app-v2.js?v=1001"></script>
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
@@ -121,9 +126,10 @@
             console.log('Nuclear reset completed.');
         }
 
-        if (!localStorage.getItem('reverted_v1')) {
+        // Eğer bu versiyon ilk kez yükleniyorsa zorla temizlik yap
+        if (localStorage.getItem('reverted_v1001') !== 'true') {
             nuclearReset().then(() => {
-                localStorage.setItem('reverted_v1', 'true');
+                localStorage.setItem('reverted_v1001', 'true');
                 window.location.reload(true);
             });
         }
