@@ -274,6 +274,117 @@
         color: #666;
     }
 
+    /* Comparison Section Styles */
+    .comparison-section {
+        background: linear-gradient(135deg, #f8f4e8, #fdf8f0);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px solid #e8dcc8;
+    }
+
+    .comparison-section h3 {
+        color: #8b0000;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        font-size: 1.3rem;
+    }
+
+    .comparison-loading {
+        text-align: center;
+        padding: 2rem;
+        color: #888;
+    }
+
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .comparison-item {
+        background: white;
+        border-radius: 15px;
+        padding: 1.2rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .comparison-item.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .comparison-label {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .comparison-value {
+        font-size: 2.5rem;
+        font-weight: 900;
+    }
+
+    .comparison-value.your-score {
+        color: #8b0000;
+    }
+
+    .comparison-value.avg-score {
+        color: #2d8f3f;
+    }
+
+    .comparison-status {
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 0.5rem;
+    }
+
+    .status-above {
+        color: #2d8f3f;
+    }
+
+    .status-below {
+        color: #c0392b;
+    }
+
+    .status-average {
+        color: #f39c12;
+    }
+
+    .comparison-details {
+        background: white;
+        border-radius: 15px;
+        padding: 1rem;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+    }
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+    .detail-row.participant-count {
+        color: #888;
+        font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+        .comparison-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .comparison-value {
+            font-size: 2rem;
+        }
+    }
+
     @media (max-width: 600px) {
         .options-row {
             flex-direction: column;
@@ -565,6 +676,46 @@
                 </div>
             </div>
 
+            <!-- Comparison Section -->
+            <div class="comparison-section" id="comparison-section">
+                <h3>📈 Topluluk ile Karşılaştırma</h3>
+                <div class="comparison-loading" id="comparison-loading">
+                    <i class="fas fa-spinner fa-spin"></i> Ortalamalar hesaplanıyor...
+                </div>
+                <div class="comparison-content" id="comparison-content" style="display: none;">
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <div class="comparison-label">Sizin Puanınız</div>
+                            <div class="comparison-value your-score" id="your-total">0</div>
+                        </div>
+                        <div class="comparison-item">
+                            <div class="comparison-label">Topluluk Ortalaması</div>
+                            <div class="comparison-value avg-score" id="avg-total">0</div>
+                        </div>
+                        <div class="comparison-item full-width">
+                            <div class="comparison-label">Durumunuz</div>
+                            <div class="comparison-status" id="comparison-status"></div>
+                        </div>
+                    </div>
+                    <div class="comparison-details">
+                        <div class="detail-row">
+                            <span>Bilişsel Empati:</span>
+                            <span>Siz: <strong id="your-cognitive">0</strong> | Ortalama: <strong
+                                    id="avg-cognitive">0</strong></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Duyuşsal Empati:</span>
+                            <span>Siz: <strong id="your-affective">0</strong> | Ortalama: <strong
+                                    id="avg-affective">0</strong></span>
+                        </div>
+                        <div class="detail-row participant-count">
+                            <span>Toplam Katılımcı:</span>
+                            <span id="participant-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="result-description">
                 <h3>📊 Değerlendirme</h3>
                 <p id="result-feedback"></p>
@@ -614,6 +765,82 @@
             radio.addEventListener('change', updateProgress);
         });
 
+        // Save score to Firebase
+        function saveScoreToFirebase(cognitive, affective, total) {
+            if (!window.db) {
+                console.error('[Empathy] Firebase not initialized');
+                return;
+            }
+
+            window.db.ref('empathy_scores').push({
+                cognitive: cognitive,
+                affective: affective,
+                total: total,
+                timestamp: new Date().toISOString()
+            }).then(() => {
+                console.log('[Empathy] Score saved successfully');
+            }).catch(err => {
+                console.error('[Empathy] Error saving score:', err);
+            });
+        }
+
+        // Fetch averages and display comparison
+        function loadAndDisplayAverages(userCognitive, userAffective, userTotal) {
+            if (!window.db) {
+                document.getElementById('comparison-loading').innerHTML =
+                    '<span style="color: #888;">Karşılaştırma verileri yüklenemedi.</span>';
+                return;
+            }
+
+            window.db.ref('empathy_scores').once('value', (snapshot) => {
+                const data = snapshot.val();
+                let totalCognitive = 0, totalAffective = 0, totalSum = 0, count = 0;
+
+                if (data) {
+                    Object.values(data).forEach(entry => {
+                        totalCognitive += entry.cognitive || 0;
+                        totalAffective += entry.affective || 0;
+                        totalSum += entry.total || 0;
+                        count++;
+                    });
+                }
+
+                // Calculate averages
+                const avgCognitive = count > 0 ? (totalCognitive / count).toFixed(1) : 0;
+                const avgAffective = count > 0 ? (totalAffective / count).toFixed(1) : 0;
+                const avgTotal = count > 0 ? (totalSum / count).toFixed(1) : 0;
+
+                // Update UI
+                document.getElementById('your-total').textContent = userTotal;
+                document.getElementById('avg-total').textContent = avgTotal;
+                document.getElementById('your-cognitive').textContent = userCognitive;
+                document.getElementById('avg-cognitive').textContent = avgCognitive;
+                document.getElementById('your-affective').textContent = userAffective;
+                document.getElementById('avg-affective').textContent = avgAffective;
+                document.getElementById('participant-count').textContent = count;
+
+                // Determine comparison status
+                const diff = userTotal - parseFloat(avgTotal);
+                let statusHTML = '';
+                if (diff > 5) {
+                    statusHTML = '<span class="status-above">📈 Ortalamanın <strong>' + diff.toFixed(1) + '</strong> puan üstündesiniz!</span>';
+                } else if (diff < -5) {
+                    statusHTML = '<span class="status-below">📉 Ortalamanın <strong>' + Math.abs(diff).toFixed(1) + '</strong> puan altındasınız.</span>';
+                } else {
+                    statusHTML = '<span class="status-average">📊 Ortalama civarındasınız.</span>';
+                }
+                document.getElementById('comparison-status').innerHTML = statusHTML;
+
+                // Show content, hide loading
+                document.getElementById('comparison-loading').style.display = 'none';
+                document.getElementById('comparison-content').style.display = 'block';
+            }).catch(err => {
+                console.error('[Empathy] Error loading averages:', err);
+                document.getElementById('comparison-loading').innerHTML =
+                    '<span style="color: #c00;">Veriler yüklenirken hata oluştu.</span>';
+            });
+        }
+
         // Calculate and show results
         window.calculateResults = function () {
             let cognitiveScore = 0;
@@ -637,6 +864,12 @@
             document.getElementById('cognitive-score').textContent = cognitiveScore;
             document.getElementById('affective-score').textContent = affectiveScore;
             document.getElementById('total-score').textContent = totalScore;
+
+            // Save score to Firebase
+            saveScoreToFirebase(cognitiveScore, affectiveScore, totalScore);
+
+            // Load and display comparison with averages
+            loadAndDisplayAverages(cognitiveScore, affectiveScore, totalScore);
 
             // Generate feedback
             let feedback = '';
