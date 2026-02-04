@@ -1,0 +1,128 @@
+<style>
+    .loyalty-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .loyalty-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        background: linear-gradient(rgba(139, 0, 0, 0.05), rgba(139, 0, 0, 0.05));
+        padding: 3rem;
+        border-radius: 30px;
+    }
+
+    .loyalty-title {
+        font-size: 3.5rem;
+        font-family: 'Playfair Display', serif;
+        color: #8b0000;
+        margin-bottom: 1rem;
+    }
+
+    .loyalty-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .message-form-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 25px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #444;
+    }
+
+    .form-input, .form-textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        font-family: inherit;
+        transition: all 0.3s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+        border-color: #8b0000;
+        outline: none;
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.1);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 1rem;
+        background: #8b0000;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+        background: #a50000;
+        transform: translateY(-2px);
+    }
+
+    .messages-container {
+        max-height: 800px;
+        overflow-y: auto;
+        padding-right: 1rem;
+    }
+
+    @media (max-width: 900px) {
+        .loyalty-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="loyalty-page">
+    <div class="loyalty-header">
+        <h1 class="loyalty-title">Vefa Köşesi</h1>
+        <p class="text-gray-600 text-lg">Milli Mücadele kahramanlarımıza ve İstikbal Gazetesi'nin aziz hatırasına minnet mesajınızı bırakın.</p>
+    </div>
+
+    <div class="loyalty-grid">
+        <!-- Message Form -->
+        <div class="message-form-card">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">Bir Mesaj Bırakın</h3>
+            <form onsubmit="event.preventDefault(); window.submitLoyaltyMessage();">
+                <div class="form-group">
+                    <label class="form-label">Adınız Soyadınız</label>
+                    <input type="text" id="l-name" class="form-input" placeholder="Örn: Ahmet Yılmaz" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mesajınız</label>
+                    <textarea id="l-message" class="form-textarea" rows="6" placeholder="Minnet ve şükran mesajınızı buraya yazabilirsiniz..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn text-white">Mesajı Gönder</button>
+            </form>
+        </div>
+
+        <!-- Messages List -->
+        <div class="messages-list-section">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">Vefa Mesajları</h3>
+            <div id="loyalty-messages-list" class="messages-container">
+                <div class="text-center p-10 mt-20">
+                    <i class="fas fa-spinner fa-spin text-3xl text-red-700"></i>
+                    <p class="mt-4 text-gray-500">Mesajlar yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
