@@ -369,55 +369,55 @@ const STUDENT_DATA = [
     }
 ];
 
-// YENİ: TANITIM / BASINDA BİZ VERİSİ
-const PUBLICITY_DATA = [
-    {
-        type: "NEWS",
-        source: "Günebakış Gazetesi",
-        date: "2024",
-        title: "Trabzon’da 12. Sınıf Öğrencilerine Tarihsel Empati Kazandırmayı Amaçlayan Proje Tanıtıldı",
-        desc: "Projemizin okullarda uygulanması ve 12. sınıf öğrencileri üzerindeki etkilerini konu alan detaylı haber.",
-        link: "https://www.gunebakis.com.tr/video/27002852/trabzonda-12-sinif-ogrencilerine-tarihsel-empati-kazandirmayi-amaclayan-proje-tanitildi",
-        icon: "fas fa-newspaper",
-        color: "#1e3a8a"
-    },
-    {
-        type: "RADIO",
-        source: "TRT Trabzon Radyosu",
-        date: "19.12.2025",
-        title: "“Genç Yaşam” Programı",
-        desc: "TRT Trabzon Radyosu'nun sevilen programı 'Genç Yaşam'a konuk olduk. İstikbal Gazetesi'nin önemi ve dijitalleşme sürecimiz hakkında kapsamlı bir söyleşi gerçekleştirdik.",
-        link: "#",
-        audio: "./assets/audio/genc_yasam.mp3",
-        icon: "fas fa-microphone-alt",
-        color: "#b91c1c"
-    }
-];
+// YENİ: VEFA KÖŞESİ (LOYALTY) VERİSİ & FIREBASE INITIALIZATION
+const firebaseConfig = {
+    apiKey: "AIzaSyCM4LaFt7ybs3p0UyoMQbhP1QGmSKMy6Wo",
+    authDomain: "gazeteistikbal-6e06a.firebaseapp.com",
+    databaseURL: "https://gazeteistikbal-6e06a-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "gazeteistikbal-6e06a",
+    storageBucket: "gazeteistikbal-6e06a.firebasestorage.app",
+    messagingSenderId: "666874515447",
+    appId: "1:666874515447:web:01e2c72f7c73f929eba8f2",
+    measurementId: "G-J2KP79YH77"
+};
 
-// YENİ: VEFA KÖŞESİ (LOYALTY) VERİSİ
-const LOYALTY_DATA = [
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const messagesRef = database.ref('messages');
+
+let LOYALTY_DATA = [
     {
         name: "Ahmet Yılmaz",
         school: "Trabzon Lisesi",
         message: "Milli Mücadele'nin bu kadar zor şartlarda kazanıldığını bu gazeteyi okuyunca daha iyi anladım. Faik Ahmet Bey'e minnettarız.",
         date: "30.01.2026",
         avatar: "A"
-    },
-    {
-        name: "Zeynep Demir",
-        school: "Kanuni Anadolu Lisesi",
-        message: "Tarih derslerinde sadece olayları ezberliyorduk, burada ise o günkü insanların duygularını hissettim. Bu proje harika!",
-        date: "29.01.2026",
-        avatar: "Z"
-    },
-    {
-        name: "Mehmet Öztürk",
-        school: "Yavuz Sultan Selim AL",
-        message: "Vatan savunmasının sadece cephede değil, kalemle de yapıldığının en büyük kanıtı İstikbal Gazetesi'dir. Ruhları şad olsun.",
-        date: "28.01.2026",
-        avatar: "M"
     }
 ];
+
+// Listen for updates from Firebase
+messagesRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+        // Firebase verilerini mevcut diziye ekle (Ahmet Yılmaz gibi varsayılanları koruyarak veya temizleyerek)
+        const firebaseMessages = Object.values(data);
+        LOYALTY_DATA = [
+            {
+                name: "Ahmet Yılmaz",
+                school: "Trabzon Lisesi",
+                message: "Milli Mücadele'nin bu kadar zor şartlarda kazanıldığını bu gazeteyi okuyunca daha iyi anladım. Faik Ahmet Bey'e minnettarız.",
+                date: "30.01.2026",
+                avatar: "A"
+            },
+            ...firebaseMessages
+        ];
+        // Eğer şu an loyalty sayfasındaysak listeyi yenile
+        if (window.location.hash === '#loyalty') {
+            renderLoyalty();
+        }
+    }
+});
 
 const EMPATHY_QUESTIONS = [
     { id: 1, text: "Geçmişte yaşamış insanların ne düşündükleri anlayabilirim.", type: "Bilişsel" },
@@ -1018,31 +1018,38 @@ function renderLoyalty() {
 }
 
 window.addMessage = function () {
-    const name = document.getElementById('l-name').value;
-    const school = document.getElementById('l-school').value;
-    const message = document.getElementById('l-msg').value;
+    const nameInput = document.getElementById('l-name');
+    const schoolInput = document.getElementById('l-school');
+    const msgInput = document.getElementById('l-msg');
+
+    const name = nameInput.value;
+    const school = schoolInput.value;
+    const message = msgInput.value;
 
     if (!name || !message) return alert("Lütfen adınızı ve mesajınızı giriniz.");
 
     const today = new Date();
     const dateStr = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 
-    LOYALTY_DATA.push({
+    const newMessage = {
         name: name,
         school: school || "Öğrenci",
         message: message,
         date: dateStr,
         avatar: name.charAt(0).toUpperCase()
-    });
+    };
 
-    // Formu temizle
-    document.getElementById('loyalty-form').reset();
-
-    // Listeyi güncelle
-    renderLoyalty();
-
-    // Kullanıcıya bildirim
-    alert("Mesajınız Vefa Köşesi'ne eklendi. Teşekkürler!");
+    // Push to Firebase
+    messagesRef.push(newMessage)
+        .then(() => {
+            // Formu temizle
+            document.getElementById('loyalty-form').reset();
+            alert("Mesajınız kalıcı olarak Vefa Köşesi'ne eklendi. Teşekkürler!");
+        })
+        .catch((error) => {
+            console.error("Firebase Hatası:", error);
+            alert("Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.");
+        });
 }
 
 function renderEmpathy() {
@@ -1289,3 +1296,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialPage = window.location.hash.replace('#', '') || 'home';
     window.router.navigate(initialPage, true);
 });
+
