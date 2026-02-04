@@ -1,0 +1,103 @@
+{
+    "archive": [
+        {
+            "id": 1,
+            "date": "10 Aralık 1918",
+            "title": "İstikbal Gazetesi Yayına Başladı: Hattı Müdafaa Yoktur",
+            "category": "BAŞYAZI",
+            "content": "Trabzon'un bu gür sesi, vatanın en karanlık günlerinde hakikati haykırmak için doğmuştur. Bizim yolumuz, milletin hukukunu müdafaa, istiklalini muhafaza yoludur. Rum Pontus emellerine ve her türlü işgal fikrine karşı kalemimiz kalem değil, bir süngüdür. Faik Ahmet Bey'in kalemi, Karadeniz dalgaları kadar hırçın ve bağımsızlık kadar kararlıdır.",
+            "impact": 95,
+            "lat": 41.0027,
+            "lng": 39.7168,
+            "location": "Trabzon / Semerciler Yokuşu"
+        },
+        {
+            "id": 2,
+            "date": "15 Mayıs 1919",
+            "title": "İzmir'in İşgali ve Karadeniz'in Feryadı",
+            "category": "MATEM",
+            "content": "İzmir'in Yunanlılar tarafından işgali tüm Anadolu'da olduğu gibi Trabzon'da da büyük bir matemle karşılandı. Gazetemiz, 'Hukuk-u Beşer' nidalarıyla dünyayı bu haksızlığa dur demeye çağırıyor. Trabzon Sultanisi bahçesinde düzenlenen mitingde 10 bin kişi tek vücut oldu. Bu matem, direnişin kıvılcımıdır. (Analiz: Kırılma Noktası)",
+            "impact": 100,
+            "lat": 38.4237,
+            "lng": 27.1428,
+            "location": "İzmir"
+        },
+        {
+            "id": 3,
+            "date": "10 Ocak 1921",
+            "title": "I. İnönü Zaferi: Milletin Şanlı Dirilişi",
+            "category": "ASKERİ",
+            "content": "Manşet: TÜRK'ÜN YENİ ZAFERİ! İnönü civarında Yunan ordusuyla yapılan meydan muharebesi sonucunda Yunanlılar büyük zayiata uğratılmıştır. 11 Ocak’ta Yunan askerleri devam edemeyerek çekilmeye başlamıştır. İsmet Paşa komutasındaki TBMM Ordusu ilk ciddi mukavemetini göstermiş, düşman asıl mevzilerine sığınmak zorunda kalmıştır.",
+            "impact": 92,
+            "lat": 39.8119,
+            "lng": 30.1565,
+            "location": "İnönü / Eskişehir"
+        },
+        {
+            "id": 4,
+            "date": "23 Ağustos 1921",
+            "title": "Sakarya Meydan Muharebesi: Ölüm Kalım Savaşı",
+            "category": "ASKERİ",
+            "content": "Vatanın harimi ismetini boğmak isteyen düşmana karşı, Sakarya boylarında tarihin en kanlı savaşı verilmektedir. Başkomutan Mustafa Kemal Paşa'nın 'Hattı müdafaa yoktur, sathı müdafaa vardır' emriyle her karış vatan toprağı kanla sulanmaktadır.",
+            "impact": 96,
+            "lat": 39.6333,
+            "lng": 32.1333,
+            "location": "Polatlı / Ankara"
+        },
+        {
+            "id": 5,
+            "date": "26 Ağustos 1922",
+            "title": "BÜYÜK TAARRUZ BAŞLADI!",
+            "category": "ASKERİ",
+            "content": "Vatan ve İstiklal İçin Topyekûn Harekât! Türk ordusu, 26 Ağustos'ta bütün cephelerde Yunan kuvvetlerine karşı harekâta geçti. Sabahın ilk ışıklarıyla Türk topçusu Afyon mevzilerini dövmeye başladı. Aylardır beklenen o büyük gün geldi. Ordularımız 'İlk Hedefiniz Akdeniz'dir' emriyle ileri atıldı.",
+            "impact": 97,
+            "lat": 38.7569,
+            "lng": 30.5386,
+            "location": "Afyonkarahisar"
+        },
+        {
+            "id": 6,
+            "date": "29 Ağustos 1922",
+            "title": "Afyonkarahisar İşgal Edildi!",
+            "category": "ZAFER",
+            "content": "Türk ordusunun sol kanadı, Yunanlıların üç sıra halindeki siperlerini tamamen zapt ederek Afyonkarahisar’ı işgal etmiştir. Pek çok esir ve ganimet ele geçirilmiştir. Düşmanın bir yıllık savunma hazırlıkları birkaç saat içinde yerle bir olmuştur. Yunanlılar geri çekilme hattını kaybetmiştir.",
+            "impact": 98,
+            "lat": 38.7569,
+            "lng": 30.5386,
+            "location": "Afyonkarahisar Merkez"
+        },
+        {
+            "id": 7,
+            "date": "9 Eylül 1922",
+            "title": "İZMİR KURTULDU: Hürriyetin Bedeli Kanla Yazıldı",
+            "category": "ZAFER",
+            "content": "Süvarilerimiz bugün İzmir'e girdi. Hükümet konağına şanlı bayrağımız çekildi. Yunan ordusu denize döküldü. Milli Mücadele'nin askeri safhası zaferle sonuçlandı. Trabzon limanında zafer düdükleri çalıyor, halk sokaklara döküldü!",
+            "impact": 100,
+            "lat": 38.4192,
+            "lng": 27.1287,
+            "location": "İzmir / Kordon"
+        },
+        {
+            "id": 8,
+            "date": "17 Ağustos 1923",
+            "title": "TARİHİ KARAR: Lozan Zaferi Dünyaya İlan Edildi",
+            "category": "SİYASİ",
+            "content": "Lozan Muahedesi ile tam bağımsızlığımız tescil edildi. Kapitülasyonlar kaldırıldı. Ayrıca Türkiye ile Yunanistan arasında 'Nüfus Mübadelesi' kararı alındı. 400.000 muhacirin Anadolu'ya gelmesi bekleniyor. Trabzon da iskan mıntıkalarından biri olarak belirlendi.",
+            "impact": 94,
+            "lat": 46.5197,
+            "lng": 6.6323,
+            "location": "Lozan / İsviçre"
+        },
+        {
+            "id": 9,
+            "date": "29 Ekim 1923",
+            "title": "CUMHURİYET İLAN EDİLDİ!",
+            "category": "DEVRİM",
+            "content": "Ve beklenen an... 'Hakimiyet kayıtsız şartsız milletindir' düsturu, Cumhuriyet'in ilanıyla taçlandı. Türkiye Devleti'nin yönetim şekli Cumhuriyet'tir. İlk Cumhurbaşkanımız Gazi Mustafa Kemal Paşa seçildi. Maziden gelen ses, istikbali aydınlatmıştır.",
+            "impact": 100,
+            "lat": 39.9208,
+            "lng": 32.8541,
+            "location": "Ankara"
+        }
+    ]
+}
