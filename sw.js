@@ -1,76 +1,22 @@
-const CACHE_NAME = 'istikbal-archive-v16';
-const ASSETS = [
-  './',
-  './index.html',
-  './app-v2.js',
-  './styles.css',
-  './manifest-v6.json',
-  './istikbal-icon-192-v6.png',
-  './istikbal-icon-512-v6.png',
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
-];
+const CACHE_NAME = 'istikbal-emergency-reset-v999';
 
-// Install event - cache resources
+// 1. INSTALL: Force kill all old caches immediately
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(ASSETS);
-      })
-  );
   self.skipWaiting();
 });
 
-// Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-
-        // Clone the request
-        const fetchRequest = event.request.clone();
-
-        return fetch(fetchRequest).then((response) => {
-          // Check if valid response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-
-          // Clone the response
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-      })
+// 2. ACTIVATE: Delete EVERYTHING that matters
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(keys.map((key) => caches.delete(key)));
+    }).then(() => {
+      return self.clients.claim();
+    })
   );
 });
 
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
-
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-
-  return self.clients.claim();
+// 3. FETCH: Bypass cache and go direct to network for this emergency revert
+self.addEventListener('fetch', (event) => {
+  event.respondWith(fetch(event.request));
 });

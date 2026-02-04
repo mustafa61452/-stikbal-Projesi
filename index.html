@@ -19,12 +19,6 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="./manifest-v6.json">
 
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="İstikbal Gazetesi - Milli Mücadele'nin Sesi">
-    <meta property="og:description" content="1918-1925 İstikbal Gazetesi Dijital Arşivi ve Milli Mücadele Analizi.">
-    <meta property="og:image" content="./istikbal-icon-512-v5.png">
-
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./istikbal-icon-192-v5.png">
     <link rel="apple-touch-icon" href="./istikbal-icon-512-v5.png">
@@ -41,209 +35,95 @@
         rel="stylesheet">
 
     <!-- Leaflet Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
-    <!-- Texture Overlay -->
     <div class="texture-overlay"></div>
 
-    <!-- Header -->
     <header class="app-header">
         <div class="header-container">
             <div class="logo-section">
                 <div class="osmanlica-logo">استقبال</div>
                 <h1 class="app-title">İSTİKBAL</h1>
-                <!-- Navigation History Controls -->
                 <div class="nav-controls">
-                    <button onclick="history.back()" title="Geri">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <button onclick="history.forward()" title="İleri">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <button onclick="history.back()"><i class="fas fa-arrow-left"></i></button>
+                    <button onclick="history.forward()"><i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <!-- Desktop Navigation -->
             <nav class="desktop-nav">
-                <a href="#home" class="nav-link active" data-page="home">
-                    <i class="fas fa-home"></i>
-                    <span>Ana Sayfa</span>
-                </a>
-                <a href="#archive" class="nav-link" data-page="archive">
-                    <i class="fas fa-newspaper"></i>
-                    <span>Haber Arşivi</span>
-                </a>
-                <a href="#struggle" class="nav-link" data-page="struggle">
-                    <i class="fas fa-flag-checkered"></i>
-                    <span>Milli Mücadele</span>
-                </a>
-                <a href="#propaganda" class="nav-link" data-page="propaganda">
-                    <i class="fas fa-balance-scale"></i>
-                    <span>Basın Cephesi</span>
-                </a>
-                <a href="#academic" class="nav-link" data-page="academic">
-                    <i class="fas fa-university"></i>
-                    <span>Akademik Bakış</span>
-                </a>
-                <a href="#timeline" class="nav-link" data-page="timeline">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <span>Tarihsel Harita</span>
-                </a>
-                <a href="#sentiment" class="nav-link" data-page="sentiment">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Duygu Analizi</span>
-                </a>
-                <a href="#loyalty" class="nav-link" data-page="loyalty">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <span>Vefa Köşesi</span>
-                </a>
-                <a href="#empathy" class="nav-link" data-page="empathy">
-                    <i class="fas fa-brain"></i>
-                    <span>Empati Ölçeği</span>
-                </a>
-                <a href="#about" class="nav-link" data-page="about">
-                    <i class="fas fa-info-circle"></i>
-                    <span>Hakkında</span>
-                </a>
+                <a href="#home" class="nav-link active" data-page="home">Ana Sayfa</a>
+                <a href="#archive" class="nav-link" data-page="archive">Haber Arşivi</a>
+                <a href="#timeline" class="nav-link" data-page="timeline">Tarihsel Harita</a>
+                <a href="#sentiment" class="nav-link" data-page="sentiment">Duygu Analizi</a>
+                <a href="#about" class="nav-link" data-page="about">Hakkında</a>
             </nav>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" id="menu-toggle" onclick="toggleMobileMenu()">
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <!-- Mobile Navigation -->
-        <nav class="mobile-nav" id="mobile-menu"
-            style="display: none; flex-direction: column; background: rgba(0,0,0,0.95); position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem; z-index: 999;">
+        <nav class="mobile-nav" id="mobile-menu" style="display: none;">
             <a href="#home" class="nav-link" data-page="home">Ana Sayfa</a>
             <a href="#archive" class="nav-link" data-page="archive">Haber Arşivi</a>
-            <a href="#struggle" class="nav-link" data-page="struggle">Milli Mücadele</a>
-            <a href="#propaganda" class="nav-link" data-page="propaganda">Basın Cephesi</a>
-            <a href="#academic" class="nav-link" data-page="academic">Akademik Bakış</a>
             <a href="#timeline" class="nav-link" data-page="timeline">Harita</a>
             <a href="#sentiment" class="nav-link" data-page="sentiment">Duygu Analizi</a>
-            <a href="#loyalty" class="nav-link" data-page="loyalty">Vefa Köşesi</a>
-            <a href="#empathy" class="nav-link" data-page="empathy">Empati Ölçeği</a>
             <a href="#about" class="nav-link" data-page="about">Hakkında</a>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content" id="page-content">
-        <!-- Content will be loaded here dynamically -->
+        <!-- Content loaded dynamically -->
     </main>
 
-    <!-- Footer -->
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>İstikbal Gazetesi</h3>
-                <p>Milli Mücadele'nin Trabzon'daki Yılmaz Sesi</p>
-                <p class="year">1918 - 1925</p>
+                <p>1918 - 1925</p>
             </div>
-
             <div class="footer-section">
                 <h3>TÜBİTAK Projesi</h3>
-                <p>İstikbal Gazetesi Dijital Arşivi</p>
-                <p>ve Duygu Analizi Çalışması - 2025</p>
-            </div>
-
-            <div class="footer-section">
-                <h3>İletişim</h3>
-                <p>Bu proje TÜBİTAK desteği ile hazırlanmıştır.</p>
+                <p>2025</p>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2025 İstikbal Gazetesi Dijital Arşivi - Tüm hakları saklıdır.</p>
             <p class="quote">"Maziden gelen ses, İstikbal'i aydınlatır."</p>
         </div>
     </footer>
 
-    <!-- Install Button (PWA) -->
-    <button class="install-btn" id="install-btn" style="display: none;">
-        <i class="fas fa-download"></i>
-        Uygulamayı Yükle
-    </button>
-
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <!-- Main App Script -->
-    <script src="./app-v2.js?v=9"></script>
+    <script src="./app-v2.js?v=999"></script>
     <script>
-        // Extremely Robust Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            const icon = document.querySelector('#menu-toggle i');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'flex';
-                if (icon) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                }
-            } else {
-                menu.style.display = 'none';
-                if (icon) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            }
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Close menu when clicking links
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('mobile-menu');
-            const toggle = document.getElementById('menu-toggle');
-            if (menu && menu.style.display === 'flex' && !menu.contains(e.target) && !toggle.contains(e.target)) {
-                toggleMobileMenu();
-            }
-            if (e.target.classList.contains('nav-link') && window.innerWidth <= 1024) {
-                const menu = document.getElementById('mobile-menu');
-                if (menu) menu.style.display = 'none';
-                const icon = document.querySelector('#menu-toggle i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-            }
-        });
-
-        // Nuclear PWA Reset & Service Worker Fix
-        async function forceSWUpdate() {
+        // FORCE REFRESH AND SW UNREGISTER
+        async function nuclearReset() {
             if ('serviceWorker' in navigator) {
-                const registrations = await navigator.serviceWorker.getRegistrations();
-                for (let registration of registrations) {
-                    await registration.unregister();
-                }
-                // Register new SW with cache-busting version
-                navigator.serviceWorker.register('./sw.js?v=6').then(() => {
-                    console.log('New Service Worker registered with FORCE');
-                });
+                const regs = await navigator.serviceWorker.getRegistrations();
+                for (let r of regs) await r.unregister();
             }
+            localStorage.clear();
+            sessionStorage.clear();
+            console.log('Nuclear reset completed.');
         }
 
-        // Run once on load
-        if (!localStorage.getItem('pwa_reset_v9')) {
-            forceSWUpdate();
-            localStorage.setItem('pwa_reset_v9', 'true');
-            // Refresh to apply
-            setTimeout(() => window.location.reload(), 500);
-        } else {
-            // Normal registration
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js?v=6');
-            }
+        if (!localStorage.getItem('reverted_v1')) {
+            nuclearReset().then(() => {
+                localStorage.setItem('reverted_v1', 'true');
+                window.location.reload(true);
+            });
         }
     </script>
 </body>
