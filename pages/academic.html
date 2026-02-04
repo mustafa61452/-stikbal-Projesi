@@ -1,0 +1,700 @@
+<style>
+    .academic-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 4px double #8b0000;
+    }
+
+    .page-header h1 {
+        font-size: 2.8rem;
+        font-family: 'Playfair Display', serif;
+        color: #8b0000;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+        color: #666;
+        font-size: 1.1rem;
+        font-style: italic;
+    }
+
+    /* Professors Grid */
+    .professors-intro {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .professor-card {
+        background: linear-gradient(135deg, #fff 0%, #f8f4e8 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border: 2px solid #e8dcc8;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .professor-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(139, 0, 0, 0.2);
+    }
+
+    .professor-avatar {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #8b0000, #5c0000);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2.5rem;
+        color: white;
+    }
+
+    .professor-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.3rem;
+    }
+
+    .professor-title {
+        font-size: 0.9rem;
+        color: #8b0000;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .professor-quote {
+        font-style: italic;
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        border-left: 3px solid #8b0000;
+        padding-left: 1rem;
+        text-align: left;
+    }
+
+    /* Interview Sections */
+    .interview-section {
+        margin-bottom: 4rem;
+        scroll-margin-top: 100px;
+    }
+
+    .interview-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #8b0000, #5c0000);
+        color: white;
+        border-radius: 20px;
+    }
+
+    .interview-avatar {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .interview-info h2 {
+        font-size: 1.8rem;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 0.3rem;
+    }
+
+    .interview-info p {
+        opacity: 0.9;
+        font-size: 1rem;
+    }
+
+    /* Q&A Styling */
+    .qa-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .qa-item {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .question {
+        background: linear-gradient(135deg, #f8f4e8, #fdf8f0);
+        padding: 1.2rem 1.5rem;
+        font-weight: 700;
+        color: #8b0000;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .question:hover {
+        background: linear-gradient(135deg, #f0e8d8, #f8f0e0);
+    }
+
+    .question i {
+        font-size: 1.2rem;
+        margin-top: 0.2rem;
+    }
+
+    .question span {
+        flex: 1;
+    }
+
+    .question .toggle-icon {
+        transition: transform 0.3s;
+    }
+
+    .qa-item.open .toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    .answer {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, padding 0.3s;
+    }
+
+    .qa-item.open .answer {
+        padding: 1.5rem;
+        max-height: 2000px;
+    }
+
+    .answer-content {
+        line-height: 1.9;
+        color: #444;
+        font-size: 1.05rem;
+    }
+
+    .answer-content p {
+        margin-bottom: 1rem;
+    }
+
+    .answer-content p:last-child {
+        margin-bottom: 0;
+    }
+
+    .highlight-box {
+        background: linear-gradient(135deg, #fef3c7, #fef9e7);
+        border-left: 4px solid #d97706;
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+    }
+
+    .key-point {
+        background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+        border-left: 4px solid #16a34a;
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+        border-radius: 0 10px 10px 0;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: #8b0000;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+        transition: all 0.3s;
+        display: none;
+    }
+
+    .back-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+    }
+
+    .back-to-top.visible {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Quote Block */
+    .featured-quote {
+        background: linear-gradient(135deg, #1e293b, #334155);
+        color: white;
+        padding: 3rem;
+        border-radius: 20px;
+        text-align: center;
+        margin: 3rem 0;
+    }
+
+    .featured-quote blockquote {
+        font-size: 1.4rem;
+        font-style: italic;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    .featured-quote cite {
+        font-size: 1rem;
+        opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .interview-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .featured-quote {
+            padding: 2rem;
+        }
+
+        .featured-quote blockquote {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+
+<div class="academic-page">
+    <div class="page-header">
+        <h1>🎓 İstikbal'e Akademik Bakış</h1>
+        <p>Trabzon'un Akademisyenlerinden İstikbal Gazetesi Üzerine Değerlendirmeler</p>
+    </div>
+
+    <!-- Professors Intro Cards -->
+    <div class="professors-intro">
+        <div class="professor-card" onclick="scrollToInterview('oksuz')">
+            <div class="professor-avatar">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="professor-name">Prof. Dr. Hikmet ÖKSÜZ</div>
+            <div class="professor-title">KTÜ Tarih Bölümü</div>
+            <div class="professor-quote">"İstikbal, 100 yıl önce yaşanılmış olan hadiselerin en önemli birincil
+                kaynağıdır."</div>
+        </div>
+
+        <div class="professor-card" onclick="scrollToInterview('baskaya')">
+            <div class="professor-avatar">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="professor-name">Prof. Dr. Muzaffer BAŞKAYA</div>
+            <div class="professor-title">KTÜ Tarih Bölümü</div>
+            <div class="professor-quote">"İstikbal Gazetesi bir milletin bağımsızlık haykırışının ortaya çıkışıdır."
+            </div>
+        </div>
+
+        <div class="professor-card" onclick="scrollToInterview('aksoy')">
+            <div class="professor-avatar">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="professor-name">Doç. Dr. Volkan AKSOY</div>
+            <div class="professor-title">KTÜ Tarih Bölümü</div>
+            <div class="professor-quote">"Özgürlüğün, bağımsızlığın ve kurtuluşun Karadeniz'deki sesidir."</div>
+        </div>
+    </div>
+
+    <!-- Featured Quote -->
+    <div class="featured-quote">
+        <blockquote>"Dünyanın en şerefli tarihine sahibiz desek bir tarihçi olarak asla bir abartı yapmamış olurum. Üç
+            kıtaya yayılmış, gittiği yerlere insan haklarını, demokrasiyi, özgürlüğü götürmüş şerefli bir milletin
+            mensuplarıyız."</blockquote>
+        <cite>— Prof. Dr. Muzaffer Başkaya</cite>
+    </div>
+
+    <!-- Interview 1: Prof. Dr. Hikmet ÖKSÜZ -->
+    <div class="interview-section" id="oksuz">
+        <div class="interview-header">
+            <div class="interview-avatar">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="interview-info">
+                <h2>Prof. Dr. Hikmet ÖKSÜZ</h2>
+                <p>KTÜ Edebiyat Fakültesi Tarih Bölümü</p>
+            </div>
+        </div>
+
+        <div class="qa-container">
+            <div class="qa-item open">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>İstikbal Gazetesi bugün Trabzon ve Türkiye açısından nasıl bir anlam ifade eder?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>Bugün, 100 yıl önce yaşanılmış olan hadiselerin en önemli kaynağı, birincil kaynağıdır.
+                            Toplumun geniş kesimlerini etkileyen, ulusal bilincin gelişimine destek olan, imparatorluğun
+                            çöküş döneminde Milli Mücadele'nin başlangıç ve gelişme safhalarında Trabzon ve çevresinde
+                            Türk toplumunun içine düşmüş olduğu o dağınıklığı gidermede önemli rol oynamıştır.</p>
+
+                        <div class="key-point">
+                            <strong>🔑 Önemli:</strong> O dönemde kitle iletişiminde en yaygın araç gazetelerdir; çünkü
+                            radyo Türkiye'ye 1927'de gelmiştir, televizyon ise 1960'larda etkili olmaya başlamıştır.
+                        </div>
+
+                        <p>Gazetenin çıkmaya başladığı 10 Aralık 1918'de Trabzon, Anadolu vilayetleri içerisinde nüfusu
+                            en kalabalık olan vilayet merkezidir. Bu bölge, gazetenin kuruluşundan hemen önce 1916-1918
+                            yılları arasında Rus işgali nedeniyle büyük bir siyasal ve sosyal travma yaşamıştı.</p>
+
+                        <div class="highlight-box">
+                            "Ulusal bilincin gelişip ayrılıkçı hareketlerin önlenmesinde, Batı cephesinde Yunan'a karşı
+                            verilen mücadelede yerelde kampanyalar düzenleyip hem maddi destek sunma hem de toplumsal
+                            bilinci diri tutma adına insanların bağımsızlık inancını kaybetmemesi için işlev gören çok
+                            önemli bir basın organıdır."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Faik Ahmet Barutçu ve İstikbal'in kuruluşu hakkında ne söylersiniz?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>İstikbal Gazetesi'ni çıkartan Faik Ahmet Barutçu, Trabzon'un köklü ailelerinden birisi.
+                            Kendisi hukuk fakültesi öğrencisiyken, 1918'in sonunda Trabzon'a dönüyor. Döndüğünde
+                            karşılaştığı manzara şu: Bir taraftan Mondros'un getirdiği o yılgınlık, diğer taraftan da
+                            bölgede Rumların "Pontus" devleti kurma hayalleriyle yaptıkları taşkınlıklar.</p>
+
+                        <p>İşte bu noktada Faik Ahmet Bey, bir taraftan Muhafaza-i Hukuk-ı Milliye Cemiyeti'nin
+                            kuruluşunda aktif rol alırken, diğer taraftan da halkın sesini duyurabileceği, fikirsel bir
+                            mücadele yürütebileceği bir yayın organına ihtiyaç olduğunu görüyor.</p>
+
+                        <div class="key-point">
+                            <strong>🏛️ Stratejik Konum:</strong> Gazete, sadece bir yerel gazete değil; aslında
+                            Karadeniz'in, hatta o dönemde İstanbul ve Ankara arasındaki o kritik hattın en önemli haber
+                            ve fikir merkezi haline geliyor.
+                        </div>
+
+                        <p>Özellikle Ermeni ve Rum iddialarına karşı tarihi belgelerle, nüfus verileriyle cevaplar
+                            vererek uluslararası kamuoyuna da bir mesaj gönderiyor. Faik Ahmet Barutçu'nun enerjisi,
+                            genç bir hukukçu olarak vizyonu, gazeteyi Milli Mücadele'nin "kale" yayınlarından biri
+                            haline getirmiştir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Milli Mücadele döneminde oynadığı rolün bugüne uzanan sürekliliğini hangi alanlarda
+                        görüyorsunuz?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>O yıllarda Trabzon'da ve çevresinde bir Pontus tehlikesi vardı. Ulusal bilincin oluşumuna
+                            gazete çok büyük bir rol oynamıştır. Bu bölge üzerinde özellikle 1991 sonrasında Sovyetler
+                            Birliği'nin dağılması, küreselleşme sürecinin başlaması ve diaspora Rumlarının bir
+                            postmodern Pontusçuluk yaratma çabaları vardır.</p>
+
+                        <div class="highlight-box">
+                            "Geçmişte, yüz yıl önce İstikbal Gazetesi nasıl bir ulusal bilincin gelişmesine katkı
+                            yapmışsa; burada oluşan kültür, günümüzde de bu postmodern hareketlere karşı Türk milletinin
+                            diri olmasını sağlamak bakımından bir faydası var."
+                        </div>
+
+                        <p>Bugün Türkiye genelinde yerel basın analizi yapacak olursanız; İstanbul, İzmir, Ankara'dan
+                            sonra en etkili yerel basının Trabzon basını olduğunu görürsünüz. Bu bir kültürün
+                            yansımasıdır.</p>
+
+                        <p>Burası bir liman kenti özelliği taşıdığı için tarih boyunca hep Doğu-Batı ilişkisinde kavşak
+                            noktasıdır. Bugün bu bölge insanının bilinç seviyesinin yüksekliği, sezgi kabiliyetinin
+                            yüksekliği ve kolay tepki verme özelliği, reflekslerinin güçlü olması aslında bu birikimin
+                            bir tezahürüdür.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interview 2: Prof. Dr. Muzaffer BAŞKAYA -->
+    <div class="interview-section" id="baskaya">
+        <div class="interview-header">
+            <div class="interview-avatar">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="interview-info">
+                <h2>Prof. Dr. Muzaffer BAŞKAYA</h2>
+                <p>KTÜ Edebiyat Fakültesi Tarih Bölümü</p>
+            </div>
+        </div>
+
+        <div class="qa-container">
+            <div class="qa-item open">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>İstikbal Gazetesi bugün Trabzon ve Türkiye açısından nasıl bir anlam ifade eder?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>Türk milleti olarak hiçbir topluma, hiçbir kavme, hiçbir halka nasip olmayacak bir tarihe
+                            sahibiz. Dünyanın en şerefli tarihine sahibiz desek bir tarihçi olarak asla bir abartı
+                            yapmamış olurum.</p>
+
+                        <div class="key-point">
+                            <strong>📍 Trabzon'un Stratejik Önemi:</strong> Hem Ermeniler hem de Rumlar Trabzon'a göz
+                            dikmişlerdi. Ermeniler Karadeniz'e çıkış limanı olarak, Rumlar ise Hopa'dan Samsun'a kadar
+                            bir Pontus devleti hayalini kuruyorlardı.
+                        </div>
+
+                        <p>Trabzon'un vatansever gençleri ve vatansever kişilikleri kendi aralarında haklarını
+                            duyurabilmek için "Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti"ni kuruyorlar. Ve bu
+                            cemiyetin de yayın organı olarak İstikbal Gazetesi ortaya çıkıyor.</p>
+
+                        <div class="highlight-box">
+                            "İstikbal Gazetesi sadece kenarda köşede kalacak olan bir tarihi vesika değil; aynı zamanda
+                            bir toplumun, bir milletin, bir şehrin haykırışını, bağımsızlık mücadelesini sembolize eden
+                            çok değerli bir tarihi kaynaktır."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>İstikbal Gazetesi'nin bugüne uzanan sürekliliğini hangi alanlarda görüyorsunuz?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>Tarih tekerrürden ibarettir. Ama tarihten gerekli dersleri çıkarırsak bu asla tekerrür etmez.
+                            Rumlar, Ermeniler bu memlekete göz dikmişler ve Trabzonlular da bir haykırış olarak buna
+                            cevap vermişler.</p>
+
+                        <p>Bugün memleketimizin üzerinde başka gözler var. Anadolu çok nazik bir coğrafya ve bu
+                            coğrafyada yaşamanın bir bedeli var. Zamanında dedelerimiz bu bedeli fazlasıyla ödediler.
+                        </p>
+
+                        <div class="key-point">
+                            <strong>💡 Güncel Mesaj:</strong> "Anadolu'da yaşamanın bir bedeli var. Bu bedel zamanında
+                            İstikbal Gazetesi'nin satırlarına, sütunlarına işlemiş durumda. Biz bu bedeli öğrenmeliyiz
+                            ki bugün bu coğrafyada daha sağlam durabilelim."
+                        </div>
+
+                        <p>İstikbal Gazetesi okunmalı, araştırılmalı, daha çok bununla ilgili yayınlar yapılmalı.
+                            Geçmişini bilirsen bugünü daha sağlam anlarsın.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Gazetenin o dönemde oluşturduğu milli bilinç bugünün gençliği için nasıl bir karşılık
+                        üretir?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>Ben bazen kendi kendime düşünüyorum; bugün Anadolu işgal edilse bu millet bir Mustafa Kemal
+                            Paşa çıkarabilir mi? Bunu düşünmemiz lazım.</p>
+
+                        <p>Gençler tarihsel olaylara masal gözüyle bakıyorlar. Bunların masal olmadığını göstermek
+                            gerekiyor. Yüz sene önce burada düşmanlar vardı, Trabzon işgal edilmişti.</p>
+
+                        <div class="highlight-box">
+                            "Nasıl Çanakkale'ye gidince siperleri, mermileri görünce 'Aaa hakikaten burada bir savaş
+                            olmuş' diyoruz, bir onu duymak var bir de yaşamak var yerinde. İşte İstikbal Gazetesi onu
+                            somutlaştırıyor."
+                        </div>
+
+                        <p>Bak İstikbal Gazetesi'ne bakarsan önce Rumların matbaasında çıkıyor, daha sonra kendi
+                            matbaasına taşınıyor. Çok zor şartlarda ortaya çıkmış bir şeyden bahsediyoruz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Sizce İstikbal Gazetesi bir yayın organının ötesinde neyi temsil ediyor?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>İstikbal Gazetesi bence çok önemli, tarihi bir kıymeti olan bir tarihi malzemedir aynı
+                            zamanda. Sadece bir gazete değildir. İçinde bir milletin bağımsızlık haykırışının ortaya
+                            çıkışı vardır.</p>
+
+                        <div class="key-point">
+                            <strong>💎 Değer:</strong> İstikbal Gazetesi zor şartlarda Milli Mücadele sırasında çıkıyor
+                            ve Kurtuluş Savaşı'nı destekliyor. Milli Mücadele'nin sözcülüğünü yapıyor.
+                        </div>
+
+                        <p>Kolay zamanlarda bir şey yapmak mı daha anlamlıdır, zor şartlar altında bir şeyler başarmak
+                            mı? Zor şartlar altında bir şeyler başarmak daha anlamlıdır; o yüzden İstikbal Gazetesi çok
+                            zor imkanlar içerisinde yayınlandığı için son derece kıymetli bir tarihi hazinedir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interview 3: Doç. Dr. Volkan AKSOY -->
+    <div class="interview-section" id="aksoy">
+        <div class="interview-header">
+            <div class="interview-avatar">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="interview-info">
+                <h2>Doç. Dr. Volkan AKSOY</h2>
+                <p>KTÜ Edebiyat Fakültesi Tarih Bölümü</p>
+            </div>
+        </div>
+
+        <div class="qa-container">
+            <div class="qa-item open">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>İstikbal Gazetesi bugün Trabzon ve Türkiye açısından nasıl bir anlam ifade eder?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>İstikbal Gazetesi Milli Mücadele döneminin çok önemli gazetelerinden bir tanesi. Trabzon'un
+                            Kurtuluş Savaşı'na destek veren, dönemin özgür basını içerisinde sesini bu bölgeden
+                            yükseltebilmiş önde gelen gazetelerinden bir tanesi.</p>
+
+                        <div class="key-point">
+                            <strong>📰 Yayın Dönemi:</strong> 1918 ile 1925 yılları arasında çıkmış bir gazete. Milli
+                            Mücadele'nin en kritik dönemlerinde pek çok konuyu sütunlarına taşımış, tartışmış, yeri
+                            gelmiş muhalefet yapmış, yeri gelmiş destek vermiş.
+                        </div>
+
+                        <p>Buranın bir Müslüman Türk yurdu olduğunu haykıran, hiçbir şekilde başka bir gruba
+                            verilemeyeceğini iddia eden; hem nüfus bakımından, hem siyasi olarak hem ekonomik olarak
+                            bunu destekleyen yazılarıyla, belgeleriyle ortaya çıkmış bir gazete olması bakımından
+                            hakikaten çok değerli bir yayın faaliyeti yürütmüş.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Gazetenin o dönemde oluşturduğu milli bilinç bugünün gençliği için nasıl bir karşılık
+                        üretir?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>O dönem var olmakla yok olmak arasındadır Türk milleti, hakikaten öyledir. 10 Ağustos 1920'de
+                            imzalanmış olan Sevr Antlaşması'yla Türk dünyasına sadece İç Anadolu'da çok küçük bir yer
+                            bırakılmıştır.</p>
+
+                        <div class="highlight-box">
+                            "Çanakkale Harbi'nde Mustafa Kemal'in o siperler arası sekiz metre öleceğini biliyor ama en
+                            ufak bir tereddüt göstermeksizin savaşa atılıyor; öleceğini bile bile bu şeye katılıyor.
+                            İşte savaşı kazanan ruh dediği o ruhu yakaladığı için o dönem önderleri bunu milli bilinçle
+                            beraber milli mücadeleye yansıtacak ve başarıyı kazanacaktır."
+                        </div>
+
+                        <p>O yetişmiş kadro, bu milli mücadelenin büyük önderleri, zaten küllenmiş olan o duyguları en
+                            yüksek seviyesine çıkarıp o milli mücadeleyi başaracaktır.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleQA(this)">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Sizce İstikbal Gazetesi bir yayın organının ötesinde neyi temsil ediyor?</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </div>
+                <div class="answer">
+                    <div class="answer-content">
+                        <p>Özellikle Erzurum ve Sivas kongrelerinin düzenlenmesinde ve duyurulmasında çok büyük rolü
+                            vardır Albayrak ile bizim İstikbal Gazetesi'nin.</p>
+
+                        <div class="key-point">
+                            <strong>🏆 Temsil Değeri:</strong> Sadece bir yayın organı değil; hem bölgenin yani Doğu
+                            Karadeniz'in hem de bütün yurdun kurtarılmasının bayraktarı olmuş bir gazete.
+                        </div>
+
+                        <p>Milli Mücadele'nin, milli varlığın, Türk'ün ölmezliğinin sesi olarak algılıyorum ben İstikbal
+                            Gazetesi'ni. Zaman zaman doğru bildiğini iktidarlara rağmen, o dönemin siyasi güçlerine
+                            rağmen de söyleyebilmiş bir gazetedir.</p>
+
+                        <div class="highlight-box">
+                            "Özgürlüğün, bağımsızlığın ve kurtuluşun Karadeniz'deki sesi olarak algılıyorum İstikbal
+                            Gazetesi'ni."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</div>
+
+<script>
+    // Toggle Q&A
+    function toggleQA(element) {
+        const qaItem = element.parentElement;
+        qaItem.classList.toggle('open');
+    }
+
+    // Scroll to interview section
+    function scrollToInterview(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Back to top button visibility
+    window.addEventListener('scroll', function () {
+        const btn = document.getElementById('backToTop');
+        if (window.scrollY > 500) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top function
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
