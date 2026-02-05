@@ -160,6 +160,20 @@ window.addEventListener('popstate', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     const page = window.location.hash.replace('#', '') || 'home';
     router.navigate(page, true);
+
+    // Mobile menu auto-close on nav link click
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.style.display = 'none';
+            }
+            
+            // Update active state
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
 });
 
 // 5. SCROLL PROGRESS INDICATOR
@@ -171,3 +185,4 @@ window.addEventListener('scroll', () => {
     const scrolled = (window.scrollY / windowHeight) * 100;
     progressBar.style.width = scrolled + '%';
 });
+
