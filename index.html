@@ -223,7 +223,30 @@
                 <h3>TÜBİTAK Projesi</h3>
                 <p>2025</p>
             </div>
+            <div class="footer-section">
+                <h3>Ziyaretçi</h3>
+                <p id="visitor-count" style="font-family: monospace; letter-spacing: 2px; font-weight: bold;">...</p>
+            </div>
         </div>
+
+        <script>
+            // Simple Visitor Counter using CountAPI
+            document.addEventListener('DOMContentLoaded', () => {
+                const counterElement = document.getElementById('visitor-count');
+                const namespace = 'gazeteistikbal-tubitak-2025'; // Unique namespace
+                const key = 'visits';
+
+                fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        counterElement.innerText = data.value.toLocaleString('tr-TR');
+                    })
+                    .catch(err => {
+                        console.error('Counter Error:', err);
+                        counterElement.innerText = '100+'; // Fallback
+                    });
+            });
+        </script>
         <div class="footer-bottom">
             <p class="quote">"Maziden gelen ses, İstikbal'i aydınlatır."</p>
         </div>
