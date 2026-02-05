@@ -118,6 +118,20 @@ button {
 }
 
 .logo-section {
+   .logo-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -755,5 +769,6 @@ button {
     font-size: 2rem;
   }
 }
+
 
 
