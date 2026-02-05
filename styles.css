@@ -25,6 +25,19 @@
   --transition-slow: 0.5s ease;
 }
 
+/* Dark Mode Theme */
+[data-theme="dark"] {
+  --sepia-light: #1a1a1a;
+  --sepia-dark: #f4ecd8;
+  --sepia-accent: #d4a373;
+  --vintage-red: #ff6b6b;
+  --ink: #ffffff;
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* ===================================
    GLOBAL RESET & BASE STYLES
    =================================== */
