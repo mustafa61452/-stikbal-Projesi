@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstikbal Tanıtım</title>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="mb-16">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 text-gradient-custom">İSTİKBAL TANITIM</h1>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                Milli Mücadele'nin Trabzon'daki sesi İstikbal Gazetesi hakkında tanıtım materyalleri,
+                akademik çalışmalar ve görsel kaynaklar
+            </p>
+        </div>
+    </section>
+
+    <!-- Visual Materials Section -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center text-red-900">
+            <i class="fas fa-images mr-3"></i>Görsel Materyaller
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Image 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="relative group">
+                    <img src="../assets/promotion/milli-mucadelenin-kalemi.png" alt="Milli Mücadelenin Kalemi İstikbal"
+                        class="w-full h-auto object-cover cursor-pointer" onclick="openImageModal(this.src, this.alt)">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i
+                            class="fas fa-search-plus text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Milli Mücadelenin Kalemi</h3>
+                    <p class="text-gray-600">İstikbal Gazetesi'nin milli mücadeledeki rolünü gösteren tanıtım görseli
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div class="relative group">
+                    <img src="../assets/promotion/milli-mucadelenin-sesi.png"
+                        alt="Milli Mücadelenin Trabzon'da Sesi İstikbal"
+                        class="w-full h-auto object-cover cursor-pointer" onclick="openImageModal(this.src, this.alt)">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <i
+                            class="fas fa-search-plus text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Trabzon'da Milli Mücadelenin Sesi</h3>
+                    <p class="text-gray-600">İstikbal'in Trabzon'daki önemini vurgulayan görsel materyal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Section -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 text-center text-red-900">
+            <i class="fas fa-file-alt mr-3"></i>Tanıtım Belgeleri ve Akademik Çalışmalar
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- PDF 1 -->
+            <div
+                class="bg-gradient-to-br from-red-50 to-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-all duration-300 border-l-4 border-red-700">
+                <div class="flex items-start mb-4">
+                    <div class="bg-red-700 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-file-pdf text-3xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Tanıtım Sunusu</h3>
+                        <p class="text-sm text-gray-600 mb-4">İstikbal Gazetesi hakkında detaylı tanıtım sunumu</p>
+                    </div>
+                </div>
+                <a href="../assets/promotion/istikbal-tanitim-sunusu.pdf" target="_blank"
+                    class="inline-flex items-center justify-center w-full bg-red-700 text-white px-4 py-3 rounded-lg hover:bg-red-800 transition-colors duration-300 font-semibold">
+                    <i class="fas fa-download mr-2"></i>İndir (PDF)
+                </a>
+                <div class="mt-3 text-xs text-gray-500 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>Sunum formatında tanıtım belgesi
+                </div>
+            </div>
+
+            <!-- DOCX -->
+            <div
+                class="bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-all duration-300 border-l-4 border-blue-700">
+                <div class="flex items-start mb-4">
+                    <div class="bg-blue-700 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-file-word text-3xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Haberin Etki ve Yorumları</h3>
+                        <p class="text-sm text-gray-600 mb-4">İstikbal haberlerinin etkisi ve yorumlar üzerine analiz
+                        </p>
+                    </div>
+                </div>
+                <a href="../assets/promotion/istikbal-etki-yorumlar.docx" target="_blank"
+                    class="inline-flex items-center justify-center w-full bg-blue-700 text-white px-4 py-3 rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold">
+                    <i class="fas fa-download mr-2"></i>İndir (DOCX)
+                </a>
+                <div class="mt-3 text-xs text-gray-500 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>Word belgesi formatında
+                </div>
+            </div>
+
+            <!-- PDF 2 -->
+            <div
+                class="bg-gradient-to-br from-amber-50 to-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-all duration-300 border-l-4 border-amber-700">
+                <div class="flex items-start mb-4">
+                    <div class="bg-amber-700 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-file-pdf text-3xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">İstikbal'in Zaferi</h3>
+                        <p class="text-sm text-gray-600 mb-4">Trabzon'dan Lozan'a Bir Soluk - Akademik çalışma</p>
+                    </div>
+                </div>
+                <a href="../assets/promotion/istikbal-zaferi.pdf" target="_blank"
+                    class="inline-flex items-center justify-center w-full bg-amber-700 text-white px-4 py-3 rounded-lg hover:bg-amber-800 transition-colors duration-300 font-semibold">
+                    <i class="fas fa-download mr-2"></i>İndir (PDF)
+                </a>
+                <div class="mt-3 text-xs text-gray-500 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>Kapsamlı akademik inceleme
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="mb-12">
+        <div class="bg-gradient-to-r from-red-900 to-red-700 text-white rounded-lg shadow-2xl p-8">
+            <div class="text-center">
+                <i class="fas fa-newspaper text-5xl mb-4 opacity-80"></i>
+                <h2 class="text-3xl font-bold mb-4">İstikbal Gazetesi Hakkında</h2>
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-lg leading-relaxed mb-4 opacity-90">
+                        İstikbal Gazetesi, 1918-1925 yılları arasında Trabzon'da yayınlanmış,
+                        Milli Mücadele döneminin en önemli yerel basın organlarından biridir.
+                    </p>
+                    <p class="text-lg leading-relaxed opacity-90">
+                        Bu sayfa, İstikbal Gazetesi'nin tarihsel önemi, içeriği ve dönemin
+                        sosyo-politik yapısına etkilerini belgeleyen tanıtım materyallerini içermektedir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="mb-12">
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-calendar-alt text-4xl text-red-700 mb-3"></i>
+                <div class="text-3xl font-bold text-gray-800 mb-2">1918-1925</div>
+                <div class="text-gray-600">Yayın Dönemi</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-images text-4xl text-blue-700 mb-3"></i>
+                <div class="text-3xl font-bold text-gray-800 mb-2">2</div>
+                <div class="text-gray-600">Tanıtım Görseli</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-file-alt text-4xl text-amber-700 mb-3"></i>
+                <div class="text-3xl font-bold text-gray-800 mb-2">3</div>
+                <div class="text-gray-600">Akademik Belge</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-map-marker-alt text-4xl text-green-700 mb-3"></i>
+                <div class="text-3xl font-bold text-gray-800 mb-2">Trabzon</div>
+                <div class="text-gray-600">Yayın Merkezi</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4"
+        onclick="closeImageModal()">
+        <div class="relative max-w-7xl max-h-full" onclick="event.stopPropagation()">
+            <button onclick="closeImageModal()"
+                class="absolute -top-12 right-0 text-white text-4xl hover:text-gray-300 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+            <div id="modalCaption" class="text-white text-center mt-4 text-lg"></div>
+        </div>
+    </div>
+
+    <script>
+        function openImageModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            modalImg.src = src;
+            modalCaption.textContent = alt;
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ESC tuşu ile kapatma
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
+</body>
+
+</html>
