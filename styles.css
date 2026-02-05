@@ -107,13 +107,14 @@ button {
 }
 
 .header-container {
-  max-width: 1440px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
+  gap: 0.5rem;
 }
 
 .logo-section {
@@ -176,6 +177,24 @@ button {
   display: flex;
   gap: 0.25rem;
   flex-shrink: 1;
+  overflow-x: auto;
+  max-width: calc(100vw - 400px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--vintage-red) rgba(255, 255, 255, 0.1);
+}
+
+.desktop-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.desktop-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.desktop-nav::-webkit-scrollbar-thumb {
+  background: var(--vintage-red);
+  border-radius: 2px;
 }
 
 .nav-link {
@@ -736,4 +755,5 @@ button {
     font-size: 2rem;
   }
 }
+
 
