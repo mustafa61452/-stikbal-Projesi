@@ -221,8 +221,8 @@ button {
   font-weight: 600;
   font-size: 0.75rem;
   position: relative;
-  overflow: hidden;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-link::before {
@@ -769,6 +769,7 @@ button {
     font-size: 2rem;
   }
 }
+
 
 
 
