@@ -161,3 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const page = window.location.hash.replace('#', '') || 'home';
     router.navigate(page, true);
 });
+
+// 5. SCROLL PROGRESS INDICATOR
+window.addEventListener('scroll', () => {
+    const progressBar = document.getElementById('scroll-progress');
+    if (!progressBar) return;
+
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+});
