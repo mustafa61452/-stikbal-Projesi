@@ -542,77 +542,79 @@
 </div>
 
 <script>
-    // Today in History Data
-    const historyEventsNew = {
-        "1-1": { title: "Yeni Yıl 1920", desc: "İstikbal Gazetesi, Milli Mücadele'nin devam ettiği 1920 yılına umutla girmiştir." },
-        "1-19": { title: "Trabzon'da Milli Cemiyet Toplantısı", desc: "1920 yılının bu günü, Trabzon'da milli cemiyetler önemli bir toplantı düzenlemiştir." },
-        "1-28": { title: "Misak-ı Milli İlanı (1920)", desc: "Osmanlı Mebusan Meclisi, Türk milletinin vazgeçilmez haklarını belirleyen Misak-ı Milli'yi kabul etmiştir." },
-        "2-5": { title: "Trabzon'da Direniş Toplantıları", desc: "1920 yılının bu günü, Trabzon'da Pontus emelleri karşısında halkın direniş toplantıları yapılmıştır." },
-        "3-12": { title: "İstiklal Marşı Kabul Edildi (1921)", desc: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, TBMM tarafından milli marş olarak kabul edilmiştir." },
-        "3-16": { title: "İstanbul'un İşgali (1920)", desc: "İtilaf Devletleri İstanbul'u resmen işgal etmiştir. Bu olay Ankara'nın önemini artırmıştır." },
-        "4-6": { title: "Anadolu Ajansı Kuruldu (1920)", desc: "Ankara'da kurulan Anadolu Ajansı, Milli Mücadele'nin sesini dünyaya duyurmaya başlamıştır." },
-        "4-23": { title: "TBMM Açıldı (1920)", desc: "Türkiye Büyük Millet Meclisi Ankara'da açılmıştır. Milli egemenlik resmen başlamıştır." },
-        "5-15": { title: "Yunan Ordusu İlerliyor (1919)", desc: "Yunan kuvvetleri İzmir'den içerilere doğru ilerlemeye başlamıştır." },
-        "5-19": { title: "Mustafa Kemal Samsun'a Çıktı (1919)", desc: "Mustafa Kemal Paşa, Milli Mücadele'yi başlatmak üzere Samsun'a çıkmıştır." },
-        "6-22": { title: "Amasya Genelgesi (1919)", desc: "Mustafa Kemal'in yayımladığı Amasya Genelgesi ile 'Vatanın bütünlüğü, milletin istihlali' ilkesi ilan edilmiştir." },
-        "7-23": { title: "Erzurum Kongresi Başladı (1919)", desc: "Doğu illerinin temsilcileri Erzurum'da toplanmıştır. Milli mücadelenin temelleri atılmıştır." },
-        "7-24": { title: "Lozan Antlaşması İmzalandı (1923)", desc: "Türkiye Cumhuriyeti'nin bağımsızlığını onaylayan Lozan Antlaşması imzalanmıştır." },
-        "8-10": { title: "Sevr Antlaşması Dayatıldı (1920)", desc: "Osmanlı Devleti'ne ağır şartlar içeren Sevr Antlaşması dayatılmıştır. Türk milleti bunu reddetmiştir." },
-        "8-23": { title: "Sakarya Meydan Muharebesi (1921)", desc: "Türk ordusunun kaderini değiştirecek Sakarya Meydan Muharebesi başlamıştır." },
-        "8-26": { title: "Büyük Taarruz Başladı (1922)", desc: "Yunan ordusunu Anadolu'dan atmak için Büyük Taarruz harekâtı başlatılmıştır." },
-        "9-4": { title: "Sivas Kongresi Başladı (1919)", desc: "Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu Sivas Kongresi toplanmıştır." },
-        "9-9": { title: "İzmir Kurtuluşa Kavuştu (1922)", desc: "İzmir, 9 Eylül 1922'de Yunan işgalinden kurtulmuştur. Milli Mücadele'nin askeri zaferi tamamlanmıştır." },
-        "9-13": { title: "Sakarya Zaferi (1921)", desc: "22 gün süren Sakarya Meydan Muharebesi Türk ordusunun zaferiyle sonuçlanmıştır." },
-        "10-13": { title: "Ankara Başkent Oldu (1923)", desc: "Ankara, Türkiye Cumhuriyeti'nin başkenti ilan edilmiştir." },
-        "10-29": { title: "Cumhuriyet İlan Edildi (1923)", desc: "Türkiye Cumhuriyeti resmen ilan edilmiş, Mustafa Kemal Atatürk ilk Cumhurbaşkanı seçilmiştir." },
-        "11-1": { title: "Harf İnkılabı (1928)", desc: "Türkiye, Latin alfabesine geçiş yapmıştır. Okuma-yazma oranını artırma çalışmaları başlamıştır." },
-        "12-1": { title: "Trabzon'da Kış Hazırlıkları (1920)", desc: "İstikbal Gazetesi, kış aylarında halkın zorlukları hakkında haberler yayımlamıştır." },
-        "12-25": { title: "Zafer ve Umut Mesajları (1922)", desc: "1923 yılına girerken İstikbal, zafer ve umut dolu mesajlar vermiştir." }
-    };
+    // Today in History Widget - Self-contained IIFE to avoid const redefinition
+    (function () {
+        // Today in History Data
+        var historyEvents = {
+            "1-1": { title: "Yeni Yıl 1920", desc: "İstikbal Gazetesi, Milli Mücadele'nin devam ettiği 1920 yılına umutla girmiştir." },
+            "1-19": { title: "Trabzon'da Milli Cemiyet Toplantısı", desc: "1920 yılının bu günü, Trabzon'da milli cemiyetler önemli bir toplantı düzenlemiştir." },
+            "1-28": { title: "Misak-ı Milli İlanı (1920)", desc: "Osmanlı Mebusan Meclisi, Türk milletinin vazgeçilmez haklarını belirleyen Misak-ı Milli'yi kabul etmiştir." },
+            "2-5": { title: "Trabzon'da Direniş Toplantıları", desc: "1920 yılının bu günü, Trabzon'da Pontus emelleri karşısında halkın direniş toplantıları yapılmıştır." },
+            "3-12": { title: "İstiklal Marşı Kabul Edildi (1921)", desc: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, TBMM tarafından milli marş olarak kabul edilmiştir." },
+            "3-16": { title: "İstanbul'un İşgali (1920)", desc: "İtilaf Devletleri İstanbul'u resmen işgal etmiştir. Bu olay Ankara'nın önemini artırmıştır." },
+            "4-6": { title: "Anadolu Ajansı Kuruldu (1920)", desc: "Ankara'da kurulan Anadolu Ajansı, Milli Mücadele'nin sesini dünyaya duyurmaya başlamıştır." },
+            "4-23": { title: "TBMM Açıldı (1920)", desc: "Türkiye Büyük Millet Meclisi Ankara'da açılmıştır. Milli egemenlik resmen başlamıştır." },
+            "5-15": { title: "Yunan Ordusu İlerliyor (1919)", desc: "Yunan kuvvetleri İzmir'den içerilere doğru ilerlemeye başlamıştır." },
+            "5-19": { title: "Mustafa Kemal Samsun'a Çıktı (1919)", desc: "Mustafa Kemal Paşa, Milli Mücadele'yi başlatmak üzere Samsun'a çıkmıştır." },
+            "6-22": { title: "Amasya Genelgesi (1919)", desc: "Mustafa Kemal'in yayımladığı Amasya Genelgesi ile 'Vatanın bütünlüğü, milletin istihlali' ilkesi ilan edilmiştir." },
+            "7-23": { title: "Erzurum Kongresi Başladı (1919)", desc: "Doğu illerinin temsilcileri Erzurum'da toplanmıştır. Milli mücadelenin temelleri atılmıştır." },
+            "7-24": { title: "Lozan Antlaşması İmzalandı (1923)", desc: "Türkiye Cumhuriyeti'nin bağımsızlığını onaylayan Lozan Antlaşması imzalanmıştır." },
+            "8-10": { title: "Sevr Antlaşması Dayatıldı (1920)", desc: "Osmanlı Devleti'ne ağır şartlar içeren Sevr Antlaşması dayatılmıştır. Türk milleti bunu reddetmiştir." },
+            "8-23": { title: "Sakarya Meydan Muharebesi (1921)", desc: "Türk ordusunun kaderini değiştirecek Sakarya Meydan Muharebesi başlamıştır." },
+            "8-26": { title: "Büyük Taarruz Başladı (1922)", desc: "Yunan ordusunu Anadolu'dan atmak için Büyük Taarruz harekâtı başlatılmıştır." },
+            "9-4": { title: "Sivas Kongresi Başladı (1919)", desc: "Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu Sivas Kongresi toplanmıştır." },
+            "9-9": { title: "İzmir Kurtuluşa Kavuştu (1922)", desc: "İzmir, 9 Eylül 1922'de Yunan işgalinden kurtulmuştur. Milli Mücadele'nin askeri zaferi tamamlanmıştır." },
+            "9-13": { title: "Sakarya Zaferi (1921)", desc: "22 gün süren Sakarya Meydan Muharebesi Türk ordusunun zaferiyle sonuçlanmıştır." },
+            "10-13": { title: "Ankara Başkent Oldu (1923)", desc: "Ankara, Türkiye Cumhuriyeti'nin başkenti ilan edilmiştir." },
+            "10-29": { title: "Cumhuriyet İlan Edildi (1923)", desc: "Türkiye Cumhuriyeti resmen ilan edilmiş, Mustafa Kemal Atatürk ilk Cumhurbaşkanı seçilmiştir." },
+            "11-1": { title: "Harf İnkılabı (1928)", desc: "Türkiye, Latin alfabesine geçiş yapmıştır. Okuma-yazma oranını artırma çalışmaları başlamıştır." },
+            "12-1": { title: "Trabzon'da Kış Hazırlıkları (1920)", desc: "İstikbal Gazetesi, kış aylarında halkın zorlukları hakkında haberler yayımlamıştır." },
+            "12-25": { title: "Zafer ve Umut Mesajları (1922)", desc: "1923 yılına girerken İstikbal, zafer ve umut dolu mesajlar vermiştir." }
+        };
 
-    const defaultEventNew = {
-        title: "İstikbal Gazetesi'nin Mücadelesi",
-        desc: "1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi, Milli Mücadele döneminin en önemli ses kaynaklarından biriydi."
-    };
+        var defaultEvent = {
+            title: "İstikbal Gazetesi'nin Mücadelesi",
+            desc: "1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi, Milli Mücadele döneminin en önemli ses kaynaklarından biriydi."
+        };
 
-    function loadTodayInHistoryNew() {
-        const dateEl = document.getElementById('today-date-new');
-        const titleEl = document.getElementById('history-title-new');
-        const descEl = document.getElementById('history-description-new');
+        function loadTodayInHistory() {
+            var dateEl = document.getElementById('today-date-new');
+            var titleEl = document.getElementById('history-title-new');
+            var descEl = document.getElementById('history-description-new');
 
-        // Check if elements exist
-        if (!dateEl || !titleEl || !descEl) {
-            console.log('[TodayInHistory] Elements not found, retrying...');
-            return;
+            if (!dateEl || !titleEl || !descEl) {
+                return false;
+            }
+
+            var today = new Date();
+            var month = today.getMonth() + 1;
+            var day = today.getDate();
+            var key = month + "-" + day;
+
+            var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+            dateEl.textContent = day + " " + months[month - 1];
+
+            var event = historyEvents[key] || defaultEvent;
+            titleEl.textContent = event.title;
+            descEl.textContent = event.desc;
+
+            return true;
         }
 
-        const today = new Date();
-        const month = today.getMonth() + 1;
-        const day = today.getDate();
-        const key = `${month}-${day}`;
+        // Try to load immediately, then retry if needed
+        var attempts = 0;
+        var maxAttempts = 20;
 
-        // Format date - short version
-        const dateStr = `${day} ${['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'][month - 1]}`;
-        dateEl.textContent = dateStr;
-
-        const event = historyEventsNew[key] || defaultEventNew;
-        titleEl.textContent = event.title;
-        descEl.textContent = event.desc;
-
-        console.log('[TodayInHistory] Loaded successfully for', key);
-    }
-
-    // Initialize with retry mechanism
-    (function initTodayInHistory() {
-        const checkAndLoad = () => {
-            const dateEl = document.getElementById('today-date-new');
-            if (dateEl) {
-                loadTodayInHistoryNew();
-            } else {
-                setTimeout(checkAndLoad, 100);
+        function tryLoad() {
+            attempts++;
+            if (loadTodayInHistory()) {
+                console.log('[TodayInHistory] Widget loaded successfully');
+            } else if (attempts < maxAttempts) {
+                setTimeout(tryLoad, 100);
             }
-        };
-        setTimeout(checkAndLoad, 50);
+        }
+
+        setTimeout(tryLoad, 50);
     })();
 </script>
 
