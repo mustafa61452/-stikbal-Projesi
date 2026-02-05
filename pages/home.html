@@ -1,18 +1,26 @@
 <style>
     /* Responsive Fix - Prevent Overflow */
-* {
-    box-sizing: border-box;
-}
+    * {
+        box-sizing: border-box;
+    }
 
-body, html {
-    overflow-x: hidden;
-    max-width: 100%;
-}
+    body,
+    html {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
 
-.home-hero, .features-grid, .video-section, [style*="margin"] {
-    max-width: 100%;
-    overflow-x: hidden;
-}
+    .home-hero,
+    .features-grid,
+    .video-section,
+    [style*="margin"] {
+        max-width: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .home-hero {
         text-align: center;
         padding: 5rem 2rem;
@@ -489,36 +497,43 @@ body, html {
     }
 </style>
 
-<div class="features-grid"><!-- Today in History Widget -->
 <!-- Today in History Widget - Improved Design -->
 <div style="margin: 2rem auto; max-width: 100%; padding: 0 1rem;">
-    <div style="background: linear-gradient(135deg, #8b0000 0%, #a52a2a 50%, #c44569 100%); border-radius: 25px; box-shadow: 0 15px 40px rgba(139, 0, 0, 0.25); overflow: hidden; position: relative;">
-        
+    <div
+        style="background: linear-gradient(135deg, #8b0000 0%, #a52a2a 50%, #c44569 100%); border-radius: 25px; box-shadow: 0 15px 40px rgba(139, 0, 0, 0.25); overflow: hidden; position: relative;">
+
         <!-- Top Bar -->
-        <div style="background: rgba(0, 0, 0, 0.15); padding: 0.75rem 1.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+        <div
+            style="background: rgba(0, 0, 0, 0.15); padding: 0.75rem 1.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
             <i class="fas fa-calendar-day" style="color: #ffd700; font-size: 1.2rem;"></i>
-            <h3 style="color: white; margin: 0; font-size: 1.3rem; font-weight: 700; font-family: 'Playfair Display', serif;">
+            <h3
+                style="color: white; margin: 0; font-size: 1.3rem; font-weight: 700; font-family: 'Playfair Display', serif;">
                 Bugün Tarihte Ne Oldu?
             </h3>
         </div>
-        
+
         <!-- Content -->
         <div style="padding: 1.5rem; position: relative;">
-            <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);">
+            <div
+                style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);">
                 <!-- Date Badge -->
-                <div style="display: inline-block; background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;">
+                <div
+                    style="display: inline-block; background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem;">
                     <i class="fas fa-clock" style="margin-right: 0.4rem;"></i>
                     <span id="today-date-new"></span>
                 </div>
-                
+
                 <!-- Event Content -->
                 <div style="display: flex; gap: 1rem; align-items: start;">
-                    <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);">
+                    <div
+                        style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);">
                         <i class="fas fa-star" style="font-size: 1.5rem; color: white;"></i>
                     </div>
                     <div style="flex: 1; min-width: 0;">
-                        <h4 style="color: #8b0000; font-size: 1.2rem; margin: 0 0 0.5rem 0; font-weight: 800; line-height: 1.3;" id="history-title-new"></h4>
-                        <p style="color: #2d3436; line-height: 1.6; margin: 0; font-size: 0.95rem;" id="history-description-new"></p>
+                        <h4 style="color: #8b0000; font-size: 1.2rem; margin: 0 0 0.5rem 0; font-weight: 800; line-height: 1.3;"
+                            id="history-title-new"></h4>
+                        <p style="color: #2d3436; line-height: 1.6; margin: 0; font-size: 0.95rem;"
+                            id="history-description-new"></p>
                     </div>
                 </div>
             </div>
@@ -527,115 +542,58 @@ body, html {
 </div>
 
 <script>
-// Today in History Data
-const historyEventsNew = {
-    "1-1": {title: "Yeni Yıl 1920", desc: "İstikbal Gazetesi, Milli Mücadele'nin devam ettiği 1920 yılına umutla girmiştir."},
-    "1-19": {title: "Trabzon'da Milli Cemiyet Toplantısı", desc: "1920 yılının bu günü, Trabzon'da milli cemiyetler önemli bir toplantı düzenlemiştir."},
-    "1-28": {title: "Misak-ı Milli İlanı (1920)", desc: "Osmanlı Mebusan Meclisi, Türk milletinin vazgeçilmez haklarını belirleyen Misak-ı Milli'yi kabul etmiştir."},
-    "2-5": {title: "Trabzon'da Direniş Toplantıları", desc: "1920 yılının bu günü, Trabzon'da Pontus emelleri karşısında halkın direniş toplantıları yapılmıştır."},
-    "3-12": {title: "İstiklal Marşı Kabul Edildi (1921)", desc: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, TBMM tarafından milli marş olarak kabul edilmiştir."},
-    "3-16": {title: "İstanbul'un İşgali (1920)", desc: "İtilaf Devletleri İstanbul'u resmen işgal etmiştir. Bu olay Ankara'nın önemini artırmıştır."},
-    "4-6": {title: "Anadolu Ajansı Kuruldu (1920)", desc: "Ankara'da kurulan Anadolu Ajansı, Milli Mücadele'nin sesini dünyaya duyurmaya başlamıştır."},
-    "4-23": {title: "TBMM Açıldı (1920)", desc: "Türkiye Büyük Millet Meclisi Ankara'da açılmıştır. Milli egemenlik resmen başlamıştır."},
-    "5-15": {title: "Yunan Ordusu İlerliyor (1919)", desc: "Yunan kuvvetleri İzmir'den içerilere doğru ilerlemeye başlamıştır."},
-    "5-19": {title: "Mustafa Kemal Samsun'a Çıktı (1919)", desc: "Mustafa Kemal Paşa, Milli Mücadele'yi başlatmak üzere Samsun'a çıkmıştır."},
-    "6-22": {title: "Amasya Genelgesi (1919)", desc: "Mustafa Kemal'in yayımladığı Amasya Genelgesi ile 'Vatanın bütünlüğü, milletin istihlali' ilkesi ilan edilmiştir."},
-    "7-23": {title: "Erzurum Kongresi Başladı (1919)", desc: "Doğu illerinin temsilcileri Erzurum'da toplanmıştır. Milli mücadelenin temelleri atılmıştır."},
-    "7-24": {title: "Lozan Antlaşması İmzalandı (1923)", desc: "Türkiye Cumhuriyeti'nin bağımsızlığını onaylayan Lozan Antlaşması imzalanmıştır."},
-    "8-10": {title: "Sevr Antlaşması Dayatıldı (1920)", desc: "Osmanlı Devleti'ne ağır şartlar içeren Sevr Antlaşması dayatılmıştır. Türk milleti bunu reddetmiştir."},
-    "8-23": {title: "Sakarya Meydan Muharebesi (1921)", desc: "Türk ordusunun kaderini değiştirecek Sakarya Meydan Muharebesi başlamıştır."},
-    "8-26": {title: "Büyük Taarruz Başladı (1922)", desc: "Yunan ordusunu Anadolu'dan atmak için Büyük Taarruz harekâtı başlatılmıştır."},
-    "9-4": {title: "Sivas Kongresi Başladı (1919)", desc: "Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu Sivas Kongresi toplanmıştır."},
-    "9-9": {title: "İzmir Kurtuluşa Kavuştu (1922)", desc: "İzmir, 9 Eylül 1922'de Yunan işgalinden kurtulmuştur. Milli Mücadele'nin askeri zaferi tamamlanmıştır."},
-    "9-13": {title: "Sakarya Zaferi (1921)", desc: "22 gün süren Sakarya Meydan Muharebesi Türk ordusunun zaferiyle sonuçlanmıştır."},
-    "10-13": {title: "Ankara Başkent Oldu (1923)", desc: "Ankara, Türkiye Cumhuriyeti'nin başkenti ilan edilmiştir."},
-    "10-29": {title: "Cumhuriyet İlan Edildi (1923)", desc: "Türkiye Cumhuriyeti resmen ilan edilmiş, Mustafa Kemal Atatürk ilk Cumhurbaşkanı seçilmiştir."},
-    "11-1": {title: "Harf İnkılabı (1928)", desc: "Türkiye, Latin alfabesine geçiş yapmıştır. Okuma-yazma oranını artırma çalışmaları başlamıştır."},
-    "12-1": {title: "Trabzon'da Kış Hazırlıkları (1920)", desc: "İstikbal Gazetesi, kış aylarında halkın zorlukları hakkında haberler yayımlamıştır."},
-    "12-25": {title: "Zafer ve Umut Mesajları (1922)", desc: "1923 yılına girerken İstikbal, zafer ve umut dolu mesajlar vermiştir."}
-};
+    // Today in History Data
+    const historyEventsNew = {
+        "1-1": { title: "Yeni Yıl 1920", desc: "İstikbal Gazetesi, Milli Mücadele'nin devam ettiği 1920 yılına umutla girmiştir." },
+        "1-19": { title: "Trabzon'da Milli Cemiyet Toplantısı", desc: "1920 yılının bu günü, Trabzon'da milli cemiyetler önemli bir toplantı düzenlemiştir." },
+        "1-28": { title: "Misak-ı Milli İlanı (1920)", desc: "Osmanlı Mebusan Meclisi, Türk milletinin vazgeçilmez haklarını belirleyen Misak-ı Milli'yi kabul etmiştir." },
+        "2-5": { title: "Trabzon'da Direniş Toplantıları", desc: "1920 yılının bu günü, Trabzon'da Pontus emelleri karşısında halkın direniş toplantıları yapılmıştır." },
+        "3-12": { title: "İstiklal Marşı Kabul Edildi (1921)", desc: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, TBMM tarafından milli marş olarak kabul edilmiştir." },
+        "3-16": { title: "İstanbul'un İşgali (1920)", desc: "İtilaf Devletleri İstanbul'u resmen işgal etmiştir. Bu olay Ankara'nın önemini artırmıştır." },
+        "4-6": { title: "Anadolu Ajansı Kuruldu (1920)", desc: "Ankara'da kurulan Anadolu Ajansı, Milli Mücadele'nin sesini dünyaya duyurmaya başlamıştır." },
+        "4-23": { title: "TBMM Açıldı (1920)", desc: "Türkiye Büyük Millet Meclisi Ankara'da açılmıştır. Milli egemenlik resmen başlamıştır." },
+        "5-15": { title: "Yunan Ordusu İlerliyor (1919)", desc: "Yunan kuvvetleri İzmir'den içerilere doğru ilerlemeye başlamıştır." },
+        "5-19": { title: "Mustafa Kemal Samsun'a Çıktı (1919)", desc: "Mustafa Kemal Paşa, Milli Mücadele'yi başlatmak üzere Samsun'a çıkmıştır." },
+        "6-22": { title: "Amasya Genelgesi (1919)", desc: "Mustafa Kemal'in yayımladığı Amasya Genelgesi ile 'Vatanın bütünlüğü, milletin istihlali' ilkesi ilan edilmiştir." },
+        "7-23": { title: "Erzurum Kongresi Başladı (1919)", desc: "Doğu illerinin temsilcileri Erzurum'da toplanmıştır. Milli mücadelenin temelleri atılmıştır." },
+        "7-24": { title: "Lozan Antlaşması İmzalandı (1923)", desc: "Türkiye Cumhuriyeti'nin bağımsızlığını onaylayan Lozan Antlaşması imzalanmıştır." },
+        "8-10": { title: "Sevr Antlaşması Dayatıldı (1920)", desc: "Osmanlı Devleti'ne ağır şartlar içeren Sevr Antlaşması dayatılmıştır. Türk milleti bunu reddetmiştir." },
+        "8-23": { title: "Sakarya Meydan Muharebesi (1921)", desc: "Türk ordusunun kaderini değiştirecek Sakarya Meydan Muharebesi başlamıştır." },
+        "8-26": { title: "Büyük Taarruz Başladı (1922)", desc: "Yunan ordusunu Anadolu'dan atmak için Büyük Taarruz harekâtı başlatılmıştır." },
+        "9-4": { title: "Sivas Kongresi Başladı (1919)", desc: "Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu Sivas Kongresi toplanmıştır." },
+        "9-9": { title: "İzmir Kurtuluşa Kavuştu (1922)", desc: "İzmir, 9 Eylül 1922'de Yunan işgalinden kurtulmuştur. Milli Mücadele'nin askeri zaferi tamamlanmıştır." },
+        "9-13": { title: "Sakarya Zaferi (1921)", desc: "22 gün süren Sakarya Meydan Muharebesi Türk ordusunun zaferiyle sonuçlanmıştır." },
+        "10-13": { title: "Ankara Başkent Oldu (1923)", desc: "Ankara, Türkiye Cumhuriyeti'nin başkenti ilan edilmiştir." },
+        "10-29": { title: "Cumhuriyet İlan Edildi (1923)", desc: "Türkiye Cumhuriyeti resmen ilan edilmiş, Mustafa Kemal Atatürk ilk Cumhurbaşkanı seçilmiştir." },
+        "11-1": { title: "Harf İnkılabı (1928)", desc: "Türkiye, Latin alfabesine geçiş yapmıştır. Okuma-yazma oranını artırma çalışmaları başlamıştır." },
+        "12-1": { title: "Trabzon'da Kış Hazırlıkları (1920)", desc: "İstikbal Gazetesi, kış aylarında halkın zorlukları hakkında haberler yayımlamıştır." },
+        "12-25": { title: "Zafer ve Umut Mesajları (1922)", desc: "1923 yılına girerken İstikbal, zafer ve umut dolu mesajlar vermiştir." }
+    };
 
-const defaultEventNew = {
-    title: "İstikbal Gazetesi'nin Mücadelesi",
-    desc: "1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi, Milli Mücadele döneminin en önemli ses kaynaklarından biriydi."
-};
+    const defaultEventNew = {
+        title: "İstikbal Gazetesi'nin Mücadelesi",
+        desc: "1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi, Milli Mücadele döneminin en önemli ses kaynaklarından biriydi."
+    };
 
-function loadTodayInHistoryNew() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const key = `${month}-${day}`;
-    
-    // Format date - short version
-    const dateStr = `${day} ${['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'][month-1]}`;
-    document.getElementById('today-date-new').textContent = dateStr;
-    
-    const event = historyEventsNew[key] || defaultEventNew;
-    document.getElementById('history-title-new').textContent = event.title;
-    document.getElementById('history-description-new').textContent = event.desc;
-}
+    function loadTodayInHistoryNew() {
+        const today = new Date();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const key = `${month}-${day}`;
 
-setTimeout(() => loadTodayInHistoryNew(), 100);
+        // Format date - short version
+        const dateStr = `${day} ${['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'][month - 1]}`;
+        document.getElementById('today-date-new').textContent = dateStr;
+
+        const event = historyEventsNew[key] || defaultEventNew;
+        document.getElementById('history-title-new').textContent = event.title;
+        document.getElementById('history-description-new').textContent = event.desc;
+    }
+
+    setTimeout(() => loadTodayInHistoryNew(), 100);
 </script>
 
-<script>
-// Today in History Data
-const historyEvents = {
-    "1-1": {title: "Yeni Yıl 1920", desc: "İstikbal Gazetesi, Milli Mücadele'nin devam ettiği 1920 yılına umutla girmiştir."},
-    "1-19": {title: "Trabzon'da Milli Cemiyet Toplantısı", desc: "1920 yılının bu günü, Trabzon'da milli cemiyetler önemli bir toplantı düzenlemiştir."},
-    "1-28": {title: "Misak-ı Milli İlanı, 1920", desc: "Osmanlı Mebusan Meclisi, Türk milletinin vazgeçilmez haklarını belirleyen Misak-ı Milli'yi kabul etmiştir."},
-    "2-5": {title: "Trabzon'da Direniş Toplantıları", desc: "1920 yılının bu günü, Trabzon'da Pontus emelleri karşısında halkın direniş toplantıları yapılmıştır."},
-    "3-12": {title: "İstiklal Marşı Kabul Edildi, 1921", desc: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, TBMM tarafından milli marş olarak kabul edilmiştir."},
-    "3-16": {title: "İstanbul'un İşgali, 1920", desc: "İtilaf Devletleri İstanbul'u resmen işgal etmiştir. Bu olay Ankara'nın önemini artırmıştır."},
-    "4-6": {title: "Anadolu Ajansı Kuruldu, 1920", desc: "Ankara'da kurulan Anadolu Ajansı, Milli Mücadele'nin sesini dünyaya duyurmaya başlamıştır."},
-    "4-23": {title: "TBMM Açıldı, 1920", desc: "Türkiye Büyük Millet Meclisi Ankara'da açılmıştır. Milli egemenlik resmen başlamıştır."},
-    "5-15": {title: "Yunan Ordusu İlerliyor, 1919", desc: "Yunan kuvvetleri İzmir'den içerilere doğru ilerlemeye başlamıştır."},
-    "5-19": {title: "Mustafa Kemal Samsun'a Çıktı, 1919", desc: "Mustafa Kemal Paşa, Milli Mücadele'yi başlatmak üzere Samsun'a çıkmıştır."},
-    "6-22": {title: "Amasya Genelgesi, 1919", desc: "Mustafa Kemal'in yayımladığı Amasya Genelgesi ile 'Vatanın bütünlüğü, milletin istihlali' ilkesi ilan edilmiştir."},
-    "7-23": {title: "Erzurum Kongresi Başladı, 1919", desc: "Doğu illerinin temsilcileri Erzurum'da toplanmıştır. Milli mücadelenin temelleri atılmıştır."},
-    "7-24": {title: "Lozan Antlaşması İmzalandı, 1923", desc: "Türkiye Cumhuriyeti'nin bağımsızlığını onaylayan Lozan Antlaşması imzalanmıştır."},
-    "8-10": {title: "Sevr Antlaşması Dayatıldı, 1920", desc: "Osmanlı Devleti'ne ağır şartlar içeren Sevr Antlaşması dayatılmıştır. Türk milleti bunu reddetmiştir."},
-    "8-23": {title: "Sakarya Meydan Muharebesi Başladı, 1921", desc: "Türk ordusunun kaderini değiştirecek Sakarya Meydan Muharebesi başlamıştır."},
-    "8-26": {title: "Büyük Taarruz Başladı, 1922", desc: "Yunan ordusunu Anadolu'dan atmak için Büyük Taarruz harekâtı başlatılmıştır."},
-    "9-4": {title: "Sivas Kongresi Başladı, 1919", desc: "Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu Sivas Kongresi toplanmıştır."},
-    "9-9": {title: "İzmir Kurtuluşa Kavuştu, 1922", desc: "İzmir, 9 Eylül 1922'de Yunan işgalinden kurtulmuştur. Milli Mücadele'nin askeri zaferi tamamlanmıştır."},
-    "9-13": {title: "Sakarya Zaferi, 1921", desc: "22 gün süren Sakarya Meydan Muharebesi Türk ordusunun zaferiyle sonuçlanmıştır."},
-    "10-13": {title: "Ankara Başkent Oldu, 1923", desc: "Ankara, Türkiye Cumhuriyeti'nin başkenti ilan edilmiştir."},
-    "10-29": {title: "Cumhuriyet İlan Edildi, 1923", desc: "Türkiye Cumhuriyeti resmen ilan edilmiş, Mustafa Kemal Atatürk ilk Cumhurbaşkanı seçilmiştir."},
-    "11-1": {title: "Halifelik Kaldırıldı, 1922", desc: "Saltanat kaldırılmış, siyasi ve dini yetki ayrılmıştır."},
-    "11-1": {title: "Harf İnkılabı, 1928", desc: "Türkiye, Latin alfabesine geçiş yapmıştır. Okuma-yazma oranını artırma çalışmaları başlamıştır."},
-    "12-1": {title: "Trabzon'da Kış Hazırlıkları, 1920", desc: "İstikbal Gazetesi, kış aylarında halkın zorlukları hakkında haberler yayımlamıştır."},
-    "12-25": {title: "Yeni Yıl Mesajları, 1922", desc: "1923 yılına girerken İstikbal, zafer ve umut dolu mesajlar vermiştir."}
-};
-
-// Default fallback event
-const defaultEvent = {
-    title: "İstikbal Gazetesi'nin Mücadelesi",
-    desc: "1918-1925 yılları arasında Trabzon'da yayınlanan İstikbal Gazetesi, Milli Mücadele döneminin en önemli ses kaynaklarından biriydi. Her gün milletin bağımsızlık mücadelesini desteklemiştir."
-};
-
-// Get today's event
-function loadTodayInHistory() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const key = `${month}-${day}`;
-    
-    // Format date
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    const formattedDate = today.toLocaleDateString('tr-TR', options);
-    document.getElementById('today-date').textContent = formattedDate;
-    
-    // Get event or use default
-    const event = historyEvents[key] || defaultEvent;
-    document.getElementById('history-title').textContent = event.title;
-    document.getElementById('history-description').textContent = event.desc;
-}
-
-// Load on page load
-setTimeout(() => loadTodayInHistory(), 100);
-</script>
-
+<div class="features-grid">
     <!-- Archive -->
     <div class="feature-card" onclick="router.navigate('archive')">
         <span class="card-badge">Arşiv</span>
@@ -896,5 +854,3 @@ setTimeout(() => loadTodayInHistory(), 100);
         });
     });
 </script>
-
-
