@@ -1,0 +1,361 @@
+<style>
+    .glossary-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .glossary-hero {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #1e3799 0%, #0c2461 100%);
+        border-radius: 30px;
+        margin-bottom: 3rem;
+        color: white;
+    }
+
+    .glossary-title {
+        font-size: 3rem;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 1rem;
+    }
+
+    .search-box {
+        max-width: 600px;
+        margin: 2rem auto;
+        position: relative;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 1.25rem 3rem 1.25rem 1.5rem;
+        border: 2px solid rgba(139, 0, 0, 0.2);
+        border-radius: 50px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: #8b0000;
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8b0000;
+        font-size: 1.3rem;
+    }
+
+    .category-tabs {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+
+    .category-btn {
+        padding: 0.75rem 1.5rem;
+        background: white;
+        border: 2px solid rgba(139, 0, 0, 0.2);
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+        background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%);
+        color: white;
+        border-color: #8b0000;
+    }
+
+    .terms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .term-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-left: 6px solid #8b0000;
+        transition: all 0.3s ease;
+    }
+
+    .term-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(139, 0, 0, 0.2);
+    }
+
+    .term-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #8b0000;
+        margin-bottom: 0.5rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .term-category {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(139, 0, 0, 0.1);
+        color: #8b0000;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .term-definition {
+        color: #2d3436;
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 4rem;
+        color: #636e72;
+        font-size: 1.2rem;
+    }
+</style>
+
+<div class="glossary-container">
+    <div class="glossary-hero">
+        <h1 class="glossary-title">📚 Tarih Sözlüğü</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Milli Mücadele ve İstikbal Gazetesi Kavramları</p>
+    </div>
+
+    <div class="search-box">
+        <input type="text" class="search-input" id="search-input" placeholder="Terim ara..." oninput="filterTerms()">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <div class="category-tabs">
+        <button class="category-btn active" onclick="filterByCategory('all')">Tümü</button>
+        <button class="category-btn" onclick="filterByCategory('kurum')">Kurum</button>
+        <button class="category-btn" onclick="filterByCategory('kavram')">Kavram</button>
+        <button class="category-btn" onclick="filterByCategory('kişi')">Kişi</button>
+        <button class="category-btn" onclick="filterByCategory('yer')">Yer</button>
+    </div>
+
+    <div class="terms-grid" id="terms-grid">
+        <!-- Terms loaded by JavaScript -->
+    </div>
+
+    <div class="no-results" id="no-results" style="display: none;">
+        <i class="fas fa-search" style="font-size: 3rem; color: #dfe6e9; margin-bottom: 1rem;"></i>
+        <p>Aradığınız terim bulunamadı.</p>
+    </div>
+</div>
+
+<script>
+    const glossaryTerms = [
+        {
+            term: "İstikbal",
+            category: "kavram",
+            definition: "Gelecek anlamına gelen Arapça kökenli kelime. İstikbal Gazetesi'nin adı, Türk milletinin parlak geleceğine olan inancı simgelemektedir."
+        },
+        {
+            term: "Muhafaza-i Hukuk-ı Milliye",
+            category: "kurum",
+            definition: "Milli hakların korunması cemiyeti. Milli Mücadele döneminde kurulan ve halkın örgütlenmesini sağlayan cemiyetler. Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti, İstikbal Gazetesi'nin kurumsal sahibidir."
+        },
+        {
+            term: "Faik Ahmet Barutçu",
+            category: "kişi",
+            definition: "İstikbal Gazetesi'nin kurucusu ve başyazarı. 1918 yılında gazeteyi kurarak Trabzon'da Milli Mücadele'nin sesini duyurmuştur."
+        },
+        {
+            term: "Kuva-yi Milliye",
+            category: "kurum",
+            definition: "Milli Kuvvetler. Anadolu'nun işgaline karşı halktan oluşan gönüllü direniş güçleri. 1919-1921 yılları arasında aktif rol oynamıştır."
+        },
+        {
+            term: "Pontus",
+            category: "kavram",
+            definition: "Karadeniz bölgesinde Rum azınlığın kurma hayali kurdukları devlet. İstikbal Gazetesi, Pontus emelleri karşısında güçlü bir mücadele yürütmüştür."
+        },
+        {
+            term: "Lozan Antlaşması",
+            category: "kavram",
+            definition: "24 Temmuz 1923'te imzalanan barış antlaşması. Türkiye Cumhuriyeti'nin sınırlarını ve bağımsızlığını uluslararası alanda tanıtan antlaşmadır."
+        },
+        {
+            term: "Trabzon",
+            category: "yer",
+            definition: "Karadeniz'in önemli liman şehri. İstikbal Gazetesi'nin yayınlandığı şehir. Milli Mücadele döneminde stratejik öneme sahip bölge."
+        },
+        {
+            term: "Misak-ı Milli",
+            category: "kavram",
+            definition: "Milli Ant. 28 Ocak 1920'de Osmanlı Mebusan Meclisi tarafından kabul edilen, Türk milletinin vazgeçilmez haklarını ve sınırlarını belirleyen beyanname."
+        },
+        {
+            term: "Anadolu Ajansı",
+            category: "kurum",
+            definition: "6 Nisan 1920'de Ankara'da kurulan ve Milli Mücadele'nin sesini dünyaya duyuran haber ajansı. İstikbal Gazetesi de bu ajansın haberlerini kullanmıştır."
+        },
+        {
+            term: "Sakarya Meydan Muharebesi",
+            category: "kavram",
+            definition: "23 Ağustos - 13 Eylül 1921 tarihleri arasında Sakarya Nehri civarında yapılan ve Türk ordusunun galibiyetiyle sonuçlanan kritik savaş."
+        },
+        {
+            term: "Kazım Karabekir",
+            category: "kişi",
+            definition: "Doğu Cephesi Komutanı. Trabzon ve çevresinin savunmasında önemli rol oynamış, İstikbal Gazetesi'nin de desteklediği komutan."
+        },
+        {
+            term: "Büyük Taarruz",
+            category: "kavram",
+            definition: "26 Ağustos 1922'de başlayan ve Yunan ordusunun Anadolu'dan atılmasını sağlayan son büyük askeri harekât."
+        },
+        {
+            term: "İzmir'in Kurtuluşu",
+            category: "kavram",
+            definition: "9 Eylül 1922. Yunan işgalinden kurtuluş. Milli Mücadele'nin askeri zaferinin tamamlandığı gün."
+        },
+        {
+            term: "Sivas Kongresi",
+            category: "kavram",
+            definition: "4-11 Eylül 1919. Anadolu ve Rumeli Müdafaa-i Hukuk Cemiyeti'nin kurulduğu ve milli mücadelenin örgütlendiği önemli kongre."
+        },
+        {
+            term: "Erzurum Kongresi",
+            category: "kavram",
+            definition: "23 Temmuz - 7 Ağustos 1919. Doğu illerinin temsilcilerinin katılımıyla düzenlenen ve milli mücadelenin temellerini atan ilk büyük kongre."
+        },
+        {
+            term: "Temsil Heyeti",
+            category: "kurum",
+            definition: "Sivas Kongresi'nde oluşturulan ve Mustafa Kemal'in başkanlığında milli mücadeleyi yöneten heyet."
+        },
+        {
+            term: "Amasya Genelgesi",
+            category: "kavram",
+            definition: "22 Haziran 1919. Mustafa Kemal'in Amasya'dan yayımladığı ve 'Vatanın bütünlüğü, milletin istihlali' ilkesini açıklayan bildiri."
+        },
+        {
+            term: "Sevr Antlaşması",
+            category: "kavram",
+            definition: "10 Ağustos 1920'de Osmanlı Devleti'ne dayatılan ve Türk milletinin reddetti ği ağır şartlar içeren antlaşma. Lozan ile geçersiz kılınmıştır."
+        },
+        {
+            term: "Heyet-i Temsiliye",
+            category: "kurum",
+            definition: "Sivas Kongresi'nde seçilen ve Mustafa Kemal başkanlığındaki milli mücadele yönetim kurulu."
+        },
+        {
+            term: "Ankara",
+            category: "yer",
+            definition: "Milli Mücadele'nin merkezi. 23 Nisan 1920'de TBMM'nin açıldığı ve yeni Türkiye'nin başkenti olan şehir."
+        },
+        {
+            term: "TBMM (Türkiye Büyük Millet Meclisi)",
+            category: "kurum",
+            definition: "23 Nisan 1920'de Ankara'da açılan ve milli egemenliği temsil eden meclis. Milli Mücadele'yi yöneten yasal kurum."
+        },
+        {
+            term: "Hilafet",
+            category: "kavram",
+            definition: "İslam dünyasının dini liderliği. 3 Mart 1924'te kaldırılmıştır."
+        },
+        {
+            term: "Harf İnkılabı",
+            category: "kavram",
+            definition: "1 Kasım 1928. Arap alfabesinden Latin alfabesine geçiş. Okuma-yazma oranını artırmayı hedefleyen reform."
+        },
+        {
+            term: "Cumhuriyet",
+            category: "kavram",
+            definition: "29 Ekim 1923'te ilan edilen yönetim şekli. Türkiye Cumhuriyeti'nin kuruluşu."
+        },
+        {
+            term: "İstiklal Marşı",
+            category: "kavram",
+            definition: "Mehmet Akif Ersoy'un yazdığı milli marş. 12 Mart 1921'de TBMM tarafından kabul edilmiştir."
+        }
+    ];
+
+    let currentCategory = 'all';
+
+    function renderTerms(terms) {
+        const grid = document.getElementById('terms-grid');
+        const noResults = document.getElementById('no-results');
+
+        if (terms.length === 0) {
+            grid.style.display = 'none';
+            noResults.style.display = 'block';
+            return;
+        }
+
+        grid.style.display = 'grid';
+        noResults.style.display = 'none';
+
+        grid.innerHTML = terms.map(term => `
+        <div class="term-card">
+            <div class="term-category">${getCategoryName(term.category)}</div>
+            <h3 class="term-title">${term.term}</h3>
+            <p class="term-definition">${term.definition}</p>
+        </div>
+    `).join('');
+    }
+
+    function getCategoryName(cat) {
+        const names = {
+            'kurum': 'Kurum',
+            'kavram': 'Kavram',
+            'kişi': 'Kişi',
+            'yer': 'Yer'
+        };
+        return names[cat] || cat;
+    }
+
+    function filterByCategory(category) {
+        currentCategory = category;
+
+        // Update active button
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        filterTerms();
+    }
+
+    function filterTerms() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+        let filtered = glossaryTerms;
+
+        // Filter by category
+        if (currentCategory !== 'all') {
+            filtered = filtered.filter(term => term.category === currentCategory);
+        }
+
+        // Filter by search
+        if (searchTerm) {
+            filtered = filtered.filter(term =>
+                term.term.toLowerCase().includes(searchTerm) ||
+                term.definition.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        // Sort alphabetically
+        filtered.sort((a, b) => a.term.localeCompare(b.term, 'tr'));
+
+        renderTerms(filtered);
+    }
+
+    // Initialize
+    renderTerms(glossaryTerms.sort((a, b) => a.term.localeCompare(b.term, 'tr')));
+</script>
