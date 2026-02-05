@@ -1,0 +1,430 @@
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .quiz-hero {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #8b0000 0%, #3e2723 100%);
+        border-radius: 30px;
+        margin-bottom: 3rem;
+        color: white;
+    }
+
+    .quiz-title {
+        font-size: 3rem;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 1rem;
+    }
+
+    .quiz-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .quiz-card {
+        background: white;
+        padding: 3rem;
+        border-radius: 25px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        margin-bottom: 2rem;
+    }
+
+    .question-number {
+        display: inline-block;
+        background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .question-text {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2d3436;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .options-container {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .option-btn {
+        padding: 1.25rem 1.5rem;
+        background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, rgba(62, 39, 35, 0.03) 100%);
+        border: 2px solid rgba(139, 0, 0, 0.2);
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+        font-size: 1.1rem;
+        color: #2d3436;
+        font-weight: 500;
+    }
+
+    .option-btn:hover {
+        background: linear-gradient(135deg, rgba(139, 0, 0, 0.08) 0%, rgba(62, 39, 35, 0.08) 100%);
+        border-color: #8b0000;
+        transform: translateX(10px);
+    }
+
+    .option-btn.correct {
+        background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        color: white;
+        border-color: #27ae60;
+    }
+
+    .option-btn.wrong {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: white;
+        border-color: #e74c3c;
+    }
+
+    .option-btn.disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .feedback-box {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        border-radius: 15px;
+        display: none;
+    }
+
+    .feedback-box.correct {
+        background: #d5f4e6;
+        border: 2px solid #27ae60;
+        color: #155724;
+        display: block;
+    }
+
+    .feedback-box.wrong {
+        background: #fadbd8;
+        border: 2px solid #e74c3c;
+        color: #721c24;
+        display: block;
+    }
+
+    .feedback-box strong {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .score-board {
+        background: linear-gradient(135deg, #1e3799 0%, #0c2461 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .score-number {
+        font-size: 4rem;
+        font-weight: 900;
+        margin: 1rem 0;
+    }
+
+    .progress-bar {
+        background: rgba(255, 255, 255, 0.2);
+        height: 12px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 1rem 0;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffd700 0%, #ff6b6b 100%);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+
+    .next-btn,
+    .restart-btn {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 2.5rem;
+        background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .next-btn:hover,
+    .restart-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+    }
+
+    .next-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .result-card {
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .result-emoji {
+        font-size: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .result-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #8b0000;
+        margin-bottom: 1rem;
+    }
+
+    .result-message {
+        font-size: 1.3rem;
+        color: #636e72;
+        margin-bottom: 2rem;
+    }
+</style>
+
+<div class="quiz-container">
+    <!-- Hero -->
+    <div class="quiz-hero">
+        <h1 class="quiz-title">🎓 İstikbal Bilgi Yarışması</h1>
+        <p class="quiz-subtitle">Milli Mücadele ve İstikbal Gazetesi hakkında bilginizi test edin!</p>
+    </div>
+
+    <!-- Score Board -->
+    <div class="score-board" id="score-board">
+        <div>Soru <span id="current-question">1</span> / <span id="total-questions">10</span></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 10%;"></div>
+        </div>
+        <div>Doğru: <span id="correct-count">0</span> | Yanlış: <span id="wrong-count">0</span></div>
+    </div>
+
+    <!-- Quiz Card -->
+    <div class="quiz-card" id="quiz-card">
+        <div class="question-number" id="question-number">Soru 1</div>
+        <h2 class="question-text" id="question-text"></h2>
+        <div class="options-container" id="options-container"></div>
+        <div class="feedback-box" id="feedback-box"></div>
+        <button class="next-btn" id="next-btn" onclick="nextQuestion()" disabled>Sonraki Soru →</button>
+    </div>
+
+    <!-- Result Card (Hidden Initially) -->
+    <div class="quiz-card" id="result-card" style="display: none;">
+        <div class="result-card">
+            <div class="result-emoji" id="result-emoji">🏆</div>
+            <h2 class="result-title" id="result-title">Tebrikler!</h2>
+            <div class="score-number" id="final-score">0/10</div>
+            <p class="result-message" id="result-message"></p>
+            <button class="restart-btn" onclick="restartQuiz()">🔄 Tekrar Başla</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            question: "İstikbal Gazetesi hangi yıl yayın hayatına başlamıştır?",
+            options: ["1918", "1920", "1922", "1925"],
+            correct: 0,
+            explanation: "İstikbal Gazetesi 1918 yılında Trabzon'da yayın hayatına başlamıştır."
+        },
+        {
+            question: "İstikbal Gazetesi'ni kim kurmuştur?",
+            options: ["Mustafa Kemal Atatürk", "Faik Ahmet Barutçu", "İsmet İnönü", "Kazım Karabekir"],
+            correct: 1,
+            explanation: "İstikbal Gazetesi, Faik Ahmet Barutçu tarafından kurulmuştur."
+        },
+        {
+            question: "İstikbal Gazetesi hangi şehirde yayınlanmıştır?",
+            options: ["Ankara", "İstanbul", "Trabzon", "Samsun"],
+            correct: 2,
+            explanation: "İstikbal Gazetesi Trabzon'da yayınlanmıştır ve Karadeniz bölgesinin önemli ses kaynaklarından biri olmuştur."
+        },
+        {
+            question: "İstikbal Gazetesi hangi cemiyetin yayın organı olmuştur?",
+            options: ["İttihat ve Terakki", "Trabzon Muhafaza-i Hukuk-ı Milliye", "Kuva-yi Milliye", "Anadolu Müdafaa-i Hukuk"],
+            correct: 1,
+            explanation: "İstikbal Gazetesi, Trabzon Muhafaza-i Hukuk-ı Milliye Cemiyeti'nin sesi olmuştur."
+        },
+        {
+            question: "İstikbal Gazetesi hangi işgale karşı mücadele etmiştir?",
+            options: ["İtalyan işgali", "Fransız işgali", "Yunan işgali", "Rum Pontus emelleri"],
+            correct: 3,
+            explanation: "İstikbal Gazetesi, Rum Pontus emellerine karşı güçlü bir mücadele yürütmüştür."
+        },
+        {
+            question: "Milli Mücadele hangi yıllar arasında gerçekleşmiştir?",
+            options: ["1914-1918", "1918-1923", "1920-1922", "1919-1923"],
+            correct: 3,
+            explanation: "Milli Mücadele 1919-1923 yılları arasında gerçekleşmiştir."
+        },
+        {
+            question: "Lozan Antlaşması hangi yıl imzalanmıştır?",
+            options: ["1920", "1921", "1922", "1923"],
+            correct: 3,
+            explanation: "Lozan Antlaşması 24 Temmuz 1923'te imzalanmıştır."
+        },
+        {
+            question: "Bu dijital arşiv projesi hangi programla desteklenmiştir?",
+            options: ["TÜBİTAK 2204", "TÜBİTAK 4006", "TÜBİTAK 1001", "KOSGEB"],
+            correct: 0,
+            explanation: "Proje TÜBİTAK 2204 Ortaöğretim Öğrencileri Araştırma Projeleri Yarışması kapsamında desteklenmiştir."
+        },
+        {
+            question: "İstikbal kelimesinin anlamı nedir?",
+            options: ["Geçmiş", "Gelecek", "Şimdi", "Tarih"],
+            correct: 1,
+            explanation: "İstikbal kelimesi 'gelecek' anlamına gelmektedir. Gazetenin adı milletin geleceğine olan inancı simgelemektedir."
+        },
+        {
+            question: "Projede hangi teknoloji kullanılmamıştır?",
+            options: ["Duygu Analizi", "Coğrafi Haritalama", "Yapay Zeka Chatbot", "İstatistiksel Analiz"],
+            correct: 2,
+            explanation: "Projede duygu analizi, coğrafi haritalama ve istatistiksel analiz kullanılmıştır. Yapay zeka chatbot ise kullanılmamıştır."
+        }
+    ];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+    let selectedAnswer = null;
+
+    function loadQuestion() {
+        const data = quizData[currentQuestion];
+
+        document.getElementById('question-number').textContent = `Soru ${currentQuestion + 1}`;
+        document.getElementById('question-text').textContent = data.question;
+        document.getElementById('current-question').textContent = currentQuestion + 1;
+        document.getElementById('total-questions').textContent = quizData.length;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        data.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = option;
+            btn.onclick = () => selectAnswer(index);
+            optionsContainer.appendChild(btn);
+        });
+
+        document.getElementById('feedback-box').style.display = 'none';
+        document.getElementById('next-btn').disabled = true;
+        selectedAnswer = null;
+
+        updateProgress();
+    }
+
+    function selectAnswer(index) {
+        if (selectedAnswer !== null) return;
+
+        selectedAnswer = index;
+        const data = quizData[currentQuestion];
+        const options = document.querySelectorAll('.option-btn');
+        const feedbackBox = document.getElementById('feedback-box');
+
+        options.forEach((btn, i) => {
+            btn.classList.add('disabled');
+            if (i === data.correct) {
+                btn.classList.add('correct');
+            }
+            if (i === index && i !== data.correct) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        if (index === data.correct) {
+            correctAnswers++;
+            feedbackBox.className = 'feedback-box correct';
+            feedbackBox.innerHTML = `<strong>✓ Doğru!</strong> ${data.explanation}`;
+        } else {
+            wrongAnswers++;
+            feedbackBox.className = 'feedback-box wrong';
+            feedbackBox.innerHTML = `<strong>✗ Yanlış!</strong> ${data.explanation}`;
+        }
+
+        document.getElementById('correct-count').textContent = correctAnswers;
+        document.getElementById('wrong-count').textContent = wrongAnswers;
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+
+        if (currentQuestion < quizData.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function updateProgress() {
+        const progress = ((currentQuestion + 1) / quizData.length) * 100;
+        document.getElementById('progress-fill').style.width = progress + '%';
+    }
+
+    function showResults() {
+        document.getElementById('quiz-card').style.display = 'none';
+        document.getElementById('score-board').style.display = 'none';
+        document.getElementById('result-card').style.display = 'block';
+
+        const percentage = (correctAnswers / quizData.length) * 100;
+        document.getElementById('final-score').textContent = `${correctAnswers}/${quizData.length}`;
+
+        let emoji, title, message;
+
+        if (percentage >= 90) {
+            emoji = '🏆';
+            title = 'Mükemmel!';
+            message = 'İstikbal Gazetesi ve Milli Mücadele konusunda uzman seviyesindesiniz!';
+        } else if (percentage >= 70) {
+            emoji = '🎉';
+            title = 'Harika!';
+            message = 'Çok iyi bir performans gösterdiniz. Tarih bilginiz oldukça iyi!';
+        } else if (percentage >= 50) {
+            emoji = '👍';
+            title = 'İyi!';
+            message = 'Fena değil! Biraz daha araştırma ile mükemmel olabilirsiniz.';
+        } else {
+            emoji = '📚';
+            title = 'Devam Edin!';
+            message = 'Öğrenmeye devam edin. İstikbal arşivini daha fazla keşfedin!';
+        }
+
+        document.getElementById('result-emoji').textContent = emoji;
+        document.getElementById('result-title').textContent = title;
+        document.getElementById('result-message').textContent = message;
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        document.getElementById('quiz-card').style.display = 'block';
+        document.getElementById('score-board').style.display = 'block';
+        document.getElementById('result-card').style.display = 'none';
+        document.getElementById('correct-count').textContent = '0';
+        document.getElementById('wrong-count').textContent = '0';
+        loadQuestion();
+    }
+
+    // Initialize
+    loadQuestion();
+</script>
