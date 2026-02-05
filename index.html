@@ -110,6 +110,44 @@
 
     <div class="texture-overlay"></div>
 
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top"
+        style="position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: linear-gradient(135deg, #8b0000 0%, #a52a2a 100%); border: none; border-radius: 50%; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 9998; box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4); display: flex; align-items: center; justify-content: center;">
+        <i class="fas fa-arrow-up" style="color: white; font-size: 1.3rem;"></i>
+    </button>
+
+    <style>
+        #scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.6);
+        }
+
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+
+    <script>
+        // Scroll to Top Functionality
+        const scrollBtn = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
     <header class="app-header">
         <div class="header-container">
             <div class="logo-section">
@@ -131,6 +169,7 @@
                 <a href="#academic" class="nav-link" data-page="academic">Akademik Bakış</a>
                 <a href="#digital-contents" class="nav-link" data-page="digital-contents">Dijital İçerikler</a>
                 <a href="#promotion" class="nav-link" data-page="promotion">İstikbal Tanıtım</a>
+                <a href="#quiz" class="nav-link" data-page="quiz">🎓 Bilgi Yarışması</a>
                 <a href="#about" class="nav-link" data-page="about">Hakkında</a>
             </nav>
 
@@ -157,6 +196,7 @@
             <a href="#academic" class="nav-link" data-page="academic">Akademik Bakış</a>
             <a href="#digital-contents" class="nav-link" data-page="digital-contents">Dijital İçerikler</a>
             <a href="#promotion" class="nav-link" data-page="promotion">İstikbal Tanıtım</a>
+            <a href="#quiz" class="nav-link" data-page="quiz">🎓 Bilgi Yarışması</a>
             <a href="#about" class="nav-link" data-page="about">Hakkında</a>
         </nav>
     </header>
@@ -188,7 +228,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <!-- Versiyon 1001: Önbelleği kesin temizlemek için --><script src="./dark-mode.js"></script>
+    <!-- Versiyon 1001: Önbelleği kesin temizlemek için -->
     <script src="./app-v2.js?v=1001"></script>
     <script>
         function toggleMobileMenu() {
@@ -214,8 +254,7 @@
                 window.location.reload(true);
             });
         }
-    </script><script src="./lightbox.js"></script>
+    </script>
 </body>
 
 </html>
-
